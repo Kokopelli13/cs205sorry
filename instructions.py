@@ -12,7 +12,7 @@ def instructions():
     #pygame.init()
 
     #instructionsDisplay = pygame.display.set_mode((800,600))
-    pygame.display.set_caption('Instructions for SORRY!')
+    #pygame.display.set_caption('Instructions for SORRY!')
 
     #should be its own gui
 
