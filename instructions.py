@@ -1,20 +1,21 @@
 #Gavin Gunkle
 #CS205: Sorry! Final Project
 #Instructions on how to play the game
-
+from menu import menu
+from board import Board
 ###still need to incorporate gui design into showing instructions
 
-#import pygame
+import pygame
 
 def instructions():
 
     #pygame.init()
 
     #instructionsDisplay = pygame.display.set_mode((800,600))
-    #pygame.display.set_caption('Instructions for SORRY!')
+    pygame.display.set_caption('Instructions for SORRY!')
 
     #should be its own gui
-    
+
     print('Instructions for SORRY!')
     print('OBJECTIVE: The first player to move all four of their ' +
           'pawns from START to HOME wins.')
@@ -44,7 +45,7 @@ def instructions():
           'and bump the opponent back to start.')
 
     print('MOVEMENT: The game will show you what your options for movement are ' +
-          'and you must click which option you would like. If at any time you can move, ' + 
+          'and you must click which option you would like. If at any time you can move, ' +
           'you must move, even if it puts you at a disadvantage.')
 
     print('BUMPING: If you land on a space occupied by an opponent, BUMP ' +
@@ -63,6 +64,6 @@ def instructions():
           'and resume later by clicking the SAVE button. There is also a QUIT button ' +
           'which exits to the main menu.')
 
-    #add button options to return to the game 
-    
+    #add button options to return to the game
+
 instructions()
