@@ -31,8 +31,6 @@ class Button:
     def onClick(self):
         if self.action == "new":
             self.newGame()
-        #if self.action == "instructions":
-        #    self.instructions()
         if self.action == "instructions":
             self.instructions()
         if self.action == "red" or self.action == "blue" or self.action == "yellow" or self.action == "green":

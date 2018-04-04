@@ -28,7 +28,7 @@ class Board:
 class Map:
     def __init__(self, main):
         self.main = main
-        self.main.activeObj.add(self)
+        #self.main.activeObj.add(self)
         colorToAngle = {'red': 90, 'blue': 180, 'green': 0, 'yellow': 270}
         self.map = pygame.image.load('images/map_1400.png').convert_alpha()
         self.map = pygame.transform.rotozoom(self.map, colorToAngle[self.main.color], self.main.scale)
