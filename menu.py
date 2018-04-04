@@ -1,6 +1,10 @@
 import pygame
 from board import Board
+<<<<<<< HEAD
 from instructions import Instructions
+=======
+from game import Game
+>>>>>>> 9225ec051de47dbc1f30bd15477cab9ba64dccda
 
 
 class Menu:
@@ -9,8 +13,12 @@ class Menu:
         self.main.activeObj = set()
         #Buttons
         newGame = Button(self.main, 250, 300, "new", "images/newgame.png", 1)
+<<<<<<< HEAD
         #instructions = Button(self.main, 250, 400, "instructions", "images/newgame.png", 1)
 
+=======
+        test = Text(self.main, 100, 100, 'Hello')
+>>>>>>> 9225ec051de47dbc1f30bd15477cab9ba64dccda
 
 class Button:
     def __init__(self, main, x, y, action, img, scale):
@@ -47,3 +55,33 @@ class Button:
         self.main.activeObj = set()
         self.main.board = Board(self.main)
         self.main.gameStarted = True
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
+
+
+class Text:
+    def __init__(self, main, x, y, text):
+        self.main = main
+        self.x, self.y = x, y
+        self.text = text
+        self.font = pygame.font.Font('freesansbold.ttf', 26)
+        self.textSurface = self.font.render(self.text, True, (0, 0, 0))
+        self.main.activeObj.add(self)
+
+    def draw(self):
+        self.textSurface = self.font.render(self.text, True, (0, 0, 0))
+        self.rect = self.main.screen.blit(self.textSurface, (self.x, self.y))
+=======
+>>>>>>> b5e446177c2cfb487ac895ac4a33e6f9fa76a1ff
+<<<<<<< HEAD
+        self.main.menu = Menu(self.main)
+        self.main.game = Game(self.main)
+=======
+>>>>>>> f16f4185364385c527257f60507b4f482b2457d7
+<<<<<<< HEAD
+=======
+>>>>>>> f16f4185364385c527257f60507b4f482b2457d7
+=======
+>>>>>>> a2eaa4f08313b9d3a691952f9ca9e6fc3ec0e2d5
+>>>>>>> b5e446177c2cfb487ac895ac4a33e6f9fa76a1ff

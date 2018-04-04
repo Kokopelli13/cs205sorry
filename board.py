@@ -32,7 +32,10 @@ class Map:
         self.map = pygame.transform.rotozoom(self.map, colorToAngle[self.main.color], self.main.scale)
 
     def draw(self):
-        self.rect = self.main.screen.blit(self.map, (56*self.main.scale, 56*self.main.scale))
+        #self.rect = self.main.screen.blit(self.map, (56*self.main.scale, 56*self.main.scale))
 
+        self.rect = self.main.screen.blit(self.map, (self.main.scale, self.main.scale))
+    
     def onClick(self):
         pass
+

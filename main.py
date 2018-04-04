@@ -1,4 +1,4 @@
-import sys, pygame
+import sys, time, pygame
 from menu import Menu
 from board import Board
 
@@ -29,6 +29,7 @@ class Main:
             self.processEvents()
             #processGame()
             self.processRendering()
+            time.sleep(0.05) #run at 20 fps, we don't need more and its extra processing work
 
     def processEvents(self):
         #lets look at all the events that have happened
@@ -46,6 +47,7 @@ class Main:
                 sys.exit()
             #handle keypresses
             if event.type == pygame.KEYDOWN:
+                #ESC to exit
                 if event.key == pygame.K_ESCAPE: #Esc
                     sys.exit()
 
@@ -57,8 +59,23 @@ class Main:
         #always draw the background first
         self.screen.blit(self.background, (0, 0))
         #then draw everything else on top
+<<<<<<< HEAD
+<<<<<<< HEAD
+        if self.gameStarted:
+            self.menu.main.board.map.draw()
+            for obj in self.boardObj:
+                obj.draw()
+        else:
+            for obj in self.menuObj:
+                obj.draw()
+=======
         for obj in self.activeObj:
             obj.draw()
+>>>>>>> f16f4185364385c527257f60507b4f482b2457d7
+=======
+        for obj in self.activeObj:
+            obj.draw()
+>>>>>>> f16f4185364385c527257f60507b4f482b2457d7
         #finally render the frame
         pygame.display.update()
 
