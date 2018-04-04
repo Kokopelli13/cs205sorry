@@ -41,7 +41,10 @@ class Button:
         self.main.board = Board(self.main)
         self.main.gameStarted = True
 <<<<<<< HEAD
+<<<<<<< HEAD
         self.main.menu = Menu(self.main)
         self.main.game = Game(self.main)
+=======
+>>>>>>> f16f4185364385c527257f60507b4f482b2457d7
 =======
 >>>>>>> f16f4185364385c527257f60507b4f482b2457d7

@@ -29,7 +29,11 @@ class Map:
     def __init__(self, main):
         self.main = main
 <<<<<<< HEAD
+<<<<<<< HEAD
         #self.main.boardObj.add(self)
+=======
+        self.main.activeObj.add(self)
+>>>>>>> f16f4185364385c527257f60507b4f482b2457d7
 =======
         self.main.activeObj.add(self)
 >>>>>>> f16f4185364385c527257f60507b4f482b2457d7

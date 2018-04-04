@@ -58,6 +58,7 @@ class Main:
         self.screen.blit(self.background, (0, 0))
         #then draw everything else on top
 <<<<<<< HEAD
+<<<<<<< HEAD
         if self.gameStarted:
             self.menu.main.board.map.draw()
             for obj in self.boardObj:
@@ -65,6 +66,10 @@ class Main:
         else:
             for obj in self.menuObj:
                 obj.draw()
+=======
+        for obj in self.activeObj:
+            obj.draw()
+>>>>>>> f16f4185364385c527257f60507b4f482b2457d7
 =======
         for obj in self.activeObj:
             obj.draw()
