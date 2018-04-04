@@ -1,5 +1,6 @@
 import pygame
 from board import Board
+from game import Game
 
 
 class Menu:
@@ -40,6 +41,7 @@ class Button:
         self.main.activeObj = set()
         self.main.board = Board(self.main)
         self.main.gameStarted = True
+<<<<<<< HEAD
 
 
 class Text:
@@ -54,3 +56,10 @@ class Text:
     def draw(self):
         self.textSurface = self.font.render(self.text, True, (0, 0, 0))
         self.rect = self.main.screen.blit(self.textSurface, (self.x, self.y))
+=======
+<<<<<<< HEAD
+        self.main.menu = Menu(self.main)
+        self.main.game = Game(self.main)
+=======
+>>>>>>> f16f4185364385c527257f60507b4f482b2457d7
+>>>>>>> a2eaa4f08313b9d3a691952f9ca9e6fc3ec0e2d5

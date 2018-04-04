@@ -52,15 +52,15 @@ class Deck:
 
         counter+=1
 
-    #print(deck)
     shuffle(deck)
     print(deck)
+
     #for x in range(0,45):
 
-    tree = input("Enter: ")
-    if tree == 'draw':
-        drawNext(deck)
-    while tree != '':
-        tree = input("Enter: ")
-        if tree == 'draw':
-            drawNext(deck)
+    #tree = input("Enter: ")
+    #if tree == 'draw':
+    #    drawNext(deck)
+    #while tree != '':
+    #    tree = input("Enter: ")
+    #    if tree == 'draw':
+    #        drawNext(deck)
