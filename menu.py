@@ -55,9 +55,6 @@ class Button:
         self.main.activeObj = set()
         self.main.board = Board(self.main)
         self.main.gameStarted = True
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
 
 
 class Text:
@@ -72,16 +69,5 @@ class Text:
     def draw(self):
         self.textSurface = self.font.render(self.text, True, (0, 0, 0))
         self.rect = self.main.screen.blit(self.textSurface, (self.x, self.y))
-=======
->>>>>>> b5e446177c2cfb487ac895ac4a33e6f9fa76a1ff
-<<<<<<< HEAD
         self.main.menu = Menu(self.main)
         self.main.game = Game(self.main)
-=======
->>>>>>> f16f4185364385c527257f60507b4f482b2457d7
-<<<<<<< HEAD
-=======
->>>>>>> f16f4185364385c527257f60507b4f482b2457d7
-=======
->>>>>>> a2eaa4f08313b9d3a691952f9ca9e6fc3ec0e2d5
->>>>>>> b5e446177c2cfb487ac895ac4a33e6f9fa76a1ff
