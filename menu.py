@@ -1,10 +1,8 @@
 import pygame
 from board import Board
-<<<<<<< HEAD
 from instructions import Instructions
-=======
+
 from game import Game
->>>>>>> 9225ec051de47dbc1f30bd15477cab9ba64dccda
 
 
 class Menu:
@@ -13,12 +11,9 @@ class Menu:
         self.main.activeObj = set()
         #Buttons
         newGame = Button(self.main, 250, 300, "new", "images/newgame.png", 1)
-<<<<<<< HEAD
         #instructions = Button(self.main, 250, 400, "instructions", "images/newgame.png", 1)
 
-=======
-        test = Text(self.main, 100, 100, 'Hello')
->>>>>>> 9225ec051de47dbc1f30bd15477cab9ba64dccda
+        #test = Text(self.main, 100, 100, 'Hello')
 
 class Button:
     def __init__(self, main, x, y, action, img, scale):
