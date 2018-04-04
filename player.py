@@ -46,6 +46,7 @@ class Pawn:
         self.pawn = pygame.transform.rotozoom(self.pawn, 0, main.scale*(80/200))
 
         #Add pawn to board object
+        self.layer = 2
         self.main.activeObj.add(self)
 
         pass

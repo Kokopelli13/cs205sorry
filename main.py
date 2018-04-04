@@ -60,8 +60,10 @@ class Main:
         #always draw the background first
         self.screen.blit(self.background, (0, 0))
         #then draw everything else on top
-        for obj in self.activeObj:
-            obj.draw()
+        for i in range(0, 3):
+            for obj in self.activeObj:
+                if(obj.layer == i):
+                    obj.draw()
         #finally render the frame
         pygame.display.update()
 

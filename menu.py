@@ -21,6 +21,7 @@ class Button:
         self.action = action
         self.main = main
         self.x, self.y = x, y
+        self.layer = 0
         self.main.activeObj.add(self)
         self.img = pygame.image.load(img).convert_alpha()
         self.img = pygame.transform.rotozoom(self.img, 0, scale)
@@ -61,6 +62,7 @@ class Text:
         self.text = text
         self.font = pygame.font.Font('freesansbold.ttf', 26)
         self.textSurface = self.font.render(self.text, True, (0, 0, 0))
+        self.layer = 0
         self.main.activeObj.add(self)
 
     def draw(self):
