@@ -1,4 +1,4 @@
-import sys, pygame
+import sys, time, pygame
 from menu import Menu
 from board import Board
 
@@ -29,6 +29,7 @@ class Main:
             self.processEvents()
             #processGame()
             self.processRendering()
+            time.sleep(0.05) #run at 20 fps, we don't need more and its extra processing work
 
     def processEvents(self):
         #lets look at all the events that have happened
@@ -46,6 +47,7 @@ class Main:
                 sys.exit()
             #handle keypresses
             if event.type == pygame.KEYDOWN:
+                #ESC to exit
                 if event.key == pygame.K_ESCAPE: #Esc
                     sys.exit()
 
