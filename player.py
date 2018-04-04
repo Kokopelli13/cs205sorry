@@ -85,7 +85,7 @@ class Pawn:
         while moveStep > 0:
             #Draw the moving pawn
             self.main.board.map.draw()
-            for obj in self.main.boardObj:
+            for obj in self.main.activeObj:
                 obj.draw()
 
             #Move one step at a time
@@ -121,8 +121,8 @@ class Pawn:
             return 'home'
 
         #Check if there's any pawn at the destination
-        for obj in self.main.boardObj:
-            if obj.position['side'] is destination['side'] and obj.position['index'] is destination['index'] and obj.position['type'] is destination['type']:
+        for obj in self.main.activeObj:
+            if obj.layer == 2 and obj.position['side'] is destination['side'] and obj.position['index'] is destination['index'] and obj.position['type'] is destination['type']:
                 #If there's a pawn in the same color, this move is not allowed
                 if obj.color is self.color and status is 'moving':
                     print("Pawns cannot move to the position of any other pawns in the same color")
