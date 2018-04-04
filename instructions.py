@@ -1,13 +1,13 @@
 #Gavin Gunkle
 #CS205: Sorry! Final Project
 #Instructions on how to play the game
-from menu import menu
+#from menu import menu
 from board import Board
 ###still need to incorporate gui design into showing instructions
 
 import pygame
 
-def instructions():
+def Instructions():
 
     #pygame.init()
 
@@ -15,6 +15,10 @@ def instructions():
     #pygame.display.set_caption('Instructions for SORRY!')
 
     #should be its own gui
+    #basicfont = pygame.font.SysFont(None, 48)
+    #text = basicfont.render('Hello World!', True, (255, 0, 0), (255, 255, 255))
+    #textrect = text.get_rect()
+    #self.main.screen.blit(text, textrect)
 
     print('Instructions for SORRY!')
     print('OBJECTIVE: The first player to move all four of their ' +
@@ -66,4 +70,4 @@ def instructions():
 
     #add button options to return to the game
 
-instructions()
+#instructions()
