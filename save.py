@@ -45,7 +45,8 @@ player4_pawn4_location = "4"
 
 #deck information
 #deck order, current card
-deck_order = Deck.deck
+deck=Deck()
+deck_order = deck.deck
 current_card = "1"
 
 info = {
@@ -90,4 +91,4 @@ pickle.dump(info, pickle_out)
 pickle_out.close()
 
 
-print ("Done")
+print ("Game Saved")
