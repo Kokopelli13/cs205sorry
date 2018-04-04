@@ -4,7 +4,7 @@
 import random
 class Deck:
     #class variables
-    
+
     #def __init__(self, asdf):
         #class constructor
 
@@ -26,14 +26,14 @@ class Deck:
     #(Sorry!, 2, 3, 4, 5, 7, 8, 10, 11 and 12)
     #13 = sorry card
 
-
+    #initialise empty array
     deck = []
 
-    #counter  is the count to see how many its there are total
+    #counter  is the count to see how many cards there are total
     counter = 0
-    #int is the card number
+    #int is the card number (1-13)
     int = 1
-    
+
     for x in range(1,46):
         #skips 6 and 9
         if int == 6 or int == 9:
@@ -49,19 +49,18 @@ class Deck:
         #changes int every 4 spaces
         if counter>1 and counter%4 == 0:
             int+=1
-            
+
         counter+=1
 
-    print(deck)
     shuffle(deck)
     print(deck)
+
     #for x in range(0,45):
 
-    tree = input("Enter: ")
-    if tree == 'draw':
-        drawNext(deck)
-    while tree != '':
-        tree = input("Enter: ")
-        if tree == 'draw':
-            drawNext(deck)
-        
+    #tree = input("Enter: ")
+    #if tree == 'draw':
+    #    drawNext(deck)
+    #while tree != '':
+    #    tree = input("Enter: ")
+    #    if tree == 'draw':
+    #        drawNext(deck)

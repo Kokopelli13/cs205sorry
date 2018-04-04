@@ -5,6 +5,8 @@ class Board:
     def __init__(self, main):
         self.main = main
         self.map = Map(main)
+
+
 """
         #Load deck
         self.deck = pygame.image.load('images/deck.png').convert_alpha()
@@ -26,13 +28,21 @@ class Board:
 class Map:
     def __init__(self, main):
         self.main = main
-        self.main.boardObj.add(self)
+<<<<<<< HEAD
+        #self.main.boardObj.add(self)
+=======
+        self.main.activeObj.add(self)
+>>>>>>> f16f4185364385c527257f60507b4f482b2457d7
         colorToAngle = {'red': 90, 'blue': 180, 'green': 0, 'yellow': 270}
-        self.map = pygame.image.load('images/map.png').convert_alpha()
+        self.map = pygame.image.load('images/map_1400.png').convert_alpha()
         self.map = pygame.transform.rotozoom(self.map, colorToAngle[self.main.color], self.main.scale)
 
-    def draw(self):
-        self.rect = self.main.screen.blit(self.map, (56*self.main.scale, 56*self.main.scale))
 
+    def draw(self):
+        #self.rect = self.main.screen.blit(self.map, (56*self.main.scale, 56*self.main.scale))
+
+        self.rect = self.main.screen.blit(self.map, (self.main.scale, self.main.scale))
+    
     def onClick(self):
         pass
+
