@@ -12,7 +12,6 @@ class Menu:
         #Buttons
         newGame = Button(self.main, 250, 300, "new", "images/newgame.png", 1)
         #instructions = Button(self.main, 250, 400, "instructions", "images/newgame.png", 1)
-
         #test = Text(self.main, 100, 100, 'Hello')
 
 class Button:

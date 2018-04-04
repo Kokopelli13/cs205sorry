@@ -37,6 +37,7 @@ class Main:
             #handle mouse clicks
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 print('mouse') #debug
+                print(event.pos)
                 #go through all the active objects to see if any of them were clicked on
                 for obj in self.activeObj:
                     if obj.rect.collidepoint(pygame.mouse.get_pos()):
