@@ -11,7 +11,7 @@ class Menu:
         self.main.activeObj = set()
         #Buttons
         newGame = Button(self.main, 250, 300, "new", "images/newgame.png", 1)
-        #instructions = Button(self.main, 250, 400, "instructions", "images/newgame.png", 1)
+        instructions = Button(self.main, 250, 400, "instructions", "images/newgame.png", 1)
         #test = Text(self.main, 100, 100, 'Hello')
 
 class Button:
@@ -29,8 +29,8 @@ class Button:
     def onClick(self):
         if self.action == "new":
             self.newGame()
-        #if self.action == "instructions":
-        #    self.instructions()
+        if self.action == "instructions":
+            self.instructions()
         if self.action == "red" or self.action == "blue" or self.action == "yellow" or self.action == "green":
             self.setUpBoard()
 
@@ -41,8 +41,8 @@ class Button:
         self.main.activeObj.add(Button(self.main, 300, 300, "yellow", "images/pawn_yellow.png", 0.5))
         self.main.activeObj.add(Button(self.main, 400, 300, "green", "images/pawn_green.png", 0.5))
 
-    #def instructions(self):
-    #    Instructions()
+    def instructions(self):
+        Instructions()
 
     def setUpBoard(self):
         self.main.color = self.action
