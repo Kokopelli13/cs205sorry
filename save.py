@@ -20,13 +20,36 @@ class Save:
 
 
         #player 0 which is THE player
+        player1_index = 0
         player1_color = self.playerList[0].color
         player1_location = self.playerList[0].playerPosition
         player1_setting = "none"
+        #pawns
+        player1_pawn1_index = 0
+        player1_pawn2_index = 1
+        player1_pawn3_index = 2
+        player1_pawn4_index = 3
+
+        player1_pawn1_playerIndex = player1_index
+        player1_pawn2_playerIndex = player1_index
+        player1_pawn3_playerIndex = player1_index
+        player1_pawn4_playerIndex = player1_index
+
+        player1_pawn1_playerLocation = player1_location
+        player1_pawn2_playerLocation = player1_location
+        player1_pawn3_playerLocation = player1_location
+        player1_pawn4_playerLocation = player1_location
+
+        player1_pawn1_color = player1_color
+        player1_pawn2_color = player1_color
+        player1_pawn3_color = player1_color
+        player1_pawn4_color = player1_color
+        
         player1_pawn1_location = self.playerList[0].pawnList[0].position
         player1_pawn2_location = self.playerList[0].pawnList[1].position
         player1_pawn3_location = self.playerList[0].pawnList[2].position
         player1_pawn4_location = self.playerList[0].pawnList[3].position
+
         print("")
         print (player1_color)
         print(player1_location)
@@ -35,6 +58,7 @@ class Save:
         print("")
 
         #player 2
+        player2_index = 1
         player2_color = self.playerList[1].color
         player2_location = self.playerList[1].playerPosition
         player2_setting = "hard"
@@ -44,6 +68,7 @@ class Save:
         player2_pawn4_location = self.playerList[1].pawnList[3].position
 
         #player 3
+        player3_index = 2
         player3_color = self.playerList[2].color
         player3_location = self.playerList[2].playerPosition
         player3_setting = "hard"
@@ -53,6 +78,7 @@ class Save:
         player3_pawn4_location = self.playerList[2].pawnList[3].position
 
         #player 4
+        player4_index = 3
         player4_color = self.playerList[3].color
         player4_location = self.playerList[3].playerPosition
         player4_setting = "hard"
