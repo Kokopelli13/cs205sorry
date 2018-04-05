@@ -5,13 +5,13 @@ pickle_in = open("save.txt", "rb")
 info = pickle.load(pickle_in)
 
 #player 1 data
-player1_color = info["player0_color"]
-player1_location = info["player0_location"]
-player1_setting = info["player0_setting"]
-player1_pawn1_location = info["player0_pawn1_location"]
-player1_pawn2_location = info["player0_pawn2_location"]
-player1_pawn3_location = info["player0_pawn3_location"]
-player1_pawn4_location = info["player0_pawn4_location"]
+player1_color = info["player1_color"]
+player1_location = info["player1_location"]
+player1_setting = info["player1_setting"]
+player1_pawn1_location = info["player1_pawn1_location"]
+player1_pawn2_location = info["player1_pawn2_location"]
+player1_pawn3_location = info["player1_pawn3_location"]
+player1_pawn4_location = info["player1_pawn4_location"]
 
 #player 2 data
 player2_color = info["player2_color"]
@@ -42,6 +42,7 @@ player4_pawn4_location = info["player4_pawn4_location"]
 
 #deck data
 deck_order = info["deck_order"]
+card_index = info["card_index"]
 current_card = info["current_card"]
 
 #player 1
@@ -86,4 +87,5 @@ print("")
 
 #deck
 print("Deck order: ", deck_order)
+print("Card Index: ", card_index)
 print("Current card: ", current_card)

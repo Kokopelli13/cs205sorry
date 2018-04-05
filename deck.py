@@ -39,10 +39,12 @@ class Deck:
 
             counter+=1
 
+        #DEBUGGING TESTS
         #print(self.deck)
         self.shuffle()
         #print(self.deck)
-
+        #self.drawNext()
+        #self.drawNext()
 
     def shuffle(self):
         #function to shuffle deck
@@ -55,6 +57,8 @@ class Deck:
     def drawNext(self):
         #return the next card
         global i
-        value = self.deck[i];
-        print(value)
+        self.card_index = i
+        self.current_card = self.deck[i];
+        #print("Card index: ", self.card_index)
+        #print("Current card: ", self.current_card)
         i+=1
