@@ -10,11 +10,15 @@ class Menu:
     def __init__(self, main):
         self.main = main
         self.main.activeObj = set()
+        #Text
+        #test = Text(self.main, 100, 100, 'Hello')
+        #Images
+        welcome = Button(self.main, 84, 68, "none", "images/welcome.png", 0.5)
         #Buttons
-        newGame = Button(self.main, 250, 300, "new", "images/newgame.png", 1)
-        #instructions = Button(self.main, 250, 400, "instructions", "images/newgame.png", 1)
-        test = Text(self.main, 100, 100, 'Hello')
-        instructions = Button(self.main, 250, 400, "instructions", "images/instructions.png", 1)
+        newGame = Button(self.main, 150, 380, "new", "images/newgame.png", 1)
+        resumeGame = Button(self.main, 330, 380, "resume", "images/resumegame.png", 1)
+        instructions = Button(self.main, 150, 460, "instructions", "images/instructions.png", 1)
+        statistics = Button(self.main, 330, 460, "stats", "images/stats.png", 1)
         #test = Text(self.main, 100, 100, 'Hello')
 
 class Button:
@@ -43,10 +47,10 @@ class Button:
 
     def newGame(self):
         self.main.activeObj = set()
-        self.main.activeObj.add(Button(self.main, 100, 300, "red", "images/pawn_red.png", 0.5))
-        self.main.activeObj.add(Button(self.main, 200, 300, "blue", "images/pawn_blue.png", 0.5))
-        self.main.activeObj.add(Button(self.main, 300, 300, "yellow", "images/pawn_yellow.png", 0.5))
-        self.main.activeObj.add(Button(self.main, 400, 300, "green", "images/pawn_green.png", 0.5))
+        self.main.activeObj.add(Button(self.main, 120, 300, "red", "images/pawn_red.png", 0.5))
+        self.main.activeObj.add(Button(self.main, 220, 300, "blue", "images/pawn_blue.png", 0.5))
+        self.main.activeObj.add(Button(self.main, 320, 300, "yellow", "images/pawn_yellow.png", 0.5))
+        self.main.activeObj.add(Button(self.main, 420, 300, "green", "images/pawn_green.png", 0.5))
 
     def instructions(self):
         Instructions()
