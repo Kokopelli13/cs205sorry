@@ -42,6 +42,7 @@ player4_pawn4_location = info["player4_pawn4_location"]
 
 #deck data
 deck_order = info["deck_order"]
+card_index = info["card_index"]
 current_card = info["current_card"]
 
 #player 1
@@ -86,4 +87,5 @@ print("")
 
 #deck
 print("Deck order: ", deck_order)
+print("Card Index: ", card_index)
 print("Current card: ", current_card)
