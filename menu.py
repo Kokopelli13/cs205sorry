@@ -14,7 +14,7 @@ class Menu:
         newGame = Button(self.main, 250, 300, "new", "images/newgame.png", 1)
         #instructions = Button(self.main, 250, 400, "instructions", "images/newgame.png", 1)
         test = Text(self.main, 100, 100, 'Hello')
-        instructions = Button(self.main, 250, 400, "instructions", "images/newgame.png", 1)
+        instructions = Button(self.main, 250, 400, "instructions", "images/instructions.png", 1)
         #test = Text(self.main, 100, 100, 'Hello')
 
 class Button:
@@ -57,7 +57,8 @@ class Button:
         self.main.board = Board(self.main)
         self.main.game = Game(self.main)
         self.main.save = Save(self.main)
-        self.main.save.save()
+        #commented out because this was casuing an error
+        #self.main.save.save()
         self.main.gameStarted = True
 
 

@@ -49,6 +49,7 @@ class Pawn:
         self.layer = 2
         self.main.activeObj.add(self)
 
+        #Movement variables
         self.moveStep = 0
         self.lastStep = 0
 
@@ -101,6 +102,7 @@ class Pawn:
         if self.status is 'home' or self.status is 'notAllowed': #If this pawn cannot move, ignore
             self.moveStep = 0
         self.status = 'moving'
+        
         """
         #Move until reaching the destination
         while moveStep > 0:
