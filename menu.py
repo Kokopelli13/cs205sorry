@@ -29,6 +29,9 @@ class Button:
     def draw(self):
         self.rect = self.main.screen.blit(self.img, (self.x, self.y))
 
+    def tick(self):
+        pass
+
     def onClick(self):
         if self.action == "new":
             self.newGame()
@@ -68,3 +71,6 @@ class Text:
     def draw(self):
         self.textSurface = self.font.render(self.text, True, (0, 0, 0))
         self.rect = self.main.screen.blit(self.textSurface, (self.x, self.y))
+
+    def tick(self):
+        pass

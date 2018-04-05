@@ -37,8 +37,10 @@ class Map:
 
     def draw(self):
         #self.rect = self.main.screen.blit(self.map, (56*self.main.scale, 56*self.main.scale))
-
         self.rect = self.main.screen.blit(self.map, (self.main.scale, self.main.scale))
+
+    def tick(self):
+        pass
 
     def onClick(self):
         pass

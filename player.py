@@ -1,7 +1,7 @@
 #check all possible moves
 #user select
 
-import pygame
+import pygame, time
 
 class Player:
 
@@ -41,13 +41,16 @@ class Pawn:
         self.position = {'type': 'start', 'side': playerPosition, 'index': index}
 
         #Create a pawn image
-        imagePath = 'images/pawn_' + color + '.png'
+        imagePath = 'images/pawn_' + color + '_small.png'
         self.pawn = pygame.image.load(imagePath).convert_alpha()
-        self.pawn = pygame.transform.rotozoom(self.pawn, 0, main.scale*(80/200))
+        self.pawn = pygame.transform.rotozoom(self.pawn, 0, 1)
 
         #Add pawn to board object
         self.layer = 2
         self.main.activeObj.add(self)
+
+        self.moveStep = 0
+        self.lastStep = 0
 
         pass
 
@@ -60,34 +63,52 @@ class Pawn:
 
         pass
 
+    def tick(self):
+        #if there are moves this pawn needs to make, lets make one
+        if(self.moveStep > 0) and (time.clock() - self.lastStep > 0.3):
+            #debug output
+            print('move ' + str(self.moveStep) + ', ' + str(self.position))
+            #get destination to move to
+            destination = self.moveForward(self.position)
+            #move to the destination
+            self.move(destination)
+            #decrement the moves left
+            self.moveStep -= 1
+            #When sliding, the pawn bumps all pawns on the way to the start
+            if self.status is 'sliding':
+                self.checkCollision(destination, self.status)
+            #If the destination is on the triangle of slide section in different color, slide to the end
+            if self.moveStep is 0:
+                self.moveStep += self.checkSlideStep(destination)
+                if self.moveStep is not 0:
+                    self.status = 'sliding'
+            #finally mark the time we made this move
+            self.lastStep = time.clock()
+
     def onClick(self):
         """
         When a pawn is clicked, this function will be called and move the pawn if possible
         """
-        #Clock is used to delay movement later
-        clock = pygame.time.Clock()
-
         #Draw a card and decide how many steps to move
-        moveStep = self.main.game.drawCard()
-
+        self.moveStep = self.main.game.drawCard()
         #Check if this pawn can move to the destination
         #status = moving/sliding/safe/home/notAllowed
-        status = 'moving'
+        self.status = 'moving'
         destination = self.position
-        for i in range(moveStep):
+        for i in range(self.moveStep):
             destination = self.moveForward(destination)
-        status = self.checkCollision(destination, status)
-        if status is 'home' or status is 'notAllowed': #If this pawn cannot move, ignore
-            return
-        status = 'moving'
-
+        self.status = self.checkCollision(destination, self.status)
+        if self.status is 'home' or self.status is 'notAllowed': #If this pawn cannot move, ignore
+            self.moveStep = 0
+        self.status = 'moving'
+        """
         #Move until reaching the destination
         while moveStep > 0:
-            #Draw the moving pawn
-            self.main.board.map.draw()
-            for obj in self.main.activeObj:
-                obj.draw()
-
+            #Delay the movement
+            #self.main.clock.tick(3)
+            time.sleep(0.3)
+            print('move ' + str(moveStep) + ', ' + str(self.position))
+            self.main.processRendering()
             #Move one step at a time
             destination = self.moveForward(self.position)
             self.move(destination)
@@ -97,19 +118,13 @@ class Pawn:
             if status is 'sliding':
                 self.checkCollision(destination, status)
 
-            #Update the screen
-            pygame.display.update()
-
             #If the destination is on the triangle of slide section in different color, slide to the end
             if moveStep is 0:
                 moveStep += self.checkSlideStep(destination)
                 if moveStep is not 0:
                     status = 'sliding'
-
-            #Delay the movement
-            clock.tick(3)
-
         pass
+        """
 
     def checkCollision(self, destination, status):
         """
