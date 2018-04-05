@@ -24,6 +24,7 @@ class Main:
         self.gameStarted = False
         self.color = ''
         self.difficulty = ''
+        self.numPlayers = ''
         #set up gui
         self.menu = Menu(self)
         self.main()
