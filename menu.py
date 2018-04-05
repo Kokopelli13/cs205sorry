@@ -3,6 +3,7 @@ from board import Board
 from instructions import Instructions
 
 from game import Game
+from save import Save
 
 
 class Menu:
@@ -52,6 +53,8 @@ class Button:
         self.main.activeObj = set()
         self.main.board = Board(self.main)
         self.main.game = Game(self.main)
+        self.main.save = Save(self.main)
+        self.main.save.save()
         self.main.gameStarted = True
 
 

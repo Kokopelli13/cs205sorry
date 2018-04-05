@@ -4,12 +4,14 @@
 import random
 class Deck:
     #class variables
-    def __init__(self):
+    def __init__(self, main):
         #class constructor
         #The modern deck contains 45 cards: there are five
         #1 cards as well as four each of the other cards
         #(Sorry!, 2, 3, 4, 5, 7, 8, 10, 11 and 12)
         #13 = sorry card
+
+        self.main = main
 
         #initialise empty array
         self.deck = []
@@ -56,7 +58,3 @@ class Deck:
         value = self.deck[i];
         print(value)
         i+=1
-
-
-if(__name__ == "__main__"):
-    app = Deck()
