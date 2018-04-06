@@ -71,13 +71,13 @@ class Pawn:
             print('move ' + str(self.moveStep) + ', ' + str(self.position))
             #get destination to move to
             destination = self.moveForward(self.position)
-            #move to the destination
-            self.move(destination)
-            #decrement the moves left
-            self.moveStep -= 1
             #When sliding, the pawn bumps all pawns on the way to the start
             if self.status is 'sliding':
                 self.checkCollision(destination, self.status)
+            #move to the destination
+            self.move(destination)
+            #decrement the moves left
+            self.moveStep -= 1            
             #If the destination is on the triangle of slide section in different color, slide to the end
             if self.moveStep is 0:
                 self.moveStep += self.checkSlideStep(destination)
