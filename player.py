@@ -66,7 +66,8 @@ class Pawn:
 
     def tick(self):
         #if there are moves this pawn needs to make, lets make one
-        if(self.moveStep > 0) and (time.clock() - self.lastStep > 0.3):
+        if(self.moveStep > 0) and (time.clock() - self.lastStep > 0.35):
+            offset = 0
             #debug output
             print('move ' + str(self.moveStep) + ', ' + str(self.position))
             #get destination to move to
@@ -83,8 +84,9 @@ class Pawn:
                 self.moveStep += self.checkSlideStep(destination)
                 if self.moveStep is not 0:
                     self.status = 'sliding'
+                    offset = 0.25
             #finally mark the time we made this move
-            self.lastStep = time.clock()
+            self.lastStep = offset + time.clock()
 
     def onClick(self):
         """
@@ -102,7 +104,7 @@ class Pawn:
         if self.status is 'home' or self.status is 'notAllowed': #If this pawn cannot move, ignore
             self.moveStep = 0
         self.status = 'moving'
-        
+
         """
         #Move until reaching the destination
         while moveStep > 0:
@@ -139,7 +141,7 @@ class Pawn:
 
         #Check if there's any pawn at the destination
         for obj in self.main.activeObj:
-            if obj.layer == 2 and obj.position['side'] is destination['side'] and obj.position['index'] is destination['index'] and obj.position['type'] is destination['type']:
+            if obj is not self and obj.layer == 2 and obj.position['side'] is destination['side'] and obj.position['index'] is destination['index'] and obj.position['type'] is destination['type']:
                 #If there's a pawn in the same color, this move is not allowed
                 if obj.color is self.color and status is 'moving':
                     print("Pawns cannot move to the position of any other pawns in the same color")
