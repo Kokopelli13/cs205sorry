@@ -51,7 +51,7 @@ class Button:
 
     def newGame(self):
         self.main.activeObj = set()
-        pickColorTxt = Text(self.main, 180, 250, 30, 'Please pick a color:')
+        pickColorTxt = Text(self.main, 176, 250, 30, 'Please pick a color:')
         self.main.activeObj.add(Button(self.main, 120, 300, "red", "images/pawn_red.png", 0.5))
         self.main.activeObj.add(Button(self.main, 220, 300, "blue", "images/pawn_blue.png", 0.5))
         self.main.activeObj.add(Button(self.main, 320, 300, "yellow", "images/pawn_yellow.png", 0.5))
