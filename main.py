@@ -23,7 +23,9 @@ class Main:
         #game variables
         self.gameStarted = False
         self.color = ''
-        self.difficulty = ''
+        self.pc1difficulty = ''
+        self.pc2difficulty = ''
+        self.pc3difficulty = ''
         self.numPlayers = ''
         #set up gui
         self.menu = Menu(self)
