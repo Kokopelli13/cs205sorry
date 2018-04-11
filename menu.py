@@ -4,6 +4,7 @@ from instructions import Instructions
 import sys
 from game import Game
 from save import Save
+from deck import Deck
 
 
 class Menu:
@@ -137,6 +138,7 @@ class Button:
             self.main.save = Save(self.main)
             #commented out because this was casuing an error
             #self.main.save.save()
+            self.main.deck = Deck(self.main)
             self.main.gameStarted = True
 
 
@@ -155,4 +157,7 @@ class Text:
         self.rect = self.main.screen.blit(self.textSurface, (self.x, self.y))
 
     def tick(self):
+        pass
+
+    def onClick(self):
         pass

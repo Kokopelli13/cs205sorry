@@ -16,7 +16,7 @@ class Game:
         """
         self.main = main
         self.turn = 'bottom'
-        
+
         #Create players at different position in the corresponding color
         #Store players in a list
         fourPosition = ['bottom', 'left', 'top', 'right']
@@ -26,14 +26,20 @@ class Game:
         for i in range(4):
             print("\nCreate a", fourColor[(playerColorIndex+i)%4], "player at", fourPosition[i], "side\n")
             self.playerList.append(Player(self.main, i, fourPosition[i], fourColor[(playerColorIndex+i)%4]))
-        
+
         pass
 
     def drawCard(self):
         """
         Change this!!!!
         """
-        return int(input("How many steps to move:"))
+        #return int(input("How many steps to move:"))
+        steps = self.main.deck.drawNext()
+        if(steps == 'Sorry!'):
+            steps = 0
+        else:
+            steps = int(steps)
+        return steps
 
     def getPlayerNumAndColor(self):
         """
@@ -44,5 +50,3 @@ class Game:
 
         fourPosition = ['bottom', 'left', 'top', 'right']
         fourColor = ['red', 'blue', 'yellow', 'green']
-
-

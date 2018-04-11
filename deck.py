@@ -1,6 +1,7 @@
 #drawNext()
 #discard()
 #shuffle()
+import pygame
 import random
 class Deck:
     #class variables
@@ -12,6 +13,10 @@ class Deck:
         #13 = sorry card
 
         self.main = main
+
+        self.i = 0
+        self.current_card = ""
+        self.last_card = ""
 
         #initialise empty array
         self.deck = []
@@ -39,26 +44,61 @@ class Deck:
 
             counter+=1
 
+        self.layer = 3
+        self.main.activeObj.add(self)
+        self.deckImg = pygame.image.load('images/deck.png').convert_alpha()
+        self.deckImg = pygame.transform.rotozoom(self.deckImg, 0, self.main.scale)
+        self.deckX = 220
+        self.deckY = 200
+        self.cardDownImg = pygame.image.load('images/cardSorry!_small.png').convert_alpha()
+        self.cardDownImg = pygame.transform.rotozoom(self.cardDownImg, 90, 0.133)
+        self.cardDownX = 260
+        self.cardDownY = 204
+        self.cardUpImg = pygame.image.load('images/cardSorry!_small.png').convert_alpha()
+        self.cardUpImg = pygame.transform.rotozoom(self.cardUpImg, 90, 0.133)
+        self.cardUpX = 260
+        self.cardUpY = 365
+
+        self.shuffle()
+        self.drawNext()
+
         #DEBUGGING TESTS
         #print(self.deck)
-        self.shuffle()
+        #self.shuffle()
         #print(self.deck)
         #self.drawNext()
         #self.drawNext()
+
+    def draw(self):
+        self.rect = self.main.screen.blit(self.deckImg, (self.deckX, self.deckY))
+        if(self.last_card != ""):
+            self.cardDownImg = pygame.image.load('images/card' + str(self.last_card) + '_small.png').convert_alpha()
+            self.cardDownImg = pygame.transform.rotozoom(self.cardDownImg, 90, 0.133)
+        self.main.screen.blit(self.cardDownImg, (self.cardDownX, self.cardDownY))
+        if(self.current_card != ""):
+            self.cardUpImg = pygame.image.load('images/card' + str(self.current_card) + '_small.png').convert_alpha()
+            self.cardUpImg = pygame.transform.rotozoom(self.cardUpImg, 90, 0.133)
+        self.main.screen.blit(self.cardUpImg, (self.cardUpX, self.cardUpY))
+
+    def tick(self):
+        pass
+
+    def onClick(self):
+        pass
 
     def shuffle(self):
         #function to shuffle deck
         random.shuffle(self.deck)
 
-
-    global i
-    i = 0
-
     def drawNext(self):
         #return the next card
-        global i
-        self.card_index = i
-        self.current_card = self.deck[i];
+        self.card_index = self.i
+        self.last_card = self.current_card
+        self.current_card = self.deck[self.i];
         #print("Card index: ", self.card_index)
         #print("Current card: ", self.current_card)
-        i+=1
+        self.i+=1
+        if(self.i > 44):
+            self.i = 0
+            self.shuffle
+        return self.current_card

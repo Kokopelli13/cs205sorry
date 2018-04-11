@@ -68,7 +68,11 @@ class Main:
         #always draw the background first
         self.screen.blit(self.background, (0, 0))
         #then draw everything else on top
-        for i in range(0, 3):
+        #layer 0 = all menu items
+        #layer 1 = game board
+        #layer 2 = player pieces
+        #layer 3 = deck
+        for i in range(0, 4):
             for obj in self.activeObj:
                 if(obj.layer == i):
                     obj.draw()
