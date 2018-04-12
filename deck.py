@@ -58,13 +58,7 @@ class Deck:
         self.cardUpImg = pygame.transform.rotozoom(self.cardUpImg, 90, 0.133)
         self.cardUpX = 260
         self.cardUpY = 365
-
-        self.deckA = 400
-        self.deckB = 380
-        self.cardImg = pygame.image.load('images/cardSorry!_small.png').convert_alpha()
-        self.cardImg = pygame.transform.rotozoom(self.cardDownImg, 0, 0.250)
-
-
+        
 
         self.shuffle()
         self.drawNext()
