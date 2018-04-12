@@ -136,10 +136,10 @@ class Button:
     def instructions(self):
         self.main.activeObj = set()
         pickColorTxt = Text(self.main, 230, 70, 30, 'Instructions')
-        setUpInstructions = Button(self.main, 240, 150, "setUpInstructions", "images/instructions.png", 1)
-        cardInstructions = Button(self.main, 240, 225, "cardInstructions", "images/instructions.png", 1)
-        gameplayInstructions = Button(self.main, 240, 300, "gameplayInstructions", "images/instructions.png", 1)
-        back = Button(self.main, 240, 375, "back", "images/newgame.png", 1)
+        setUpInstructions = Button(self.main, 240, 150, "setUpInstructions", "images/setup.png", 1)
+        cardInstructions = Button(self.main, 240, 225, "cardInstructions", "images/cards.png", 1)
+        gameplayInstructions = Button(self.main, 240, 300, "gameplayInstructions", "images/gameplay.png", 1)
+        back = Button(self.main, 240, 375, "back", "images/back.png", 1)
 
 
     def setUpInstructions(self):
