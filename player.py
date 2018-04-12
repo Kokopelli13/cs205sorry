@@ -66,19 +66,22 @@ class Pawn:
 
     def tick(self):
         #if there are moves this pawn needs to make, lets make one
-        if(self.moveStep > 0) and (time.clock() - self.lastStep > 0.35):
+        if(self.moveStep > 0 or self.moveStep < 0) and (time.clock() - self.lastStep > 0.35):
             offset = 0
             #debug output
             print('move ' + str(self.moveStep) + ', ' + str(self.position))
             #get destination to move to
-            destination = self.moveForward(self.position)
+            destination = self.getNext(self.position)
             #When sliding, the pawn bumps all pawns on the way to the start
             if self.status is 'sliding':
                 self.checkCollision(destination, self.status)
             #move to the destination
             self.move(destination)
             #decrement the moves left
-            self.moveStep -= 1            
+            if self.moveStep > 0:
+                self.moveStep -= 1
+            elif self.moveStep < 0:
+                self.moveStep += 1
             #If the destination is on the triangle of slide section in different color, slide to the end
             if self.moveStep is 0:
                 self.moveStep += self.checkSlideStep(destination)
@@ -88,22 +91,28 @@ class Pawn:
             #finally mark the time we made this move
             self.lastStep = offset + time.clock()
 
+
     def onClick(self):
         """
         When a pawn is clicked, this function will be called and move the pawn if possible
         """
-        #Draw a card and decide how many steps to move
-        self.moveStep = self.main.game.drawCard()
-        #Check if this pawn can move to the destination
-        #status = moving/sliding/safe/home/notAllowed
-        self.status = 'moving'
-        destination = self.position
-        for i in range(self.moveStep):
-            destination = self.moveForward(destination)
-        self.status = self.checkCollision(destination, self.status)
-        if self.status is 'home' or self.status is 'notAllowed': #If this pawn cannot move, ignore
-            self.moveStep = 0
-        self.status = 'moving'
+        if (self.playerPosition is self.main.game.turn):
+            #Draw a card and decide how many steps to move
+            self.moveStep = self.main.game.drawCard()
+
+            #Check if this pawn can move to the destination
+            #status = moving/sliding/safe/home/notAllowed
+            self.status = 'moving'
+            destination = self.position
+            for i in range(abs(self.moveStep)):
+                destination = self.getNext(destination)
+            self.status = self.checkCollision(destination, self.status)
+            if self.status is 'notAllowed': #If this pawn cannot move, ignore
+                self.moveStep = 0
+            self.status = 'moving'
+    
+            #Change to next turn
+            self.main.game.nextTurn()
 
         """
         #Move until reaching the destination
@@ -136,8 +145,8 @@ class Pawn:
         """
         #If a pawn is already at home, it cannot move
         if destination['type'] is 'wrong':
-            print("Pawns cannot move after entering home")
-            return 'home'
+            print("Pawns cannot move to the destination")
+            return 'notAllowed'
 
         #Check if there's any pawn at the destination
         for obj in self.main.activeObj:
@@ -187,9 +196,22 @@ class Pawn:
 
         pass
 
+    def getNext(self, position):
+        """
+        Decide to move forward or backward based on the steps left
+        """
+        if self.moveStep > 0:
+            destination = self.moveForward(position)
+        elif self.moveStep < 0:
+            destination = self.moveBackward(position)
+        else:
+            destination = {'type':'wrong'}
+
+        return destination
+
     def moveForward(self, position):
         """
-        Return the next position of current position
+        Move forward and return the next position of current position
         """
         type = position['type']
         side = position['side']
@@ -222,7 +244,40 @@ class Pawn:
             destination = {'type':'wrong'}
 
         return destination
+    
+    def moveBackward(self, position):
+        """
+        Move backward and return the next position of current position
+        """
+        type = position['type']
+        side = position['side']
+        index = position['index']
+        
+        #If the pawn is on the track
+        if type is 'track':
+            if index is 0: #Move back from the corner
+                fourPosition = ['bottom', 'left', 'top', 'right']
+                currentIndex = fourPosition.index(side)
+                destination = {'type':'track', 'side':fourPosition[(currentIndex+-1+4)%4], 'index':14}
+            else: #Stay on the track
+                destination = {'type':'track', 'side':side, 'index':index-1}
+                
+        #If the pawn is in safety zone
+        elif type is 'safetyZone':
+            if index is 0: #Move out to track
+                destination = {'type':'track', 'side':side, 'index':2}
+            else: #Stay in the safety zone
+                destination = {'type':'safetyZone', 'side':side, 'index':index-1}
 
+        #If the pawn is in start
+        elif type is 'start': #Cannot move backward from start
+            destination = {'type':'wrong'}
+            
+        #If the pawn is at home
+        elif type is 'home': #Cannot move backward from home
+            destination = {'type':'wrong'}
+
+        return destination
 
     def getCoordinate(self, position):
         """

@@ -22,8 +22,11 @@ class Game:
         fourPosition = ['bottom', 'left', 'top', 'right']
         fourColor = ['red', 'blue', 'yellow', 'green']
         playerColorIndex = fourColor.index(self.main.color)
+        
+        playerNumDict = {'one': 2, 'two':3, 'three':4}
+        self.playerNum = playerNumDict[self.main.numPlayers]
         self.playerList = []
-        for i in range(4):
+        for i in range(self.playerNum):
             print("\nCreate a", fourColor[(playerColorIndex+i)%4], "player at", fourPosition[i], "side\n")
             self.playerList.append(Player(self.main, i, fourPosition[i], fourColor[(playerColorIndex+i)%4]))
 
@@ -42,12 +45,13 @@ class Game:
             print('moving ' + str(steps) + ' steps')
         return steps
 
-    def getPlayerNumAndColor(self):
+    def nextTurn(self):
         """
-        Change This!!!!
+        Change to next turn
         """
-        self.number = 2
-        self.colorList = ['red', 'yellow']
-
         fourPosition = ['bottom', 'left', 'top', 'right']
-        fourColor = ['red', 'blue', 'yellow', 'green']
+        positionList = fourPosition[:self.playerNum]
+        currentIndex = positionList.index(self.turn)
+        self.turn = positionList[(currentIndex+1)%self.playerNum]
+
+        pass
