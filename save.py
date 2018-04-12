@@ -2,6 +2,7 @@
 import pickle
 from deck import Deck
 from game import Game
+#from main import Main
 #things to save:
 #player: name, position, color, pawn locations, AI setting if computer
 #deck: current card, deck order
@@ -15,6 +16,11 @@ class Save:
 
     def save(self):
 
+        #player AI
+        player2_AI = main.pc1difficulty
+        player3_AI = main.pc2difficulty
+        player4_AI = main.pc3difficulty
+        self.numPlayers = ''
         #player info?
         player1_info = self.playerList[0]
         #player1 pawn info. pawnlist should have its own index, playerindex, playerposition, and color
