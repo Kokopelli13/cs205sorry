@@ -1,5 +1,5 @@
 #code to save end game data to database
-import MySQLdb
+#import MySQLdb
 import datetime
 
 #saves player name, day/time, AI settings, result (Who won), how many turns
