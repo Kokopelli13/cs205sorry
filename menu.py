@@ -1,6 +1,7 @@
 import pygame
 from board import Board
 from instructions import Instructions
+from database import Database
 import sys
 from game import Game
 from save import Save
@@ -42,8 +43,8 @@ class Button:
             self.newGame()
         if self.action == "instructions":
             self.instructions()
-        if self.action == "back":
-            self.back()
+        if self.action == "stats":
+            self.read()
         if self.action == "red" or self.action == "blue" or self.action == "yellow" or self.action == "green":
             self.pickNumPlayers()
         if self.action == "numplayersone" or self.action == "numplayerstwo" or self.action == "numplayersthree":
@@ -133,8 +134,10 @@ class Button:
 
     def back(self):
         Menu(self.main)
-        #self.main.activeObj = set()
 
+
+    def read(self):
+        Database.read()
 
     def setUpBoard(self):
         finished = True
