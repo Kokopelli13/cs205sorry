@@ -42,6 +42,8 @@ class Button:
             self.newGame()
         if self.action == "instructions":
             self.instructions()
+        if self.action == "back":
+            self.back()
         if self.action == "red" or self.action == "blue" or self.action == "yellow" or self.action == "green":
             self.pickNumPlayers()
         if self.action == "numplayersone" or self.action == "numplayerstwo" or self.action == "numplayersthree":
@@ -121,7 +123,18 @@ class Button:
 
 
     def instructions(self):
-        Instructions()
+        self.main.activeObj = set()
+        pickColorTxt = Text(self.main, 176, 250, 30, 'Instructions')
+        back = Button(self.main, 150, 380, "back", "images/newgame.png", 1)
+
+        #instructions = Text(self.main, 140, 100, 30, 'Instructions for SORRY!')
+        #Instructions()
+
+
+    def back(self):
+        Menu(self.main)
+        #self.main.activeObj = set()
+
 
     def setUpBoard(self):
         finished = True
