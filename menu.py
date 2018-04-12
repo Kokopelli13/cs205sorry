@@ -43,6 +43,16 @@ class Button:
             self.newGame()
         if self.action == "instructions":
             self.instructions()
+        if self.action == "back":
+            self.back()
+        if self.action == "backInstructions":
+            self.backInstructions()
+        if self.action == "setUpInstructions":
+            self.setUpInstructions()
+        if self.action == "gameplayInstructions":
+            self.gameplayInstructions()
+        if self.action == "cardInstructions":
+            self.cardInstructions()
         if self.action == "stats":
             self.read()
         if self.action == "red" or self.action == "blue" or self.action == "yellow" or self.action == "green":
@@ -124,7 +134,79 @@ class Button:
 
 
     def instructions(self):
-        Instructions()
+        self.main.activeObj = set()
+        pickColorTxt = Text(self.main, 230, 70, 30, 'Instructions')
+        setUpInstructions = Button(self.main, 240, 150, "setUpInstructions", "images/instructions.png", 1)
+        cardInstructions = Button(self.main, 240, 225, "cardInstructions", "images/instructions.png", 1)
+        gameplayInstructions = Button(self.main, 240, 300, "gameplayInstructions", "images/instructions.png", 1)
+        back = Button(self.main, 240, 375, "back", "images/newgame.png", 1)
+
+
+    def setUpInstructions(self):
+        self.main.activeObj = set()
+        content0 = Text(self.main, 175, 70, 30, 'Set Up Instructions')
+        content1 = Text(self.main, 70, 140, 15, 'SETUP: To begin the game, the user must select a color, and the')
+        content2 = Text(self.main, 70, 165, 15, 'difficulty/agressisveness of the computer players')
+        space = Text(self.main, 70, 190, 15, '***************************************************************************')
+        content3 = Text(self.main, 70, 215, 15, 'Computer Options:')
+        content4 = Text(self.main, 70, 240, 15, 'Easy: The computer plays the game at random')
+        content5 = Text(self.main, 70, 265, 15, 'Hard: The computer calculates the best move to make each turn')
+        content6 = Text(self.main, 70, 290, 15, 'Passive: The computer will try not to knock any pieces during its turn')
+        content7 = Text(self.main, 70, 315, 15, 'Aggressive: The computer will always try and knock pieces if possible')
+        backInstruction = Button(self.main, 240, 340, "backInstructions", "images/instructions.png", 1)
+
+
+    def cardInstructions(self):
+        self.main.activeObj = set()
+        title = Text(self.main, 175, 70, 30, 'Card Instructions')
+        content0 = Text(self.main, 50, 115, 15, 'Card 1: Move one pawn from START or move one pawn 1 space')
+        content1 = Text(self.main, 50, 140, 15, 'Card 2: Move one pawn from START and draw again or move 2 spaces and')
+        content2 = Text(self.main, 50, 165, 15, 'draw again. If you cannot move, still draw again.')
+        content3 = Text(self.main, 50, 190, 15, 'Card 3: Move a pawn forward 3 spaces')
+        content4 = Text(self.main, 50, 215, 15, 'Card 4: Move a pawn backward 4 spaces')
+        content5 = Text(self.main, 50, 240, 15, 'Card 5: Move a pawn forward 5 spaces')
+        content6 = Text(self.main, 50, 265, 15, 'Card 7: Move a pawn forward 7 spaces or split the move between any')
+        content7 = Text(self.main, 50, 290, 15, 'two pawns')
+        content8 = Text(self.main, 50, 315, 15, 'Card 8: Move a pawn forward 8 spaces')
+        content9 = Text(self.main, 50, 340, 15, 'Card 10: Move a pawn forward 10 spaces or move a pawn backward 1 space')
+        content10 = Text(self.main, 50, 365, 15, 'Card 11: Move a pawn forward 11 spaces or switch any of your pawns')
+        content11 = Text(self.main, 50, 390, 15, 'with any opponent. (If you cannot move 11, you do not have to switch')
+        content12 = Text(self.main, 50, 415, 15, 'places with an opponent)')
+        content13 = Text(self.main, 50, 440, 15, 'Card 12: Move a pawn forward 12 spaces')
+        content14 = Text(self.main, 50, 465, 15, 'SORRY!: Take a pawn from START, place it on any space occupied by an')
+        content15 = Text(self.main, 50, 490, 15, 'opponent and bump the opponent back to start.')
+        backInstruciton = Button(self.main, 240, 510, "backInstructions", "images/instructions.png", 1)
+
+    def gameplayInstructions(self):
+        self.main.activeObj = set()
+        title = Text(self.main, 170, 60, 30, 'Gameplay Instructions')
+        content0 = Text(self.main, 50, 115, 15, 'MOVEMENT: The game will show you what your options for movement are')
+        content1 = Text(self.main, 50, 140, 15, 'and you must click which option you would like. If at any time you')
+        content2 = Text(self.main, 50, 165, 15, 'can move, you must move, even if it puts you at a disadvantage.')
+        content3 = Text(self.main, 50, 190, 15, '*******************************************************************')
+        content4 = Text(self.main, 50, 215, 15, 'BUMPING: If you land on a space occupied by an opponent, BUMP')
+        content5 = Text(self.main, 50, 240, 15, 'the opponents piece back to their START. Players cannot BUMP their own')
+        content6 = Text(self.main, 50, 265, 15, 'pieces, (unless in a SLIDE), and cannot occupy two pieces on the same ')
+        content7 = Text(self.main, 50, 290, 15, 'space. If the player cannot move, the turn is forfeited.')
+        content8 = Text(self.main, 50, 315, 15, '*******************************************************************')
+        content9 = Text(self.main, 50, 340, 15, 'SAFETY ZONE: Only you may enter your own color SAFETY ZONE. You cannot')
+        content10 = Text(self.main, 50, 365, 15, 'be BUMPED by other players in this zone. All rules still apply with movement.')
+        content11 = Text(self.main, 50, 390, 15, '*******************************************************************')
+        content12 = Text(self.main, 50, 415, 15, 'SLIDE: If you land on the beginning of the slide of any color but your own,')
+        content13 = Text(self.main, 50, 440, 15, 'BUMP any pawns in your way (including your own). If you are on your')
+        content14 = Text(self.main, 50, 465, 15, 'color SLIDE, do not slide and stay on the beginning of the slide.')
+        content15 = Text(self.main, 50, 490, 15, '*******************************************************************')
+        content13 = Text(self.main, 50, 515, 15, 'OPTIONS: This game allows the user to save the current state of the game')
+        content14 = Text(self.main, 50, 540, 15, 'and resume later by clicking the SAVE button. There is also a QUIT button')
+        content15 = Text(self.main, 50, 565, 15, 'which exits to the main menu.')
+        backInstruciton = Button(self.main, 280, 555, "backInstructions", "images/instructions.png", 1)
+
+
+    def back(self):
+        Menu(self.main)
+
+    def backInstructions(self):
+        self.instructions()
 
     def read(self):
         Database.read()

@@ -42,6 +42,7 @@ class Game:
             steps = 0
         else:
             steps = int(steps)
+            print('moving ' + str(steps) + ' steps')
         return steps
 
     def nextTurn(self):
