@@ -3,6 +3,8 @@
 #shuffle()
 import pygame
 import random
+
+
 class Deck:
     #class variables
     def __init__(self, main):
@@ -67,8 +69,9 @@ class Deck:
         self.cardDisplayY = 100
 
         self.shuffle()
-        print(self.deck)
-        print(self.current_card)
+        # print(self.deck)
+        # print(self.current_card)
+        # print("Index: ", self.i)
         # self.drawNext()
         #
         # #DEBUGGING TESTS
@@ -107,10 +110,14 @@ class Deck:
         self.card_index = self.i
         self.last_card = self.current_card
         self.current_card = self.deck[self.i];
-        print("Card index: ", self.card_index)
-        print("Current card: ", self.current_card)
+        # print("Card index: ", self.card_index)
+        # print("Maybe card index: ", self.i)
+        # print("Current card: ", self.current_card)
         self.i+=1
         if(self.i > 44):
             self.i = 0
             self.shuffle
+        from save import Save
+        self.main.save = Save(self.main)
+        self.main.save.save()
         return self.current_card

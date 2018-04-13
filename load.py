@@ -101,5 +101,5 @@ current_card = info["current_card"]
 
 #deck
 print("Deck order: ", deck_order)
-print("Card Index: ", card_index)
 print("Current card: ", current_card)
+print("Card Index: ", card_index)

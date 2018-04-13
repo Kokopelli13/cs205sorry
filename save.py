@@ -133,7 +133,7 @@ class Save:
         deck_order = self.main.deck.deck
         #deck_order = deck.deck
         current_card = self.main.deck.current_card
-        card_index = self.main.deck.card_index
+        card_index = self.main.deck.i
 
         print("Deck order: ", deck_order)
         print("Current card: ", current_card)
@@ -180,9 +180,9 @@ class Save:
             # "player4_pawn3_location" : player4_pawn3_location,
             # "player4_pawn4_location" : player4_pawn4_location,
 
-            # "deck_order" : deck_order,
-            # "card_index" : card_index,
-            # "current_card" : current_card
+            "deck_order" : deck_order,
+            "card_index" : card_index,
+            "current_card" : current_card
             }
 
         pickle_out = open ("save.txt", "wb")
