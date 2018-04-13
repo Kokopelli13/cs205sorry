@@ -14,8 +14,10 @@ class Deck:
 
         self.main = main
 
+    def start_deck(self):
         self.i = 0
         self.current_card = ""
+        self.card_index = 0
         self.last_card = ""
 
         #initialise empty array
@@ -64,16 +66,16 @@ class Deck:
         self.cardDisplayX = 745
         self.cardDisplayY = 100
 
-
         self.shuffle()
-        self.drawNext()
+        print(self.deck)
+        print(self.current_card)
+        # self.drawNext()
+        #
+        # #DEBUGGING TESTS
+        # print(self.current_card)
+        # print(self.deck)
 
-        #DEBUGGING TESTS
-        #print(self.deck)
-        #self.shuffle()
-        #print(self.deck)
-        #self.drawNext()
-        #self.drawNext()
+
 
     def draw(self):
         self.rect = self.main.screen.blit(self.deckImg, (self.deckX, self.deckY))
@@ -105,8 +107,8 @@ class Deck:
         self.card_index = self.i
         self.last_card = self.current_card
         self.current_card = self.deck[self.i];
-        #print("Card index: ", self.card_index)
-        #print("Current card: ", self.current_card)
+        print("Card index: ", self.card_index)
+        print("Current card: ", self.current_card)
         self.i+=1
         if(self.i > 44):
             self.i = 0
