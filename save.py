@@ -17,12 +17,7 @@ class Save:
 
 
     def save(self):
-        print("""Saving the game
-        .Saving
-        .Saving
-        .Saving
-        .Saving
-        """)
+        print("""Saving the game""")
         #player AI
         # player2_AI = main.pc1difficulty
         # player3_AI = main.pc2difficulty
