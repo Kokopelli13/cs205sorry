@@ -223,10 +223,11 @@ class Button:
             self.main.activeObj = set()
             self.main.board = Board(self.main)
             self.main.game = Game(self.main)
+            self.main.deck = Deck(self.main)
+            self.main.deck.start_deck()
             self.main.save = Save(self.main)
             #commented out because this was casuing an error
-            #self.main.save.save()
-            self.main.deck = Deck(self.main)
+            self.main.save.save()
             self.main.gameStarted = True
 
 

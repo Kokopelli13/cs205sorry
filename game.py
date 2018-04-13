@@ -58,7 +58,7 @@ class Game:
 
         pass
 
-    def save(self):
-        #save button to call save file
-        savebutton = menu.Button(self.main, 330, 860, "save", "images/stats.png", 1)
-        Save.save(self)
+    # def save(self):
+    #     #save button to call save file
+    #     savebutton = menu.Button(self.main, 330, 860, "save", "images/stats.png", 1)
+    #     Save.save(self)
