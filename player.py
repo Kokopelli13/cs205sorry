@@ -205,7 +205,7 @@ class Pawn:
         elif self.moveStep < 0:
             destination = self.moveBackward(position)
         else:
-            destination = {'type':'wrong'}
+            destination = {'type':'wrong', 'side':side, 'index':index}
 
         return destination
 
@@ -241,7 +241,10 @@ class Pawn:
 
         #If the pawn is at home
         elif type is 'home': #Cannot move after entering home
-            destination = {'type':'wrong'}
+            destination = {'type':'wrong', 'side':side, 'index':index}
+
+        else:
+            destination = position
 
         return destination
     
@@ -271,11 +274,14 @@ class Pawn:
 
         #If the pawn is in start
         elif type is 'start': #Cannot move backward from start
-            destination = {'type':'wrong'}
+            destination = {'type':'wrong', 'side':side, 'index':index}
             
         #If the pawn is at home
         elif type is 'home': #Cannot move backward from home
-            destination = {'type':'wrong'}
+            destination = {'type':'wrong', 'side':side, 'index':index}
+
+        else:
+            destination = position
 
         return destination
 
