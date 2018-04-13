@@ -8,6 +8,8 @@
 #from deck import Deck
 import pygame
 from player import Player
+from menu import Button
+
 
 class Game:
     def __init__(self, main):
@@ -22,7 +24,7 @@ class Game:
         fourPosition = ['bottom', 'left', 'top', 'right']
         fourColor = ['red', 'blue', 'yellow', 'green']
         playerColorIndex = fourColor.index(self.main.color)
-        
+
         playerNumDict = {'one': 2, 'two':3, 'three':4}
         self.playerNum = playerNumDict[self.main.numPlayers]
         self.playerList = []
@@ -55,3 +57,8 @@ class Game:
         self.turn = positionList[(currentIndex+1)%self.playerNum]
 
         pass
+
+    def save(self):
+        #save button to call save file
+        savebutton = menu.Button(self.main, 330, 860, "save", "images/stats.png", 1)
+        Save.save(self)

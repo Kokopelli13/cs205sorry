@@ -4,22 +4,22 @@ import pickle
 pickle_in = open("save.txt", "rb")
 info = pickle.load(pickle_in)
 
-print(info)
+#print(info)
 #player 1 data
-player1_color = info["player1_color"]
-player1_location = info["player1_location"]
-player1_setting = info["player1_setting"]
-player1_pawn1_location = info["player1_pawn1_location"]
-player1_pawn2_location = info["player1_pawn2_location"]
-player1_pawn3_location = info["player1_pawn3_location"]
-player1_pawn4_location = info["player1_pawn4_location"]
-
-
-player1_info = info["player1_info"]
-player1_pawn1_info = info["player1_pawn1_info"]
-player1_pawn2_info = info["player1_pawn2_info"]
-player1_pawn3_info = info["player1_pawn3_info"]
-player1_pawn4_info = info["player1_pawn4_info"]
+# player1_color = info["player1_color"]
+# player1_location = info["player1_location"]
+# player1_setting = info["player1_setting"]
+# player1_pawn1_location = info["player1_pawn1_location"]
+# player1_pawn2_location = info["player1_pawn2_location"]
+# player1_pawn3_location = info["player1_pawn3_location"]
+# player1_pawn4_location = info["player1_pawn4_location"]
+#
+#
+# player1_info = info["player1_info"]
+# player1_pawn1_info = info["player1_pawn1_info"]
+# player1_pawn2_info = info["player1_pawn2_info"]
+# player1_pawn3_info = info["player1_pawn3_info"]
+# player1_pawn4_info = info["player1_pawn4_info"]
 
 # #player 2 data
 # player2_color = info["player2_color"]
@@ -63,11 +63,11 @@ current_card = info["current_card"]
 # print("Player 1 Pawn 4 location: ", player1_pawn4_location)
 # print("")
 
-print("Player 1 info: ", player1_info)
-print("Player 1 pawn 1 info: ", player1_pawn1_info)
-print("Player 1 pawn 2 info: ", player1_pawn2_info)
-print("Player 1 pawn 3 info: ", player1_pawn3_info)
-print("Player 1 pawn 4 info: ", player1_pawn4_info)
+# print("Player 1 info: ", player1_info)
+# print("Player 1 pawn 1 info: ", player1_pawn1_info)
+# print("Player 1 pawn 2 info: ", player1_pawn2_info)
+# print("Player 1 pawn 3 info: ", player1_pawn3_info)
+# print("Player 1 pawn 4 info: ", player1_pawn4_info)
 
 # #player 2
 # print("Player 2 color: ", player2_color)
