@@ -57,8 +57,8 @@ class Button:
         if self.action == "stats":
             self.read()
         if self.action == "resume":
-            self.resume = True
-            print(self.resume)
+            # self.resume = True
+            # print(self.resume)
             self.resume()
         if self.action == "red" or self.action == "blue" or self.action == "yellow" or self.action == "green":
             self.pickNumPlayers()
@@ -217,9 +217,9 @@ class Button:
         Database.read()
 
     def resume(self):
-        Load.self()
+        Load.load()
 
-        
+
     def setUpBoard(self):
         finished = True
         if self.main.numPlayers == "one" and self.main.pc1difficulty == '':
