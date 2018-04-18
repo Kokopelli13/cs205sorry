@@ -115,8 +115,8 @@ class Deck:
         # print("Current card: ", self.current_card)
         self.i+=1
         if(self.i > 44):
+            self.shuffle()
             self.i = 0
-            self.shuffle
         from save import Save
         self.main.save = Save(self.main)
         self.main.save.save()
