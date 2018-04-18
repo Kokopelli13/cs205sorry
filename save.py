@@ -10,34 +10,52 @@ from game import Game
 #current player up
 class Save:
     def __init__(self, main):
-        print("Test save 1")
         self.main = main
         self.playerList = self.main.game.playerList
-        print("Test save 2")
 
 
     def save(self):
+        print("")
         print("""Saving the game""")
         #player AI
-        # player2_AI = main.pc1difficulty
-        # player3_AI = main.pc2difficulty
-        # player4_AI = main.pc3difficulty
-        # self.numPlayers = ''
-        # #player info?
-        # player1_info = self.playerList[0]
+        num_players = self.main.numPlayers
+        player2_AI = self.main.pc1difficulty
+        player3_AI = self.main.pc2difficulty
+        player4_AI = self.main.pc3difficulty
+        print(player2_AI)
+        if num_players == "two":
+            num_players = 2
+            print(player3_AI)
+        if num_players == "three":
+            num_players = 3
+            print(player3_AI)
+            print(player4_AI)
+        else:
+            num_players = 1
+        print("Numbers of computer players: ", num_players)
+
+        # #player 0 which is THE player
+        print("Player 1 information")
+        player1_index = self.playerList[0].playerIndex
+        player1_color = self.playerList[0].color
+        player1_location = self.playerList[0].playerPosition
+        player1_setting = "none"
+        print(player1_color)
+        print(player1_location)
+
         # #player1 pawn info. pawnlist should have its own index, playerindex, playerposition, and color
         # #just need to store pawnlist and playerlist
-        # player1_pawn1_info = self.playerList[0].pawnList[0].position
-        # player1_pawn2_info = self.playerList[0].pawnList[1].position
-        # player1_pawn3_info = self.playerList[0].pawnList[2].position
-        # player1_pawn4_info = self.playerList[0].pawnList[3].position
+        player1_pawn1_info = self.playerList[0].pawnList[0].position
+        player1_pawn2_info = self.playerList[0].pawnList[1].position
+        player1_pawn3_info = self.playerList[0].pawnList[2].position
+        player1_pawn4_info = self.playerList[0].pawnList[3].position
+        print(player1_pawn1_info)
+        print(player1_pawn2_info)
+        print(player1_pawn3_info)
+        print(player1_pawn4_info)
         #
         #
-        # #player 0 which is THE player
-        # player1_index = 0
-        # player1_color = self.playerList[0].color
-        # player1_location = self.playerList[0].playerPosition
-        # player1_setting = "none"
+
         #
         # #pawns
         # #each pawn has type, side, and index. Type refers to in start zone, end zone, or on the track
@@ -46,23 +64,7 @@ class Save:
         #
         # #can I just put these into a list like how they are created instead of all seperate, and playerdata too?
         #
-        # #refers to the type of pawn
-        # player1_pawn1_type = 'start'
-        # player1_pawn2_type = 'start'
-        # player1_pawn3_type = 'start'
-        # player1_pawn4_type = 'start'
-        #
-        # #refers to the side a pawn is on
-        # player1_pawn1_side = 'bottom'
-        # player1_pawn2_side = 'bottom'
-        # player1_pawn3_side = 'bottom'
-        # player1_pawn4_side = 'bottom'
-        #
-        # #this refers to the location on a given side
-        # player1_pawn1_index = self.playerList[0].pawnList[0].index
-        # player1_pawn2_index = self.playerList[0].pawnList[1].index
-        # player1_pawn3_index = self.playerList[0].pawnList[2].index
-        # player1_pawn4_index = self.playerList[0].pawnList[3].index
+
         #
         #
         #
@@ -71,55 +73,75 @@ class Save:
         # player1_pawn2_playerIndex = player1_index
         # player1_pawn3_playerIndex = player1_index
         # player1_pawn4_playerIndex = player1_index
-        #
-        # #no idea what I was going with here
-        # # player1_pawn1_playerLocation = player1_location
-        # # player1_pawn2_playerLocation = player1_location
-        # # player1_pawn3_playerLocation = player1_location
-        # # player1_pawn4_playerLocation = player1_location
-        #
-        # player1_pawn1_color = player1_color
-        # player1_pawn2_color = player1_color
-        # player1_pawn3_color = player1_color
-        # player1_pawn4_color = player1_color
-        #
 
-        # print("")
-        # print (player1_color)
-        # print(player1_location)
-        # print(player1_pawn1_location)
-        # print(player1_pawn2_location)
-        # print("")
+
 
         # #player 2
-        # player2_index = 1
-        # player2_color = self.playerList[1].color
-        # player2_location = self.playerList[1].playerPosition
-        # player2_setting = "hard"
-        # player2_pawn1_location = self.playerList[1].pawnList[0].position
-        # player2_pawn2_location = self.playerList[1].pawnList[1].position
-        # player2_pawn3_location = self.playerList[1].pawnList[2].position
-        # player2_pawn4_location = self.playerList[1].pawnList[3].position
+        # #player 0 which is THE player
+        print("Player 2 information")
+        player2_index = self.playerList[1].playerIndex
+        player2_color = self.playerList[1].color
+        player2_location = self.playerList[1].playerPosition
+        player2_setting = "none"
+        print(player2_color)
+        print(player2_location)
+
+        # #player1 pawn info. pawnlist should have its own index, playerindex, playerposition, and color
+        # #just need to store pawnlist and playerlist
+        player2_pawn1_info = self.playerList[1].pawnList[0].position
+        player2_pawn2_info = self.playerList[1].pawnList[1].position
+        player2_pawn3_info = self.playerList[1].pawnList[2].position
+        player2_pawn4_info = self.playerList[1].pawnList[3].position
+        print(player2_pawn1_info)
+        print(player2_pawn2_info)
+        print(player2_pawn3_info)
+        print(player2_pawn4_info)
         #
-        # #player 3
-        # player3_index = 2
-        # player3_color = self.playerList[2].color
-        # player3_location = self.playerList[2].playerPosition
-        # player3_setting = "hard"
-        # player3_pawn1_location = self.playerList[2].pawnList[0].position
-        # player3_pawn2_location = self.playerList[2].pawnList[1].position
-        # player3_pawn3_location = self.playerList[2].pawnList[2].position
-        # player3_pawn4_location = self.playerList[2].pawnList[3].position
+
+        if num_players > 1:
+            # #player 3
+            # #player 0 which is THE player
+            print("Player 3 information")
+            player3_index = self.playerList[2].playerIndex
+            player3_color = self.playerList[2].color
+            player3_location = self.playerList[2].playerPosition
+            player3_setting = "none"
+            print(player3_color)
+            print(player3_location)
+
+            # #player1 pawn info. pawnlist should have its own index, playerindex, playerposition, and color
+            # #just need to store pawnlist and playerlist
+            player3_pawn1_info = self.playerList[2].pawnList[0].position
+            player3_pawn2_info = self.playerList[2].pawnList[1].position
+            player3_pawn3_info = self.playerList[2].pawnList[2].position
+            player3_pawn4_info = self.playerList[2].pawnList[3].position
+            print(player3_pawn1_info)
+            print(player3_pawn2_info)
+            print(player3_pawn3_info)
+            print(player3_pawn4_info)
         #
-        # #player 4
-        # player4_index = 3
-        # player4_color = self.playerList[3].color
-        # player4_location = self.playerList[3].playerPosition
-        # player4_setting = "hard"
-        # player4_pawn1_location = self.playerList[3].pawnList[0].position
-        # player4_pawn2_location = self.playerList[3].pawnList[1].position
-        # player4_pawn3_location = self.playerList[3].pawnList[2].position
-        # player4_pawn4_location = self.playerList[3].pawnList[3].position
+
+        if num_players > 2:
+            # #player 4
+            # #player 0 which is THE player
+            print("Player 4 information")
+            player4_index = self.playerList[3].playerIndex
+            player4_color = self.playerList[3].color
+            player4_location = self.playerList[3].playerPosition
+            player4_setting = "none"
+            print(player4_color)
+            print(player4_location)
+
+            # #player1 pawn info. pawnlist should have its own index, playerindex, playerposition, and color
+            # #just need to store pawnlist and playerlist
+            player4_pawn1_info = self.playerList[3].pawnList[0].position
+            player4_pawn2_info = self.playerList[3].pawnList[1].position
+            player4_pawn3_info = self.playerList[3].pawnList[2].position
+            player4_pawn4_info = self.playerList[3].pawnList[3].position
+            print(player4_pawn1_info)
+            print(player4_pawn2_info)
+            print(player4_pawn3_info)
+            print(player4_pawn4_info)
 
         #deck information
         #deck order, current card
@@ -136,49 +158,64 @@ class Save:
 
         print("Deck saved")
         info = {
-            # "player1_info" : player1_info,
-            # "player1_pawn1_info" : player1_pawn1_info,
-            # "player1_pawn2_info" : player1_pawn2_info,
-            # "player1_pawn3_info" : player1_pawn3_info,
-            # "player1_pawn4_info" : player1_pawn4_info,
+            #game info
+            "num_players" : num_players,
 
 
-            # "player1_color": player1_color,
-            # "player1_location" : player1_location,
-            # "player1_setting" : player1_setting,
-            # "player1_pawn1_location": player1_pawn1_location,
-            # "player1_pawn2_location" : player1_pawn2_location,
-            # "player1_pawn3_location" : player1_pawn3_location,
-            # "player1_pawn4_location" : player1_pawn4_location,
+            #player1 info
+            "player1_index" : player1_index,
+            "player1_color": player1_color,
+            "player1_location" : player1_location,
+            "player1_pawn1_info" : player1_pawn1_info,
+            "player1_pawn2_info" : player1_pawn2_info,
+            "player1_pawn3_info" : player1_pawn3_info,
+            "player1_pawn4_info" : player1_pawn4_info,
+
+
+            #player2 info
+            "player2_AI" : player2_AI,
+            "player2_index" : player2_index,
+            "player2_color": player2_color,
+            "player2_location" : player2_location,
+            "player2_pawn1_info" : player2_pawn1_info,
+            "player2_pawn2_info" : player2_pawn2_info,
+            "player2_pawn3_info" : player2_pawn3_info,
+            "player2_pawn4_info" : player2_pawn4_info,
             #
-            # "player2_color": player2_color,
-            # "player2_location" : player2_location,
-            # "player2_setting" : player2_setting,
-            # "player2_pawn1_location": player2_pawn1_location,
-            # "player2_pawn2_location" : player2_pawn2_location,
-            # "player2_pawn3_location" : player2_pawn3_location,
-            # "player2_pawn4_location" : player2_pawn4_location,
-            #
-            # "player3_color": player3_color,
-            # "player3_location" : player3_location,
-            # "player3_setting" : player3_setting,
-            # "player3_pawn1_location": player3_pawn1_location,
-            # "player3_pawn2_location" : player3_pawn2_location,
-            # "player3_pawn3_location" : player3_pawn3_location,
-            # "player3_pawn4_location" : player3_pawn4_location,
-            #
-            # "player4_color": player4_color,
-            # "player4_location" : player4_location,
-            # "player4_setting" : player4_setting,
-            # "player4_pawn1_location": player4_pawn1_location,
-            # "player4_pawn2_location" : player4_pawn2_location,
-            # "player4_pawn3_location" : player4_pawn3_location,
-            # "player4_pawn4_location" : player4_pawn4_location,
 
             "deck_order" : deck_order,
             "card_index" : card_index,
             "current_card" : current_card
             }
+
+        if num_players > 1:
+            player3_dict = {
+                #player3 info
+                "player3_AI" : player3_AI,
+                "player3_index" : player3_index,
+                "player3_color": player3_color,
+                "player3_location" : player3_location,
+                "player3_pawn1_info" : player3_pawn1_info,
+                "player3_pawn2_info" : player3_pawn2_info,
+                "player3_pawn3_info" : player3_pawn3_info,
+                "player3_pawn4_info" : player3_pawn4_info
+            }
+            info.update(player3_dict)
+
+        if num_players > 2:
+            player4_dict = {
+                #player4 info
+                "player4_AI" : player4_AI,
+                "player4_index" : player4_index,
+                "player4_color": player4_color,
+                "player4_location" : player4_location,
+                "player4_pawn1_info" : player4_pawn1_info,
+                "player4_pawn2_info" : player4_pawn2_info,
+                "player4_pawn3_info" : player4_pawn3_info,
+                "player4_pawn4_info" : player4_pawn4_info
+            }
+            info.update(player4_dict)
+
 
         pickle_out = open ("save.txt", "wb")
         pickle.dump(info, pickle_out)
@@ -186,6 +223,17 @@ class Save:
 
 
         print ("Game Saved")
+        print("")
+        print("")
+        print("")
+        print("")
+        print("")
+        print("")
+        print("")
+        print("")
+        print("")
+        print("")
+        print("")
 
 #if(__name__ == "__main__"):
 #    main = ""
