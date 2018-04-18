@@ -1,5 +1,6 @@
 #code to save end game data to database
-import MySQLdb
+#import MySQLdb
+import mysql.connector as MySQLdb
 import datetime
 
 #saves player name, day/time, AI settings, result (Who won), how many turns
@@ -31,7 +32,7 @@ class Database:
         print("Read")
         #query for info and print
 
-        db = MySQLdb.connect("webdb.uvm.edu", "pmacksey_admin", "wSuDSSnRb0Bk", "PMACKSEY_cs205sorry")
+        db = MySQLdb.connect(host = "webdb.uvm.edu", user = "pmacksey_admin", password = "wSuDSSnRb0Bk", database = "PMACKSEY_cs205sorry")
         #db.query("""SELECT """)
         cursor = db.cursor()
 
