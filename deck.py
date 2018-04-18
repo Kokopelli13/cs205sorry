@@ -90,10 +90,12 @@ class Deck:
             self.cardUpImg = pygame.image.load('images/card' + str(self.current_card) + '_small.png').convert_alpha()
             self.cardUpImg = pygame.transform.rotozoom(self.cardUpImg, 90, 0.133)
         self.main.screen.blit(self.cardUpImg, (self.cardUpX, self.cardUpY))
+        """
         if(self.current_card != ""):
             self.cardDisplay = pygame.image.load('images/card' + str(self.current_card) + '_small.png').convert_alpha()
             self.cardDisplay = pygame.transform.rotozoom(self.cardDisplay, 0, 0.5)
         self.main.screen.blit(self.cardUpImg, (self.cardDisplayX, self.cardDisplayY))
+        """
 
     def tick(self):
         pass

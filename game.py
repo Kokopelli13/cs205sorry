@@ -54,6 +54,8 @@ class Game:
         """
         Change to next turn
         """
+        self.checkEndGame()
+        
         fourPosition = ['bottom', 'left', 'top', 'right']
         positionList = fourPosition[:self.playerNum]
         currentIndex = positionList.index(self.turn)
@@ -63,6 +65,33 @@ class Game:
         self.playing.nextTurn(self.turn, self.playerList[nextIndex])
 
         pass
+
+    def checkEndGame(self):
+        """
+        Check if there's anyone winning the game
+        """
+        homeCount = 0
+        for i in range(self.playerNum):
+            for j in range(4):
+                if self.playerList[i].pawnList[j].position['type'] is 'home':
+                    homeCount += 1
+            if homeCount is 4:
+                self.endGame(i)
+            else:
+                homeCount = 0
+        pass
+
+    def endGame(self, playerIndex):
+        """
+        Finish this game
+        """
+        winner = self.playerList[playerIndex]
+        print("Winner")
+        print(winner.color)
+
+        pass
+
+
 
     # def save(self):
     #     #save button to call save file

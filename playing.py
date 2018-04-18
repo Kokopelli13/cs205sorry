@@ -66,7 +66,18 @@ class Playing:
         #Show information
         self.infoList = []
 
+        #Show if player can enter relaxation start mode
+        self.quickStartbool = True
+        #Add relaxation start button
+        self.relaxationButton = PlayingButton(self.main, 750, 450, "relaxation", "images/setup.png", 0.8, True)
+        
+        #Add skip button
         self.skipButton = PlayingButton(self.main, 750, 500, "skip", "images/setup.png", 0.8, True)
+        
+        #Add quit button
+        self.quitButton = PlayingButton(self.main, 750, 550, "quit", "images/setup.png", 0.8, True)
+
+
 
         pass
 
@@ -141,6 +152,13 @@ class Playing:
         self.pawn = pygame.transform.rotozoom(self.pawn, 0, 0.3)
         
         self.initialize()
+        
+        if self.quickStartbool is True:
+            for i in range(self.main.game.playerNum):
+                for j in range(4):
+                    if self.main.game.playerList[i].pawnList[j].position['type'] != 'start':
+                        self.quickStartbool = False
+                        self.relaxationButton.visible = False
         
         pass
     
@@ -311,7 +329,13 @@ class PlayingButton:
                 #self.main.game.playing.optionButton2.visible = False
             elif self.action == "skip":
                 self.main.game.nextTurn()
-
+            elif self.action == "relaxation":
+                for i in range(self.main.game.playerNum):
+                    self.main.game.playerList[i].pawnList[0].position['type'] = 'track'
+                    self.main.game.playerList[i].pawnList[0].position['index'] = 4
+                    self.visible = False
+            elif self.action == "quit":
+                self.main.quit()
 
         pass
 
@@ -320,13 +344,7 @@ class PlayingButton:
         Draw a card, change the image, and show card information
         """
         card = self.main.game.drawCard()
-        """
-        self.main.game.playerList[0].pawnList[0].position['type'] = 'track'
-        self.main.game.playerList[0].pawnList[0].position['index'] = 4
-        card = 12
-        self.main.game.playerList[1].pawnList[0].position['type'] = 'track'
-        self.main.game.playerList[1].pawnList[0].position['index'] = 5
-        """
+        
         self.main.game.playing.drawnCard = card
         if card is 'Sorry!':
             self.main.game.playing.card = self.main.game.playing.faceUpCardList[0]
@@ -419,7 +437,7 @@ class PlayingButton:
 
 
     
-        self.main.game.playing.infoList.append(Text(self.main, 790, 370, 13, 'Select a pawn', False))
+        self.main.game.playing.infoList.append(Text(self.main, 750, 370, 14, 'Select a pawn', False))
     
         pass
 

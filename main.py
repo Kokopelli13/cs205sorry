@@ -30,16 +30,25 @@ class Main:
         self.numPlayers = ''
         #set up gui
         self.menu = Menu(self)
-        self.main()
+        
+        #Show if the main loop should stop
+        self.stop = False
 
+        self.main()
+    
+    
     def main(self):
         #main loop
         while 1:
-            self.processEvents()
-            self.processGame()
-            self.processRendering()
-            self.clock.tick(60) #run at 60 fps, we don't need more and its extra processing work
+            if self.stop is False:
+                self.processEvents()
+                self.processGame()
+                self.processRendering()
+                self.clock.tick(60) #run at 60 fps, we don't need more and its extra processing work
+            else:
+                self.initialize()
 
+                
     def processEvents(self):
         #lets look at all the events that have happened
         for event in pygame.event.get():
@@ -81,6 +90,37 @@ class Main:
         self.screen.blit(self.cursor, pygame.mouse.get_pos())
         #finally render the frame
         pygame.display.update()
+
+
+    def quit(self):
+        """
+        Change the stop variable to stop the main loop
+        """
+        self.stop = True
+        pass
+
+    def initialize(self):
+        """
+        Initialize game variables
+        """
+        self.activeObj.clear()
+        #game variables
+        self.gameStarted = False
+        self.color = ''
+        self.pc0difficulty = ''
+        self.pc1difficulty = ''
+        self.pc2difficulty = ''
+        self.pc3difficulty = ''
+        self.numPlayers = ''
+
+        self.stop = False
+
+        #set up gui
+        self.menu = Menu(self)
+
+        pass
+
+
 
 
 #if this file is run (as opposed to being imported elsewhere), execute this
