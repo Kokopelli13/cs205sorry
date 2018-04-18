@@ -8,7 +8,7 @@
 #from deck import Deck
 import pygame
 from player import Player
-#from menu import Button
+from playing import Playing
 
 
 class Game:
@@ -27,10 +27,13 @@ class Game:
 
         playerNumDict = {'one': 2, 'two':3, 'three':4}
         self.playerNum = playerNumDict[self.main.numPlayers]
+        playerSetting = [self.main.pc0difficulty, self.main.pc1difficulty, self.main.pc2difficulty, self.main.pc3difficulty]
         self.playerList = []
         for i in range(self.playerNum):
             print("\nCreate a", fourColor[(playerColorIndex+i)%4], "player at", fourPosition[i], "side\n")
-            self.playerList.append(Player(self.main, i, fourPosition[i], fourColor[(playerColorIndex+i)%4]))
+            self.playerList.append(Player(self.main, i, fourPosition[i], fourColor[(playerColorIndex+i)%4], playerSetting[i]))
+
+        self.playing = Playing(self.main, self.turn, self.playerList[0], self.playerNum)
 
         pass
 
@@ -54,7 +57,10 @@ class Game:
         fourPosition = ['bottom', 'left', 'top', 'right']
         positionList = fourPosition[:self.playerNum]
         currentIndex = positionList.index(self.turn)
-        self.turn = positionList[(currentIndex+1)%self.playerNum]
+        nextIndex = (currentIndex+1)%self.playerNum
+        self.turn = positionList[nextIndex]
+        
+        self.playing.nextTurn(self.turn, self.playerList[nextIndex])
 
         pass
 

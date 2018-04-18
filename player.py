@@ -5,7 +5,7 @@ import pygame, time
 
 class Player:
 
-    def __init__(self, main, playerIndex, playerPosition, playerColor):
+    def __init__(self, main, playerIndex, playerPosition, playerColor, setting):
         """
         Class constructor
         """
@@ -13,6 +13,7 @@ class Player:
         self.playerIndex = playerIndex
         self.playerPosition = playerPosition
         self.color = playerColor
+        self.setting = setting
 
         #Create pawns and store in a list
         self.pawnList = []
@@ -91,53 +92,37 @@ class Pawn:
             #finally mark the time we made this move
             self.lastStep = offset + time.clock()
 
-
+        pass
+            
     def onClick(self):
         """
         When a pawn is clicked, this function will be called and move the pawn if possible
         """
-        if (self.playerPosition is self.main.game.turn):
-            #Draw a card and decide how many steps to move
-            self.moveStep = self.main.game.drawCard()
+        if self.main.game.playing.readyToPickPawnBool is True:
+            self.main.game.playing.processOption(self)
 
-            #Check if this pawn can move to the destination
-            #status = moving/sliding/safe/home/notAllowed
-            self.status = 'moving'
-            destination = self.position
-            for i in range(abs(self.moveStep)):
-                destination = self.getNext(destination)
-            self.status = self.checkCollision(destination, self.status)
-            if self.status is 'notAllowed': #If this pawn cannot move, ignore
-                self.moveStep = 0
-            self.status = 'moving'
-    
-            #Change to next turn
-            self.main.game.nextTurn()
-
-        """
-        #Move until reaching the destination
-        while moveStep > 0:
-            #Delay the movement
-            #self.main.clock.tick(3)
-            time.sleep(0.3)
-            print('move ' + str(moveStep) + ', ' + str(self.position))
-            self.main.processRendering()
-            #Move one step at a time
-            destination = self.moveForward(self.position)
-            self.move(destination)
-            moveStep -= 1
-
-            #When sliding, the pawn bumps all pawns on the way to the start
-            if status is 'sliding':
-                self.checkCollision(destination, status)
-
-            #If the destination is on the triangle of slide section in different color, slide to the end
-            if moveStep is 0:
-                moveStep += self.checkSlideStep(destination)
-                if moveStep is not 0:
-                    status = 'sliding'
         pass
+
+    def tryToMove(self, step):
         """
+        Try to move after a pawn has been clicked and that pawn is chosen to move
+        """
+        self.moveStep = step
+        self.status = 'moving'
+        destination = self.position
+        for i in range(abs(self.moveStep)):
+            destination = self.getNext(destination)
+        self.status = self.checkCollision(destination, self.status)
+        if self.status is 'notAllowed': #If this pawn cannot move, ignore
+            self.moveStep = 0
+        self.status = 'moving'
+        
+        #Change to next turn
+        self.main.game.nextTurn()
+    
+        pass
+    
+    
 
     def checkCollision(self, destination, status):
         """

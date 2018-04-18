@@ -37,7 +37,7 @@ class Button:
 
     def tick(self):
         pass
-
+    
     def onClick(self):
         if self.action == "new":
             self.newGame()

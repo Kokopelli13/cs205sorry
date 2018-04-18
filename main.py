@@ -23,6 +23,7 @@ class Main:
         #game variables
         self.gameStarted = False
         self.color = ''
+        self.pc0difficulty = ''
         self.pc1difficulty = ''
         self.pc2difficulty = ''
         self.pc3difficulty = ''
@@ -72,7 +73,7 @@ class Main:
         #layer 1 = game board
         #layer 2 = player pieces
         #layer 3 = deck
-        for i in range(0, 4):
+        for i in range(0, 5):
             for obj in self.activeObj:
                 if(obj.layer == i):
                     obj.draw()
