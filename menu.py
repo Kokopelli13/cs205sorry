@@ -5,6 +5,7 @@ from database import Database
 import sys
 from game import Game
 from save import Save
+from load import Load
 from deck import Deck
 
 
@@ -37,7 +38,7 @@ class Button:
 
     def tick(self):
         pass
-    
+
     def onClick(self):
         if self.action == "new":
             self.newGame()
@@ -55,6 +56,10 @@ class Button:
             self.cardInstructions()
         if self.action == "stats":
             self.read()
+        if self.action == "resume":
+            self.resume = True
+            print(self.resume)
+            self.resume()
         if self.action == "red" or self.action == "blue" or self.action == "yellow" or self.action == "green":
             self.pickNumPlayers()
         if self.action == "numplayersone" or self.action == "numplayerstwo" or self.action == "numplayersthree":
@@ -211,6 +216,10 @@ class Button:
     def read(self):
         Database.read()
 
+    def resume(self):
+        Load.self()
+
+        
     def setUpBoard(self):
         finished = True
         if self.main.numPlayers == "one" and self.main.pc1difficulty == '':

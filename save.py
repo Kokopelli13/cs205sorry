@@ -18,10 +18,13 @@ class Save:
         print("")
         print("""Saving the game""")
         #player AI
+        current_player = self.main.game.turn
         num_players = self.main.numPlayers
         player2_AI = self.main.pc1difficulty
         player3_AI = self.main.pc2difficulty
         player4_AI = self.main.pc3difficulty
+
+        print("Current player: ", current_player)
         print(player2_AI)
         if num_players == "two":
             num_players = 2
@@ -55,27 +58,6 @@ class Save:
         print(player1_pawn4_info)
         #
         #
-
-        #
-        # #pawns
-        # #each pawn has type, side, and index. Type refers to in start zone, end zone, or on the track
-        # #side refers to the side of the board. Each side ends at 14, and each pawn starts at
-        # #index 4 of their respective side
-        #
-        # #can I just put these into a list like how they are created instead of all seperate, and playerdata too?
-        #
-
-        #
-        #
-        #
-        # #assigns a given pawn to player
-        # player1_pawn1_playerIndex = player1_index
-        # player1_pawn2_playerIndex = player1_index
-        # player1_pawn3_playerIndex = player1_index
-        # player1_pawn4_playerIndex = player1_index
-
-
-
         # #player 2
         # #player 0 which is THE player
         print("Player 2 information")
@@ -159,6 +141,7 @@ class Save:
         print("Deck saved")
         info = {
             #game info
+            "current_player" : current_player,
             "num_players" : num_players,
 
 
