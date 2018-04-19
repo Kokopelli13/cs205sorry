@@ -54,8 +54,8 @@ class Deck:
         self.deckImg = pygame.transform.rotozoom(self.deckImg, 0, self.main.scale)
         self.deckX = 220
         self.deckY = 200
-        self.cardDownImg = pygame.image.load('images/cardSorry!_small.png').convert_alpha()
-        self.cardDownImg = pygame.transform.rotozoom(self.cardDownImg, 90, 0.133)
+        self.cardDownImg = pygame.image.load('images/topofcard_small.png').convert_alpha()
+        self.cardDownImg = pygame.transform.rotozoom(self.cardDownImg, 270, 0.133)
         self.cardDownX = 260
         self.cardDownY = 204
         self.cardUpImg = pygame.image.load('images/cardSorry!_small.png').convert_alpha()
@@ -83,8 +83,8 @@ class Deck:
     def draw(self):
         self.rect = self.main.screen.blit(self.deckImg, (self.deckX, self.deckY))
         if(self.last_card != ""):
-            self.cardDownImg = pygame.image.load('images/card' + str(self.last_card) + '_small.png').convert_alpha()
-            self.cardDownImg = pygame.transform.rotozoom(self.cardDownImg, 90, 0.133)
+            self.cardDownImg = pygame.image.load('images/topofcard_small.png').convert_alpha()
+            self.cardDownImg = pygame.transform.rotozoom(self.cardDownImg, 270, 0.133)
         self.main.screen.blit(self.cardDownImg, (self.cardDownX, self.cardDownY))
         if(self.current_card != ""):
             self.cardUpImg = pygame.image.load('images/card' + str(self.current_card) + '_small.png').convert_alpha()
