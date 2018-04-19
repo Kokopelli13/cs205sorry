@@ -50,19 +50,20 @@ class Game:
             print('moving ' + str(steps) + ' steps')
         return steps
 
-    def nextTurn(self):
+    def nextTurn(self, allowed):
         """
         Change to next turn
         """
         self.checkEndGame()
         
-        fourPosition = ['bottom', 'left', 'top', 'right']
-        positionList = fourPosition[:self.playerNum]
-        currentIndex = positionList.index(self.turn)
-        nextIndex = (currentIndex+1)%self.playerNum
-        self.turn = positionList[nextIndex]
-        
-        self.playing.nextTurn(self.turn, self.playerList[nextIndex])
+        if allowed is True:
+            fourPosition = ['bottom', 'left', 'top', 'right']
+            positionList = fourPosition[:self.playerNum]
+            currentIndex = positionList.index(self.turn)
+            nextIndex = (currentIndex+1)%self.playerNum
+            self.turn = positionList[nextIndex]
+            
+            self.playing.nextTurn(self.turn, self.playerList[nextIndex])
 
         pass
 
