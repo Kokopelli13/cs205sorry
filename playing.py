@@ -59,9 +59,9 @@ class Playing:
         
         #Add needed buttons
         ##############Change image###############
-        self.drawButton = PlayingButton(self.main, 750, 175, "draw", "images/setup.png", 0.8, True)
-        self.optionButton1 = PlayingButton(self.main, 660, 250, "option1", "images/setup.png", 0.8, False)
-        self.optionButton2 = PlayingButton(self.main, 660, 300, "option2", "images/setup.png", 0.8, False)
+        self.drawButton = PlayingButton(self.main, 750, 175, "draw", "images/draw.png", 0.8, True)
+        self.optionButton1 = PlayingButton(self.main, 660, 250, "option1", "images/option.png", 0.8, False)
+        self.optionButton2 = PlayingButton(self.main, 660, 300, "option2", "images/option.png", 0.8, False)
         
         #Show information
         self.infoList = []
@@ -69,13 +69,13 @@ class Playing:
         #Show if player can enter relaxation start mode
         self.quickStartbool = True
         #Add relaxation start button
-        self.relaxationButton = PlayingButton(self.main, 750, 450, "relaxation", "images/setup.png", 0.8, True)
+        self.relaxationButton = PlayingButton(self.main, 750, 450, "relaxation", "images/relaxedstart.png", 0.8, True)
         
         #Add skip button
-        self.skipButton = PlayingButton(self.main, 750, 500, "skip", "images/setup.png", 0.8, True)
+        self.skipButton = PlayingButton(self.main, 750, 500, "skip", "images/skip.png", 0.8, True)
         
         #Add quit button
-        self.quitButton = PlayingButton(self.main, 750, 550, "quit", "images/setup.png", 0.8, True)
+        self.quitButton = PlayingButton(self.main, 750, 550, "quit", "images/quit.png", 0.8, True)
 
         #add save button
         self.saveButton = PlayingButton(self.main, 750, 400, "save", "images/save.png", 0.8, True)
