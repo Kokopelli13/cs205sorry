@@ -107,23 +107,24 @@ class Pawn:
         """
         Try to move after a pawn has been clicked and that pawn is chosen to move
         """
+        allowed = True
         self.moveStep = step
         self.status = 'moving'
         destination = self.position
         for i in range(abs(self.moveStep)):
             destination = self.getNext(destination)
         self.status = self.checkCollision(destination, self.status)
+        
         if self.status is 'notAllowed': #If this pawn cannot move, ignore
             self.moveStep = 0
+            allowed = False
         self.status = 'moving'
         
         #Change to next turn
-        self.main.game.nextTurn()
-    
+        self.main.game.nextTurn(allowed)
+        
         pass
     
-    
-
     def checkCollision(self, destination, status):
         """
         Check if the pawn will bump any pawns or overmove after entering home
