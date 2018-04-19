@@ -217,7 +217,13 @@ class Button:
         Database.read()
 
     def resume(self):
-        Load.load()
+        # self.main.color = "red"
+        # self.main.numPlayers = "two"
+        self.setUpBoard()
+        load_game = Load(self.main)
+        self.resume_check = True
+        print(self.resume_check)
+        load_game.load()
 
 
     def setUpBoard(self):

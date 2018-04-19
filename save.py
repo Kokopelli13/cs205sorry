@@ -20,19 +20,12 @@ class Save:
         #player AI
         current_player = self.main.game.turn
         num_players = self.main.numPlayers
-        player2_AI = self.main.pc1difficulty
-        player3_AI = self.main.pc2difficulty
-        player4_AI = self.main.pc3difficulty
 
         print("Current player: ", current_player)
-        print(player2_AI)
         if num_players == "two":
             num_players = 2
-            print(player3_AI)
         if num_players == "three":
             num_players = 3
-            print(player3_AI)
-            print(player4_AI)
         else:
             num_players = 1
         print("Numbers of computer players: ", num_players)
@@ -42,7 +35,6 @@ class Save:
         player1_index = self.playerList[0].playerIndex
         player1_color = self.playerList[0].color
         player1_location = self.playerList[0].playerPosition
-        player1_setting = "none"
         print(player1_color)
         print(player1_location)
 
@@ -61,10 +53,10 @@ class Save:
         # #player 2
         # #player 0 which is THE player
         print("Player 2 information")
+        player2_AI = self.main.pc1difficulty
         player2_index = self.playerList[1].playerIndex
         player2_color = self.playerList[1].color
         player2_location = self.playerList[1].playerPosition
-        player2_setting = "none"
         print(player2_color)
         print(player2_location)
 
@@ -84,10 +76,10 @@ class Save:
             # #player 3
             # #player 0 which is THE player
             print("Player 3 information")
+            player3_AI = self.main.pc2difficulty
             player3_index = self.playerList[2].playerIndex
             player3_color = self.playerList[2].color
             player3_location = self.playerList[2].playerPosition
-            player3_setting = "none"
             print(player3_color)
             print(player3_location)
 
@@ -107,10 +99,10 @@ class Save:
             # #player 4
             # #player 0 which is THE player
             print("Player 4 information")
+            player4_AI = self.main.pc3difficulty
             player4_index = self.playerList[3].playerIndex
             player4_color = self.playerList[3].color
             player4_location = self.playerList[3].playerPosition
-            player4_setting = "none"
             print(player4_color)
             print(player4_location)
 
@@ -130,7 +122,6 @@ class Save:
         print("Saving deck")
         #deck=Deck(self.main)
         deck_order = self.main.deck.deck
-        #deck_order = deck.deck
         current_card = self.main.deck.current_card
         card_index = self.main.deck.i
 

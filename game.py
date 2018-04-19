@@ -55,14 +55,14 @@ class Game:
         Change to next turn
         """
         self.checkEndGame()
-        
+
         if allowed is True:
             fourPosition = ['bottom', 'left', 'top', 'right']
             positionList = fourPosition[:self.playerNum]
             currentIndex = positionList.index(self.turn)
             nextIndex = (currentIndex+1)%self.playerNum
             self.turn = positionList[nextIndex]
-            
+
             self.playing.nextTurn(self.turn, self.playerList[nextIndex])
 
         pass
@@ -89,7 +89,7 @@ class Game:
         winner = self.playerList[playerIndex]
         print("Winner")
         print(winner.color)
-
+        
         pass
 
 
