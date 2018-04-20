@@ -124,9 +124,12 @@ class Load:
         self.main.numPlayers = num_players
 
         #deck information
-        # self.main.deck.deck = deck_order
-        # self.main.deck.current_card = current_card
-        # self.main.deck.i = card_index
+        self.main.deck = deck_order
+        #self.main.deck.deck
+        self.main.current_card = current_card
+        #self.main.deck.current_card
+        self.main.i = card_index
+        #self.main.deck.i
 
 
         #player 1 info

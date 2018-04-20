@@ -221,8 +221,6 @@ class Button:
         #need to get values for these to actually work
         self.main.color = "yellow"
         self.main.numPlayers = "three"
-        finished = True
-        #self.setUpBoard()
         print("1")
         self.main.activeObj = set()
         print("2")
@@ -230,18 +228,22 @@ class Button:
         print("3")
         self.main.game = Game(self.main)
         print("4")
-        # self.main.deck = Deck(self.main)
-        # print("5")
-        # self.main.deck.start_deck()
+
+        print("LOADING THE GAME")
+        load_game = Load(self.main)
+        print(self.resume_check)
+        load_game.load()
+
+        self.main.deck = Deck(self.main)
+        print("5")
+        self.main.deck.start_deck()
         # print("6")
         # self.main.save = Save(self.main)
         # print("7")
         # self.main.save.save()
+
         self.main.gameStarted = True
-        print("LOADING THE FUCKING GAME")
-        load_game = Load(self.main)
-        print(self.resume_check)
-        load_game.load()
+
 
 
     def setUpBoard(self):
