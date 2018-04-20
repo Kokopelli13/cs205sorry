@@ -119,18 +119,19 @@ class Load:
         #SETTING VALUES
 
         #game info
+        self.main.color = player1_color
         self.main.game.turn = current_player
         self.main.numPlayers = num_players
 
         #deck information
-        self.main.deck.deck = deck_order
-        self.main.deck.current_card = current_card
-        self.main.deck.i = card_index
+        # self.main.deck.deck = deck_order
+        # self.main.deck.current_card = current_card
+        # self.main.deck.i = card_index
 
 
         #player 1 info
         self.playerList[0].playerIndex = player1_index
-        self.playerList[0].color = player1player1_color
+        self.playerList[0].color = player1_color
         self.playerList[0].playerPosition = player1_location
         # #player1 pawn info.
         self.playerList[0].pawnList[0].position = player1_pawn1_info
@@ -143,7 +144,7 @@ class Load:
         #player 2 information
         self.main.pc1difficulty = player2_AI
         self.playerList[1].playerIndex = player2_index
-        self.playerList[1].color = player1player2_color
+        self.playerList[1].color = player2_color
         self.playerList[1].playerPosition = player2_location
         # #player1 pawn info.
         self.playerList[1].pawnList[0].position = player2_pawn1_info
@@ -151,22 +152,11 @@ class Load:
         self.playerList[1].pawnList[2].position = player2_pawn3_info
         self.playerList[1].pawnList[3].position = player2_pawn4_info
 
-        #player 3 information
-        self.main.pc2difficulty = player3_AI
-        self.playerList[2].playerIndex = player3_index
-        self.playerList[2].color = player1player3_color
-        self.playerList[2].playerPosition = player3_location
-        # #player1 pawn info.
-        self.playerList[2].pawnList[0].position = player3_pawn1_info
-        self.playerList[2].pawnList[1].position = player3_pawn2_info
-        self.playerList[2].pawnList[2].position = player3_pawn3_info
-        self.playerList[2].pawnList[3].position = player3_pawn4_info
-
         if num_players > 1:
             #player 3 information
             self.main.pc2difficulty = player3_AI
             self.playerList[2].playerIndex = player3_index
-            self.playerList[2].color = player1player3_color
+            self.playerList[2].color = player3_color
             self.playerList[2].playerPosition = player3_location
             # #player1 pawn info.
             self.playerList[2].pawnList[0].position = player3_pawn1_info
@@ -179,7 +169,7 @@ class Load:
             #player 4 information
             self.main.pc3difficulty = player4_AI
             self.playerList[3].playerIndex = player4_index
-            self.playerList[3].color = player1player4_color
+            self.playerList[3].color = player4_color
             self.playerList[3].playerPosition = player4_location
             # #player1 pawn info.
             self.playerList[3].pawnList[0].position = player4_pawn1_info

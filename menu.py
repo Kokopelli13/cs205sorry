@@ -57,8 +57,7 @@ class Button:
         if self.action == "stats":
             self.read()
         if self.action == "resume":
-            # self.resume = True
-            # print(self.resume)
+
             self.resume()
         if self.action == "red" or self.action == "blue" or self.action == "yellow" or self.action == "green":
             self.pickNumPlayers()
@@ -217,11 +216,30 @@ class Button:
         Database.read()
 
     def resume(self):
-        # self.main.color = "red"
-        # self.main.numPlayers = "two"
-        self.setUpBoard()
-        load_game = Load(self.main)
         self.resume_check = True
+        self.main.activeObj = set()
+        #need to get values for these to actually work
+        self.main.color = "yellow"
+        self.main.numPlayers = "three"
+        finished = True
+        #self.setUpBoard()
+        print("1")
+        self.main.activeObj = set()
+        print("2")
+        self.main.board = Board(self.main)
+        print("3")
+        self.main.game = Game(self.main)
+        print("4")
+        # self.main.deck = Deck(self.main)
+        # print("5")
+        # self.main.deck.start_deck()
+        # print("6")
+        # self.main.save = Save(self.main)
+        # print("7")
+        # self.main.save.save()
+        self.main.gameStarted = True
+        print("LOADING THE FUCKING GAME")
+        load_game = Load(self.main)
         print(self.resume_check)
         load_game.load()
 
@@ -235,6 +253,7 @@ class Button:
         if self.main.numPlayers == "three" and (self.main.pc1difficulty == '' or self.main.pc2difficulty == '' or self.main.pc3difficulty == ''):
             finished = False
         if finished:
+
             self.main.activeObj = set()
             self.main.board = Board(self.main)
             self.main.game = Game(self.main)
