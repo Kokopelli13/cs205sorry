@@ -22,12 +22,12 @@ class Save:
         num_players = self.main.numPlayers
 
         print("Current player: ", current_player)
+        if num_players == "one":
+            num_players = 1
         if num_players == "two":
             num_players = 2
         if num_players == "three":
             num_players = 3
-        else:
-            num_players = 1
         print("Numbers of computer players: ", num_players)
 
         # #player 0 which is THE player
