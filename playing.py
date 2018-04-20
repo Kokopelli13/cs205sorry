@@ -6,6 +6,8 @@ class Playing:
         """
         Class constructor
         """
+        ####################Player####################
+        
         #Get player's information
         self.main = main
         self.playerIndex = player.playerIndex
@@ -17,9 +19,14 @@ class Playing:
         self.pawn = pygame.image.load(imagePath).convert_alpha()
         self.pawn = pygame.transform.rotozoom(self.pawn, 0, 0.3)
         
+        #Create a list of player's information
+        self.playerInfoList = self.getPlayerInfoList(playerNum)
+        
+        ####################Card####################
+        
         #Create a card area
         self.faceUpCardList = []
-        self.faceDownCard = pygame.image.load('images/cardSorry!_small.png').convert_alpha()
+        self.faceDownCard = pygame.image.load('images/topofcard_small.png').convert_alpha()
         self.faceDownCard = pygame.transform.rotozoom(self.faceDownCard, 0, 0.09)
         cardList = ['Sorry!', 1, 2, 3, 4, 5, '', 7, 8, '', 10, 11, 12]
         
@@ -34,9 +41,13 @@ class Playing:
 
         self.card = self.faceDownCard
 
+        ####################Objects####################
+
         #Add playing information to board object
         self.layer = 4
         self.main.activeObj.add(self)
+
+        ####################Status####################
 
         #Show if this player has drawn a card
         self.drawCardBool = False
@@ -46,41 +57,36 @@ class Playing:
         self.pick = ''
         #Show if this player has picked a pawn
         self.pickedPawnBool = False
+        #Show if player can enter relaxed start mode
+        self.relaxedStartbool = True
         
-        #Create a list of player's information
-        self.playerInfoList = self.getPlayerInfoList(playerNum)
+        ####################Card####################
         
         #Show card information
         self.cardInfoList = []
         self.cardInfoList.append(Text(self.main, 750, 150, 14, 'Draw a card', False))
         
+        ####################Messages####################
+        
         #Show option information
         self.optionInfoList = []
+        #Show information
+        self.infoList = []
+        
+        ####################Buttons####################
         
         #Add needed buttons
-        ##############Change image###############
         self.drawButton = PlayingButton(self.main, 750, 175, "draw", "images/draw.png", 0.8, True)
         self.optionButton1 = PlayingButton(self.main, 660, 250, "option1", "images/option.png", 0.8, False)
         self.optionButton2 = PlayingButton(self.main, 660, 300, "option2", "images/option.png", 0.8, False)
-        
-        #Show information
-        self.infoList = []
-
-        #Show if player can enter relaxation start mode
-        self.quickStartbool = True
-        #Add relaxation start button
-        self.relaxationButton = PlayingButton(self.main, 750, 450, "relaxation", "images/relaxedstart.png", 0.8, True)
-        
+        #Add relaxed start button
+        self.relaxedButton = PlayingButton(self.main, 670, 550, "relaxed", "images/relaxedstart.png", 0.8, True)
         #Add skip button
-        self.skipButton = PlayingButton(self.main, 750, 500, "skip", "images/skip.png", 0.8, True)
-        
+        self.skipButton = PlayingButton(self.main, 670, 500, "skip", "images/skip.png", 0.8, True)
         #Add quit button
-        self.quitButton = PlayingButton(self.main, 750, 550, "quit", "images/quit.png", 0.8, True)
-
+        self.quitButton = PlayingButton(self.main, 805, 550, "quit", "images/quit.png", 0.8, True)
         #add save button
-        self.saveButton = PlayingButton(self.main, 750, 400, "save", "images/save.png", 0.8, True)
-
-
+        self.saveButton = PlayingButton(self.main, 805, 500, "save", "images/save.png", 0.8, True)
 
         pass
 
@@ -90,8 +96,6 @@ class Playing:
         """
         self.card = self.faceDownCard
         
-        #Show if this player has drawn a card
-        self.drawCardBool = False
         #Show if this player is ready to pick a pawn
         self.readyToPickPawnBool = False
         #This player is ready to pick his/her pawns or an opponent's pawns
@@ -101,7 +105,10 @@ class Playing:
         
         #Show card information
         self.cardInfoList.clear()
-        self.cardInfoList.append(Text(self.main, 750, 150, 14, 'Draw a card', False))
+        if self.drawCardBool is False:
+            self.cardInfoList.append(Text(self.main, 750, 150, 14, 'Draw a card', False))
+        else:
+            self.cardInfoList.append(Text(self.main, 750, 150, 14, 'Draw the second card', False))
         
         #Show option information
         self.optionInfoList.clear()
@@ -145,8 +152,6 @@ class Playing:
         """
         Show new information for the player of next turn
         """
-
-        
         self.playerIndex = player.playerIndex
         self.playerPosition = player.playerPosition
         self.color = player.color
@@ -158,12 +163,14 @@ class Playing:
         
         self.initialize()
         
-        if self.quickStartbool is True:
+        #Check if the player can enter relaxed start mode
+        if self.relaxedStartbool is True:
             for i in range(self.main.game.playerNum):
                 for j in range(4):
                     if self.main.game.playerList[i].pawnList[j].position['type'] != 'start':
-                        self.quickStartbool = False
-                        self.relaxationButton.visible = False
+                        self.relaxedStartbool = False
+                        self.relaxedButton.visible = False
+                        break
         
         pass
     
@@ -205,7 +212,7 @@ class Playing:
                 self.pick = 'opponent'
                 
                 self.infoList.clear()
-                self.main.game.playing.infoList.append(Text(self.main, 750, 370, 14, 'Select opponent\'s pawn', False))
+                self.main.game.playing.infoList.append(Text(self.main, 700, 370, 16, 'Select opponent\'s pawn', False))
             #Select opponent's pawn to BUMP to Start
             elif self.pick is 'opponent' and pawn.playerPosition is not self.main.game.turn and self.pickedPawnBool is True and pawn.position['type'] is 'track':
                 tmp = {}
@@ -241,6 +248,11 @@ class Playing:
                     pawn.tryToMove(2)
                     self.initialize()
                     self.infoList.clear()
+                #For the player to draw again
+                if pawn.playerPosition is not self.main.game.turn and self.drawCardBool is True:
+                    for i in range(self.main.game.playerNum - 1):
+                        self.drawCardBool = False
+                        self.main.game.nextTurn(True)
         elif self.drawnCard is 3:
             if self.pick is 'own' and pawn.playerPosition is self.main.game.turn and pawn.position['type'] is not 'start':
                 pawn.tryToMove(3)
@@ -252,6 +264,7 @@ class Playing:
                 pawn.tryToMove(5)
 
         #elif self.drawnCard is 7:
+            
 
         elif self.drawnCard is 8:
             if self.pick is 'own' and pawn.playerPosition is self.main.game.turn and pawn.position['type'] is not 'start':
@@ -278,7 +291,7 @@ class Playing:
                 self.pick = 'opponent'
 
                 self.infoList.clear()
-                self.main.game.playing.infoList.append(Text(self.main, 750, 370, 13, 'Select opponent\'s pawn', False))
+                self.main.game.playing.infoList.append(Text(self.main, 700, 370, 16, 'Select opponent\'s pawn', False))
             #Select opponent's pawn to switch
             elif self.pick is 'opponent' and pawn.playerPosition is not self.main.game.turn and self.option is 2 and self.pickedPawnBool is True and pawn.position['type'] is 'track':
                 tmp = {'type': pawn.position['type'], 'side': pawn.position['side'], 'index': pawn.position['index']}
@@ -295,6 +308,8 @@ class Playing:
                 pawn.tryToMove(12)
         
         
+        if self.drawnCard is not 2:
+            self.drawCardBool = False
         
         pass
 
@@ -332,16 +347,12 @@ class PlayingButton:
             elif self.action == "option1":
                 self.main.game.playing.option = 1
                 self.processOption(self.main.game.playing.drawnCard, 1)
-                #self.main.game.playing.optionButton1.visible = False
-                #self.main.game.playing.optionButton2.visible = False
             elif self.action == "option2":
                 self.main.game.playing.option = 2
                 self.processOption(self.main.game.playing.drawnCard, 2)
-                #self.main.game.playing.optionButton1.visible = False
-                #self.main.game.playing.optionButton2.visible = False
             elif self.action == "skip":
                 self.main.game.nextTurn(True)
-            elif self.action == "relaxation":
+            elif self.action == "relaxed":
                 for i in range(self.main.game.playerNum):
                     self.main.game.playerList[i].pawnList[0].position['type'] = 'track'
                     self.main.game.playerList[i].pawnList[0].position['index'] = 4
@@ -440,18 +451,13 @@ class PlayingButton:
                 self.main.game.playing.readyToPickPawnBool = True
                 self.main.game.playing.pick = 'own'
             else:
-                self.main.game.nextTurn()
+                self.main.game.nextTurn(True)
     
-        elif card in [1,2,3,4,5,8,10,11,12]:
+        elif card in [1,2,3,4,5,7,8,10,11,12]:
             self.main.game.playing.readyToPickPawnBool = True
             self.main.game.playing.pick = 'own'
 
-
-        #elif card is 7
-
-
-    
-        self.main.game.playing.infoList.append(Text(self.main, 750, 370, 14, 'Select a pawn', False))
+        self.main.game.playing.infoList.append(Text(self.main, 750, 370, 16, 'Select a pawn', False))
     
         pass
 
@@ -486,7 +492,7 @@ class PlayingButton:
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 170, 13, 'spaces—OR split the forward', False))
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 190, 13, 'move between any two pawns.', False))
         elif card is 8:
-            self.main.game.playing.cardInfoList.append(Text(self.main, 720, 150, 13, 'Move one pawn backward 8 spaces.', False))
+            self.main.game.playing.cardInfoList.append(Text(self.main, 720, 150, 13, 'Move one pawn forward 8 spaces.', False))
         elif card is 10:
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 150, 13, 'Either move one pawn forward 10', False))
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 170, 13, 'spaces—OR move one pawn', False))
@@ -499,7 +505,7 @@ class PlayingButton:
         elif card is 12:
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 150, 13, 'Move one pawn forward 12 spaces', False))
 
-
+        pass
 
 class Text:
     def __init__(self, main, x, y, size, text, underLine):

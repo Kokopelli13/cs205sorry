@@ -39,7 +39,7 @@ class Game:
 
     def drawCard(self):
         """
-        Change this!!!!
+        Draw a card from the deck
         """
         #return int(input("How many steps to move:"))
         steps = self.main.deck.drawNext()
@@ -62,6 +62,7 @@ class Game:
             currentIndex = positionList.index(self.turn)
             nextIndex = (currentIndex+1)%self.playerNum
             self.turn = positionList[nextIndex]
+
 
             self.playing.nextTurn(self.turn, self.playerList[nextIndex])
 
