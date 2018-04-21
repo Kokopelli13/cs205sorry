@@ -103,7 +103,7 @@ class Pawn:
 
         pass
 
-    def tryToMove(self, step):
+    def tryToMove(self, step, finished):
         """
         Try to move after a pawn has been clicked and that pawn is chosen to move
         """
@@ -121,7 +121,8 @@ class Pawn:
         self.status = 'moving'
         
         #Change to next turn
-        self.main.game.nextTurn(allowed)
+        if finished is True:
+            self.main.game.nextTurn(allowed)
         
         pass
     
