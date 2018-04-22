@@ -520,19 +520,13 @@ class Playing:
         elif self.drawnCard is 12:
             self.movePawnOption(12, player, 1)
     
-    
-    
-    
-    
-    
-    
-    
+        #Print all possible moves
+        """
         import pprint
         pp = pprint.PrettyPrinter(indent=4)
         print("^^^^^^^^^^^^^^")
         pp.pprint(self.possibleList)
-    
-
+        """
 
         pass
 
@@ -670,37 +664,6 @@ class PlayingButton:
         Draw a card, change the image, and show card information
         """
         card = self.main.game.drawCard()
-        
-        card = 7
-        
-        """
-        tmp = {'type': 'track', 'side': 'bottom', 'index': 13}
-        self.main.game.playerList[0].pawnList[0].position = tmp
-        tmp = {'type': 'track', 'side': 'left', 'index': 2}
-        self.main.game.playerList[0].pawnList[1].position = tmp
-        tmp = {'type': 'track', 'side': 'left', 'index': 1}
-        self.main.game.playerList[1].pawnList[1].position = tmp
-        tmp = {'type': 'track', 'side': 'left', 'index': 1}
-        self.main.game.playerList[2].pawnList[1].position = tmp
-        tmp = {'type': 'track', 'side': 'right', 'index': 7}
-        self.main.game.playerList[2].pawnList[1].position = tmp
-        
-        tmp = {'type': 'track', 'side': 'left', 'index': 1}
-        self.main.game.playerList[1].pawnList[1].position = tmp
-        tmp = {'type': 'track', 'side': 'left', 'index': 2}
-        self.main.game.playerList[1].pawnList[2].position = tmp
-        
-        tmp = {'type': 'track', 'side': 'bottom', 'index': 9}
-        self.main.game.playerList[0].pawnList[2].position = tmp
-        """
-        
-        tmp = {'type': 'track', 'side': 'bottom', 'index': 13}
-        self.main.game.playerList[0].pawnList[0].position = tmp
-        tmp = {'type': 'track', 'side': 'left', 'index': 6}
-        self.main.game.playerList[0].pawnList[1].position = tmp
-        tmp = {'type': 'track', 'side': 'left', 'index': 2}
-        self.main.game.playerList[1].pawnList[2].position = tmp
-        
 
         self.main.game.playing.drawnCard = card
         if card is 'Sorry!' or card is 0:
