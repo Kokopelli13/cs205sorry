@@ -340,3 +340,124 @@ class Pawn:
             position['home']['right'][i+2] = [(80*(8.3+i)+56)*scale, (80*(1.55+1)+56)*scale]
 
         return position
+
+    def distanceFromHome(self):
+        """
+        Calculate the distance between the original position and the destination position
+        """
+        if self.position['type'] is 'home':
+            distance = 0
+        elif self.position['type'] is 'safetyZone':
+            distance = 5 - self.position['index']
+        elif self.position['type'] is 'start':
+            distance = 65
+        elif self.position['type'] is 'track':
+            if self.position['side'] is self.playerPosition:
+                if self.position['index'] <= 2:
+                    #distance = 3 - position['index'] + 5
+                    distance = 8 - self.position['index']
+                else:
+                    #distance = 15 - position['index'] + 15*3 + 8
+                    distance = 68 - self.position['index']
+            else:
+                fourPosition = ['bottom', 'left', 'top', 'right']
+                
+                index = (fourPosition.index(self.position['side']) + 1) % 4
+                distance = 15 - self.position['index']
+                
+                while (fourPosition[index] is not self.playerPosition):
+                    distance += 15
+                    index = (index+1) % 4
+                distance += 8
+
+        return distance
+
+
+    def fakeMove(self, step):
+        """
+        Make fake move and return information of this move
+        """
+        allowed = True
+        destination = self.position
+        status = 'moving'
+        bumpSelf = 0
+        bumpOther = 0
+        
+        for i in range(abs(step)):
+            destination = self.fakeGetNext(destination, step)
+        status, tmpBumpSelf, tmpBumpOther = self.fakeCheckCollision(destination, status)
+        bumpSelf += tmpBumpSelf
+        bumpOther += tmpBumpOther
+        
+        if status is 'notAllowed': #If this pawn cannot move, ignore
+            return None, bumpSelf, bumpOther
+        status = 'moving'
+        
+        #If the destination is on the triangle of slide section in different color, slide to the end
+        step = self.checkSlideStep(destination)
+        status = 'sliding'
+        if step is not 0:
+            for i in range(step):
+                destination = self.fakeGetNext(destination, step)
+                status, tmpBumpSelf, tmpBumpOther = self.fakeCheckCollision(destination, status)
+                bumpSelf += tmpBumpSelf
+                bumpOther += tmpBumpOther
+        
+        return destination, bumpSelf, bumpOther
+    
+    def fakeCheckCollision(self, destination, status):
+        """
+        Check if the pawn will bump any pawns or overmove after entering home
+        """
+        bumpSelf = 0
+        bumpOther = 0
+        
+        #If a pawn is already at home, it cannot move
+        if destination['type'] is 'wrong':
+            print("Pawns cannot move to the destination")
+            return 'notAllowed', 0, 0
+
+        #Check if there's any pawn at the destination
+        for obj in self.main.activeObj:
+            if obj is not self and obj.layer == 2 and obj.position['side'] is destination['side'] and obj.position['index'] is destination['index'] and obj.position['type'] is destination['type']:
+                #If there's a pawn in the same color, this move is not allowed
+                if obj.color is self.color and status is 'moving':
+                    print("Pawns cannot move to the position of any other pawns in the same color")
+                    return 'notAllowed', bumpSelf, bumpOther
+                #If this pawn is sliding, bump all pawns, and
+                #if this pawn is moving and there's a pawn in different color, bump it
+                else:
+                    if obj.playerPosition is self.playerPosition:
+                        bumpSelf += 1
+                    else:
+                        bumpOther += 1
+                    return None, bumpSelf, bumpOther
+
+        return 'safe', bumpSelf, bumpOther
+
+    def fakeGetNext(self, position, step):
+        """
+        Decide to move forward or backward based on the steps left
+        """
+        if step > 0:
+            destination = self.moveForward(position)
+        elif step < 0:
+            destination = self.moveBackward(position)
+        else:
+            destination = {'type':'wrong', 'side':side, 'index':index}
+                            
+        return destination
+
+    def fakeCheckSlideStep(self, destination, playerPosition):
+        """
+        Return the steps to slide or return 0 if it not the triangle of a slide area
+        """
+        slide = 0
+        #Slide
+        if destination['type'] is 'track' and destination['side'] is not playerPosition:
+            if destination['index'] is 1: #Slide 3 steps
+                slide = 3
+            elif destination['index'] is 9: #Slide 4 steps
+                slide = 4
+
+        return slide
