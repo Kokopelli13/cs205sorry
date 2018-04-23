@@ -31,7 +31,7 @@ class Game:
         playerSetting = [self.main.pc0difficulty, self.main.pc1difficulty, self.main.pc2difficulty, self.main.pc3difficulty]
         self.playerList = []
         for i in range(self.playerNum):
-            #print("\nCreate a", fourColor[(playerColorIndex+i)%4], "player at", fourPosition[i], "side\n")
+            print("\nCreate a", fourColor[(playerColorIndex+i)%4], "player at", fourPosition[i], "side\n")
             self.playerList.append(Player(self.main, i, fourPosition[i], fourColor[(playerColorIndex+i)%4], playerSetting[i]))
 
         self.playing = Playing(self.main, self.turn, self.playerList[0], self.playerNum)
@@ -80,7 +80,7 @@ class Game:
             steps = 0
         else:
             steps = int(steps)
-            #print('moving ' + str(steps) + ' steps')
+            print('moving ' + str(steps) + ' steps')
         return steps
 
     def nextTurn(self, allowed):
@@ -113,11 +113,10 @@ class Game:
         """
         self.playing.drawButton.onClick()
 
-        index, move = self.chooseRandomMove()
+        move = self.chooseMove()
 
         self.main.processRendering()
         self.delayGame(5)
-
 
         if move is None:
             self.playing.skipButton.onClick()
@@ -162,25 +161,121 @@ class Game:
         Randomly return a possible move
         """
         if len(self.playing.possibleList) is 0:
-            return 0, None
+            return None
         index = random.randrange(len(self.playing.possibleList))
         possibleMove = self.playing.possibleList[index]
 
-        return index, possibleMove
+        return possibleMove
+
+    def bestMoveMeanSmart(self):
+        score = -50
+        if len(self.playing.possibleList) is 0:
+            return None
+        for i in range(0, len(self.playing.possibleList)):
+            currentScore = self.playing.possibleList[i]['forward']
+            print(self.playing.possibleList[i])
+            if self.playing.possibleList[i]['destination']['type'] == 'track' and self.playing.possibleList[i]['firstPawn'].position['type'] == 'start':
+                currentScore += 10
+
+            elif self.playing.possibleList[i]['destination']['type'] == 'safetyZone' and self.playing.possibleList[i]['firstPawn'].position['type'] == 'track':
+                currentScore += 10
+
+            elif self.playing.possibleList[i]['destination']['type'] == 'home':
+                currentScore += 30
+
+            currentScore -= self.playing.possibleList[i]['bumpSelf'] * 50
+            currentScore += self.playing.possibleList[i]['bumpOther'] * 30
+
+            if currentScore > score:
+                score = currentScore
+                index = i
+
+        return self.playing.possibleList[index]
+
+    def bestMoveMeanDumb(self):
+        score = -50
+        if len(self.playing.possibleList) is 0:
+            return None
+        for i in range(0, len(self.playing.possibleList)):
+
+            currentScore = self.playing.possibleList[i]['bumpOther'] * 30
+
+            if currentScore > score:
+                score = currentScore
+                index = i
+
+        return self.playing.possibleList[index]
+
+    def bestMoveNiceSmart(self):
+        score = -50
+        if len(self.playing.possibleList) is 0:
+            return None
+        for i in range(0, len(self.playing.possibleList)):
+            currentScore = self.playing.possibleList[i]['forward']
+
+            if self.playing.possibleList[i]['destination']['type'] == 'track' and self.playing.possibleList[i]['firstPawn'].position['type'] == 'start':
+                currentScore += 10
+
+            elif self.playing.possibleList[i]['destination']['type'] == 'safetyZone' and self.playing.possibleList[i]['firstPawn'].position['type'] == 'track':
+                currentScore += 10
+
+            elif self.playing.possibleList[i]['destination']['type'] == 'home':
+                currentScore += 30
+
+            currentScore -= self.playing.possibleList[i]['bumpSelf'] * 50
+            currentScore -= self.playing.possibleList[i]['bumpOther'] * 30
+
+            if currentScore > score:
+                score = currentScore
+                index = i
+
+        return self.playing.possibleList[index]
+
+    def bestMoveNiceDumb(self):
+        score = -50
+        if len(self.playing.possibleList) is 0:
+            return None
+        for i in range(0, len(self.playing.possibleList)):
+
+            currentScore = self.playing.possibleList[i]['bumpOther'] * 30
+
+            if currentScore > score:
+                score = currentScore
+                index = i
+
+        return self.playing.possibleList[index]
+
+    def chooseMove(self):
+        #determines which computers turn and their difficulty
+        if self.turn == 'left':
+            difficulty = self.main.pc1difficulty
+        elif self.turn == 'top':
+            difficulty = self.main.pc2difficulty
+        elif self.turn == 'right':
+            difficulty = self.main.pc3difficulty
+
+        #returns function with proper difficulty
+        if difficulty == 'meansmart':
+            return self.bestMoveMeanSmart()
+        elif difficulty == 'meandumb':
+            return self.bestMoveMeanDumb()
+        elif difficulty == 'nicesmart':
+            return self.bestMoveNiceSmart()
+        elif difficulty == 'nicedumb':
+            return self.bestMoveNiceDumb()
+
 
     def checkEndGame(self):
         """
         Check if there's anyone winning the game
         """
-        end = False
         homeCount = 0
         for i in range(self.playerNum):
             for j in range(4):
                 if self.playerList[i].pawnList[j].position['type'] is 'home':
                     homeCount += 1
-            if homeCount is 1 and not end:
+            if homeCount is 4:
                 self.endGame(i)
-                end = True
             else:
                 homeCount = 0
         pass
@@ -192,7 +287,6 @@ class Game:
         winner = self.playerList[playerIndex]
         print("Winner")
         print(winner.color)
-        self.main.win(winner.color)
 
         pass
 

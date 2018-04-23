@@ -458,18 +458,18 @@ class Playing:
                             distanceFromHome = self.distanceFromHome(destination, firstPawn.playerPosition)
                             forward = self.distanceFromHome(firstPawn.position, firstPawn.playerPosition) - distanceFromHome
 
-                        #Loop for second pawn
-                        for j in range(i+1,4):
-                            index = len(self.possibleList)
-                            secondPawn = player.pawnList[j]
-                            if secondPawn.position['type'] is 'track' or secondPawn.position['type'] is 'safetyZone':
-                                destination2, bumpSelf2, bumpOther2 = secondPawn.fakeMove(7-steps)
-                                if destination2 is not None:
-                                    distanceFromHome2 = self.distanceFromHome(destination2, secondPawn.playerPosition)
-                                    forward2 = self.distanceFromHome(secondPawn.position, secondPawn.playerPosition) - distanceFromHome2
-                                    #Append dictionary to list
-                                    possibleMove = {'option': 2, 'index': index, 'firstPawn': firstPawn, 'secondPawn': secondPawn, 'forward': forward+forward2, 'distanceFromHome': distanceFromHome+distanceFromHome2, 'destination': destination, 'bumpSelf': bumpSelf+bumpSelf2, 'bumpOther': bumpOther+bumpOther2, 'move': steps}
-                                    self.possibleList.append(possibleMove)
+                            #Loop for second pawn
+                            for j in range(i+1,4):
+                                index = len(self.possibleList)
+                                secondPawn = player.pawnList[j]
+                                if secondPawn.position['type'] is 'track' or secondPawn.position['type'] is 'safetyZone':
+                                    destination2, bumpSelf2, bumpOther2 = secondPawn.fakeMove(7-steps)
+                                    if destination2 is not None:
+                                        distanceFromHome2 = self.distanceFromHome(destination2, secondPawn.playerPosition)
+                                        forward2 = self.distanceFromHome(secondPawn.position, secondPawn.playerPosition) - distanceFromHome2
+                                        #Append dictionary to list
+                                        possibleMove = {'option': 2, 'index': index, 'firstPawn': firstPawn, 'secondPawn': secondPawn, 'forward': forward+forward2, 'distanceFromHome': distanceFromHome+distanceFromHome2, 'destination': destination, 'bumpSelf': bumpSelf+bumpSelf2, 'bumpOther': bumpOther+bumpOther2, 'move': steps}
+                                        self.possibleList.append(possibleMove)
 
         elif self.drawnCard is 8:
             self.movePawnOption(8, player, 1)
