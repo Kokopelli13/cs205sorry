@@ -259,7 +259,6 @@ class Button:
         self.main.gameStarted = True
 
 
-
     def setUpBoard(self):
         finished = True
         if self.main.numPlayers == "one" and self.main.pc1difficulty == '':
