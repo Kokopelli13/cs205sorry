@@ -9,6 +9,7 @@
 import pygame
 from player import Player
 from playing import Playing
+import random
 
 
 class Game:
@@ -35,6 +36,38 @@ class Game:
 
         self.playing = Playing(self.main, self.turn, self.playerList[0], self.playerNum)
 
+
+        #Add playing information to board object
+        self.layer = 4
+        self.main.activeObj.add(self)
+
+        self.nextTurnBool = False
+        
+        pass
+
+    def draw(self):
+        self.rect = pygame.Rect(0,0,0,0)
+        pass
+    
+    def onClick(self):
+        pass
+    
+    def tick(self):
+        if self.nextTurnBool is True:
+            fourPosition = ['bottom', 'left', 'top', 'right']
+            currentIndex = fourPosition.index(self.lastTurn)
+            for pawn in self.playerList[currentIndex].pawnList:
+                if pawn.finishMovingBool is False:
+                    #Add this print function to slow down the program to avoid problems
+                    #Really weird!! It might be the issue of race condition
+                    #print("#######Pawn's still moving")
+                    return
+            nextIndex = fourPosition.index(self.turn)
+            self.playing.nextTurn(self.turn, self.playerList[nextIndex])
+            self.nextTurnBool = False
+    
+            if self.turn is not 'bottom':
+                self.computerMove()
         pass
 
     def drawCard(self):
@@ -57,16 +90,83 @@ class Game:
         self.checkEndGame()
 
         if allowed is True:
+            if self.turn is not 'bottom':
+                self.main.processRendering()
+                self.delayGame(10)
+                
+            self.lastTurn = self.turn
+            
             fourPosition = ['bottom', 'left', 'top', 'right']
             positionList = fourPosition[:self.playerNum]
             currentIndex = positionList.index(self.turn)
             nextIndex = (currentIndex+1)%self.playerNum
             self.turn = positionList[nextIndex]
 
-
-            self.playing.nextTurn(self.turn, self.playerList[nextIndex])
+            self.nextTurnBool = True
+            #self.playing.nextTurn(self.turn, self.playerList[nextIndex])
 
         pass
+    
+    def computerMove(self):
+        """
+        Computer plays automatically
+        """
+        self.playing.drawButton.onClick()
+        
+        index, move = self.chooseRandomMove()
+        
+        self.main.processRendering()
+        self.delayGame(5)
+
+        
+        if move is None:
+            self.playing.skipButton.onClick()
+            return
+
+        if move['option'] is 1:
+            self.playing.optionButton1.onClick()
+        else:
+            self.playing.optionButton2.onClick()
+        
+        firstPawn = move['firstPawn']
+        secondPawn = move['secondPawn']
+        
+        #All cards but 7
+        if self.playing.drawnCard is not 7:
+            if firstPawn is not None:
+                firstPawn.onClick()
+            if secondPawn is not None:
+                secondPawn.onClick()
+        #Card 7
+        else:
+            if move['option'] is 1:
+                firstPawn.onClick()
+            else:
+                #The first pawn
+                numberButtons = [None, self.playing.numButton1, self.playing.numButton2, self.playing.numButton3, self.playing.numButton4, self.playing.numButton5, self.playing.numButton6]
+                firstPawn.onClick()
+                numberButtons[move['move']].onClick()
+                secondPawn.onClick()
+
+        pygame.display.update()
+        
+        pass
+    
+    def delayGame(self, loop):
+        for i in range(loop):
+            pygame.display.update()
+        pass
+    
+    def chooseRandomMove(self):
+        """
+        Randomly return a possible move
+        """
+        if len(self.playing.possibleList) is 0:
+            return 0, None
+        index = random.randrange(len(self.playing.possibleList))
+        possibleMove = self.playing.possibleList[index]
+    
+        return index, possibleMove
 
     def checkEndGame(self):
         """

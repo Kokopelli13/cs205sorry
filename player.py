@@ -53,6 +53,9 @@ class Pawn:
         #Movement variables
         self.moveStep = 0
         self.lastStep = 0
+        
+        #Check if this pawn has finished moving
+        self.finishMovingBool = True
 
         pass
 
@@ -68,6 +71,8 @@ class Pawn:
     def tick(self):
         #if there are moves this pawn needs to make, lets make one
         if(self.moveStep > 0 or self.moveStep < 0) and (time.clock() - self.lastStep > 0.35):
+            self.finishMovingBool = False
+            
             offset = 0
             #debug output
             print('move ' + str(self.moveStep) + ', ' + str(self.position))
@@ -91,6 +96,11 @@ class Pawn:
                     offset = 0.25
             #finally mark the time we made this move
             self.lastStep = offset + time.clock()
+    
+            if self.moveStep is 0:
+                self.finishMovingBool = True
+                #self.draw()
+                self.main.processRendering()
 
         pass
             

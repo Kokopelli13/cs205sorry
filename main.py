@@ -71,8 +71,14 @@ class Main:
                     sys.exit()
 
     def processGame(self):
+        for i in range(0, 5):
+            for obj in self.activeObj:
+                if(obj.layer == i):
+                    obj.tick()
+        """
         for obj in self.activeObj:
             obj.tick()
+        """
 
     def processRendering(self):
         #always draw the background first

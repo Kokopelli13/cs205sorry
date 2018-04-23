@@ -82,7 +82,7 @@ class Playing:
         #Add relaxed start button
         self.relaxedButton = PlayingButton(self.main, 670, 550, "relaxed", "images/relaxedstart.png", 0.8, True)
         #Add skip button
-        self.skipButton = PlayingButton(self.main, 670, 500, "skip", "images/skip.png", 0.8, True)
+        self.skipButton = PlayingButton(self.main, 670, 500, "skip", "images/skip.png", 0.8, False)
         #Add quit button
         self.quitButton = PlayingButton(self.main, 805, 550, "quit", "images/quit.png", 0.8, True)
         #add save button
@@ -408,17 +408,16 @@ class Playing:
                                             bumpSelf += tmpBumpSelf
                                             bumpOther += tmpBumpOther
                                     #Add this move to the list
-                                    following = len(self.possibleList)
-                                    self.appendPossibleMove(1, following, firstPawn, secondPawn, destination, bumpSelf, bumpOther, 0)
+                                    index = len(self.possibleList)
+                                    self.appendPossibleMove(1, index, firstPawn, secondPawn, destination, bumpSelf, bumpOther, 0)
         elif self.drawnCard is 1:
             #Option 1 : Start a pawn
             for firstPawn in player.pawnList:
                 if firstPawn.position['type'] is 'start':
                     destination, bumpSelf, bumpOther = firstPawn.fakeMove(1)
-                    print(destination)
                     if destination is not None:
-                        following = len(self.possibleList)
-                        self.appendPossibleMove(1, following, firstPawn, None, destination, bumpSelf, bumpOther, 1)
+                        index = len(self.possibleList)
+                        self.appendPossibleMove(1, index, firstPawn, None, destination, bumpSelf, bumpOther, 1)
             #Option 2 : Move a pawn
             self.movePawnOption(1, player, 2)
 
@@ -427,10 +426,9 @@ class Playing:
             for firstPawn in player.pawnList:
                 if firstPawn.position['type'] is 'start':
                     destination, bumpSelf, bumpOther = firstPawn.fakeMove(1)
-                    print(destination)
                     if destination is not None:
-                        following = len(self.possibleList)
-                        self.appendPossibleMove(1, following, firstPawn, None, destination, bumpSelf, bumpOther, 2)
+                        index = len(self.possibleList)
+                        self.appendPossibleMove(1, index, firstPawn, None, destination, bumpSelf, bumpOther, 1)
             #Option 2 : Move a pawn
             self.movePawnOption(2, player, 2)
 
@@ -452,23 +450,24 @@ class Playing:
                     #For different selected steps from 1 to 6
                     for steps in range(1, 7):
                         #Store the first pawn's information
-                        following = len(self.possibleList)
                         destination, bumpSelf, bumpOther = firstPawn.fakeMove(steps)
                         if destination is not None:
-                            self.appendPossibleMove(2, following, firstPawn, None, destination, bumpSelf, bumpOther, steps)
+                            distanceFromHome = self.distanceFromHome(destination, firstPawn.playerPosition)
+                            forward = self.distanceFromHome(firstPawn.position, firstPawn.playerPosition) - distanceFromHome
                         
                         #Loop for second pawn
                         for j in range(i+1,4):
+                            index = len(self.possibleList)
                             secondPawn = player.pawnList[j]
                             if secondPawn.position['type'] is 'track' or secondPawn.position['type'] is 'safetyZone':
-                                destination, bumpSelf, bumpOther = secondPawn.fakeMove(7-steps)
-                                if destination is not None:
-                                    self.appendPossibleMove(2, following, None, secondPawn, destination, bumpSelf, bumpOther, 7-steps)
-
-                        #There is no possible move for second pawn
-                        if len(self.possibleList)-1 is following:
-                            self.possibleList.pop(-1)
-
+                                destination2, bumpSelf2, bumpOther2 = secondPawn.fakeMove(7-steps)
+                                if destination2 is not None:
+                                    distanceFromHome2 = self.distanceFromHome(destination2, secondPawn.playerPosition)
+                                    forward2 = self.distanceFromHome(secondPawn.position, secondPawn.playerPosition) - distanceFromHome2
+                                    #Append dictionary to list
+                                    possibleMove = {'option': 2, 'index': index, 'firstPawn': firstPawn, 'secondPawn': secondPawn, 'forward': forward+forward2, 'distanceFromHome': distanceFromHome+distanceFromHome2, 'destination': destination, 'bumpSelf': bumpSelf+bumpSelf2, 'bumpOther': bumpOther+bumpOther2, 'move': steps}
+                                    self.possibleList.append(possibleMove)
+                                    
         elif self.drawnCard is 8:
             self.movePawnOption(8, player, 1)
         elif self.drawnCard is 10:
@@ -502,8 +501,8 @@ class Playing:
                                             bumpSelf += tmpBumpSelf
                                             bumpOther += tmpBumpOther
                                     #Add this move to the list
-                                    following = len(self.possibleList)
-                                    self.appendPossibleMove(2, following, firstPawn, secondPawn, destination, bumpSelf, bumpOther, 11)
+                                    index = len(self.possibleList)
+                                    self.appendPossibleMove(2, index, firstPawn, secondPawn, destination, bumpSelf, bumpOther, 11)
                                     """This is still wrong, so I commented it out
                                     #Check if second pawn is on the triangle of a slide area
                                     step = secondPawn.fakeCheckSlideStep(secondPawn.position, secondPawn.playerPosition)
@@ -521,16 +520,16 @@ class Playing:
             self.movePawnOption(12, player, 1)
     
         #Print all possible moves
-        """
+
         import pprint
         pp = pprint.PrettyPrinter(indent=4)
-        print("^^^^^^^^^^^^^^")
+        print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
         pp.pprint(self.possibleList)
-        """
+
 
         pass
 
-    def appendPossibleMove(self, option, following, firstPawn, secondPawn, destination, bumpSelf, bumpOther, move):
+    def appendPossibleMove(self, option, index, firstPawn, secondPawn, destination, bumpSelf, bumpOther, move):
         """
         Append all information of this possible move to the list
         """
@@ -540,10 +539,10 @@ class Playing:
             pawn = firstPawn
         #Calculate distance
         distanceFromHome = self.distanceFromHome(destination, pawn.playerPosition)
-        forward = pawn.distanceFromHome() - distanceFromHome
+        forward = self.distanceFromHome(pawn.position, pawn.playerPosition) - distanceFromHome
         
         #Append dictionary to list
-        possibleMove = {'option': option, 'following': following, 'firstPawn': firstPawn, 'secondPawn': secondPawn, 'forward': forward, 'distanceFromHome': distanceFromHome, 'destination': destination, 'bumpSelf': bumpSelf, 'bumpOther': bumpOther, 'move': move}
+        possibleMove = {'option': option, 'index': index, 'firstPawn': firstPawn, 'secondPawn': secondPawn, 'forward': forward, 'distanceFromHome': distanceFromHome, 'destination': destination, 'bumpSelf': bumpSelf, 'bumpOther': bumpOther, 'move': move}
         self.possibleList.append(possibleMove)
         
         pass
@@ -558,8 +557,8 @@ class Playing:
                 if firstPawn.position['type'] is 'track' or firstPawn.position['type'] is 'safetyZone':
                     destination, bumpSelf, bumpOther = firstPawn.fakeMove(steps)
                     if destination is not None:
-                        following = len(self.possibleList)
-                        self.appendPossibleMove(option, following, firstPawn, None, destination, bumpSelf, bumpOther, steps)
+                        index = len(self.possibleList)
+                        self.appendPossibleMove(option, index, firstPawn, None, destination, bumpSelf, bumpOther, steps)
     
         pass
     
@@ -636,6 +635,7 @@ class PlayingButton:
             elif self.action == "skip":
                 self.main.game.playing.drawCardBool = False
                 self.main.game.nextTurn(True)
+                self.main.game.playing.skipButton.visible = False
             elif self.action == "relaxed":
                 for i in range(self.main.game.playerNum):
                     self.main.game.playerList[i].pawnList[0].position['type'] = 'track'
@@ -685,6 +685,10 @@ class PlayingButton:
         
         #Check if there's any move this player can take
         self.main.game.playing.checkPossibleMove(card)
+        if len(self.main.game.playing.possibleList) is 0:
+            self.main.game.playing.skipButton.visible = True
+        else:
+            self.main.game.playing.skipButton.visible = False
     
         return card
 
