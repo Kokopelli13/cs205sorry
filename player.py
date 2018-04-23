@@ -53,7 +53,7 @@ class Pawn:
         #Movement variables
         self.moveStep = 0
         self.lastStep = 0
-        
+
         #Check if this pawn has finished moving
         self.finishMovingBool = True
 
@@ -72,10 +72,10 @@ class Pawn:
         #if there are moves this pawn needs to make, lets make one
         if(self.moveStep > 0 or self.moveStep < 0) and (time.clock() - self.lastStep > 0.35):
             self.finishMovingBool = False
-            
+
             offset = 0
             #debug output
-            print('move ' + str(self.moveStep) + ', ' + str(self.position))
+            #print('move ' + str(self.moveStep) + ', ' + str(self.position))
             #get destination to move to
             destination = self.getNext(self.position)
             #When sliding, the pawn bumps all pawns on the way to the start
@@ -96,14 +96,14 @@ class Pawn:
                     offset = 0.25
             #finally mark the time we made this move
             self.lastStep = offset + time.clock()
-    
+
             if self.moveStep is 0:
                 self.finishMovingBool = True
                 #self.draw()
                 self.main.processRendering()
 
         pass
-            
+
     def onClick(self):
         """
         When a pawn is clicked, this function will be called and move the pawn if possible
@@ -124,18 +124,18 @@ class Pawn:
         for i in range(abs(self.moveStep)):
             destination = self.getNext(destination)
         self.status = self.checkCollision(destination, self.status)
-        
+
         if self.status is 'notAllowed': #If this pawn cannot move, ignore
             self.moveStep = 0
             allowed = False
         self.status = 'moving'
-        
+
         #Change to next turn
         if finished is True:
             self.main.game.nextTurn(allowed)
-        
+
         pass
-    
+
     def checkCollision(self, destination, status):
         """
         Check if the pawn will bump any pawns or overmove after entering home
@@ -157,6 +157,10 @@ class Pawn:
                 else:
                     print("Bump the pawn to the start")
                     self.bump(obj)
+                    if self.main.game.turn is 'bottom':
+                        self.main.playersBumped += 1
+                        print('BUMP')
+                        print(self.main.playersBumped)
                     return
 
         return 'safe'
@@ -190,6 +194,9 @@ class Pawn:
         Change the position of a pawn to the destination
         """
         self.position = destination
+        for pawn in self.main.game.playerList[self.playerIndex].pawnList:
+            pawn.pawn = pygame.image.load('images/pawn_' + pawn.color + '_small.png').convert_alpha()
+            pawn.pawn = pygame.transform.rotozoom(pawn.pawn, 0, 1)
 
         pass
 
@@ -244,7 +251,7 @@ class Pawn:
             destination = position
 
         return destination
-    
+
     def moveBackward(self, position):
         """
         Move backward and return the next position of current position
@@ -252,7 +259,7 @@ class Pawn:
         type = position['type']
         side = position['side']
         index = position['index']
-        
+
         #If the pawn is on the track
         if type is 'track':
             if index is 0: #Move back from the corner
@@ -261,7 +268,7 @@ class Pawn:
                 destination = {'type':'track', 'side':fourPosition[(currentIndex+-1+4)%4], 'index':14}
             else: #Stay on the track
                 destination = {'type':'track', 'side':side, 'index':index-1}
-                
+
         #If the pawn is in safety zone
         elif type is 'safetyZone':
             if index is 0: #Move out to track
@@ -272,7 +279,7 @@ class Pawn:
         #If the pawn is in start
         elif type is 'start': #Cannot move backward from start
             destination = {'type':'wrong', 'side':side, 'index':index}
-            
+
         #If the pawn is at home
         elif type is 'home': #Cannot move backward from home
             destination = {'type':'wrong', 'side':side, 'index':index}
@@ -371,10 +378,10 @@ class Pawn:
                     distance = 68 - self.position['index']
             else:
                 fourPosition = ['bottom', 'left', 'top', 'right']
-                
+
                 index = (fourPosition.index(self.position['side']) + 1) % 4
                 distance = 15 - self.position['index']
-                
+
                 while (fourPosition[index] is not self.playerPosition):
                     distance += 15
                     index = (index+1) % 4
@@ -392,17 +399,17 @@ class Pawn:
         status = 'moving'
         bumpSelf = 0
         bumpOther = 0
-        
+
         for i in range(abs(step)):
             destination = self.fakeGetNext(destination, step)
         status, tmpBumpSelf, tmpBumpOther = self.fakeCheckCollision(destination, status)
         bumpSelf += tmpBumpSelf
         bumpOther += tmpBumpOther
-        
+
         if status is 'notAllowed': #If this pawn cannot move, ignore
             return None, bumpSelf, bumpOther
         status = 'moving'
-        
+
         #If the destination is on the triangle of slide section in different color, slide to the end
         step = self.checkSlideStep(destination)
         status = 'sliding'
@@ -412,16 +419,16 @@ class Pawn:
                 status, tmpBumpSelf, tmpBumpOther = self.fakeCheckCollision(destination, status)
                 bumpSelf += tmpBumpSelf
                 bumpOther += tmpBumpOther
-        
+
         return destination, bumpSelf, bumpOther
-    
+
     def fakeCheckCollision(self, destination, status):
         """
         Check if the pawn will bump any pawns or overmove after entering home
         """
         bumpSelf = 0
         bumpOther = 0
-        
+
         #If a pawn is already at home, it cannot move
         if destination['type'] is 'wrong':
             print("Pawns cannot move to the destination")
@@ -455,7 +462,7 @@ class Pawn:
             destination = self.moveBackward(position)
         else:
             destination = {'type':'wrong', 'side':side, 'index':index}
-                            
+
         return destination
 
     def fakeCheckSlideStep(self, destination, playerPosition):

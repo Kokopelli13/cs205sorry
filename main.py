@@ -1,5 +1,6 @@
 import sys, time, pygame
 from menu import Menu
+from menu import WinScreen
 from board import Board
 
 
@@ -28,15 +29,19 @@ class Main:
         self.pc2difficulty = ''
         self.pc3difficulty = ''
         self.numPlayers = ''
+        #statistics
+        self.turnsTaken = 1
+        self.spacesMoved = 0
+        self.playersBumped = 0
+        self.bumpedByOthers = 0
+        self.cardsDrawn = 0
         #set up gui
         self.menu = Menu(self)
-        
         #Show if the main loop should stop
         self.stop = False
-
         self.main()
-    
-    
+
+
     def main(self):
         #main loop
         while 1:
@@ -44,22 +49,22 @@ class Main:
                 self.processEvents()
                 self.processGame()
                 self.processRendering()
-                self.clock.tick(60) #run at 60 fps, we don't need more and its extra processing work
+                #self.clock.tick(60) #run at 60 fps, we don't need more and its extra processing work
             else:
                 self.initialize()
 
-                
+
     def processEvents(self):
         #lets look at all the events that have happened
         for event in pygame.event.get():
             #handle mouse clicks
             if event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
-                print('mouse') #debug
+                #print('mouse') #debug
                 #print(pygame.mouse.get_pos())
                 #go through all the active objects to see if any of them were clicked on
                 for obj in self.activeObj:
                     if obj.rect.collidepoint(pygame.mouse.get_pos()):
-                        print(obj) #debug
+                        #print(obj) #debug
                         obj.onClick()
             #handle clicking the close button
             if event.type == pygame.QUIT: #Exit button
@@ -97,11 +102,19 @@ class Main:
         #finally render the frame
         pygame.display.update()
 
+    def win(self, color):
+        self.winscreen = WinScreen(self, color)
+        #self.quit()
 
     def quit(self):
         """
         Change the stop variable to stop the main loop
         """
+        self.turnsTaken = 1
+        self.spacesMoved = 0
+        self.playersBumped = 0
+        self.bumpedByOthers = 0
+        self.cardsDrawn = 0
         self.stop = True
         pass
 

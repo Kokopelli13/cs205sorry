@@ -15,28 +15,28 @@ class Save:
 
 
     def save(self):
-        print("")
+        #print("")
         print("""Saving the game""")
         #player AI
         current_player = self.main.game.turn
         num_players = self.main.numPlayers
 
-        print("Current player: ", current_player)
+        #print("Current player: ", current_player)
         if num_players == "one":
             num_players = 1
         if num_players == "two":
             num_players = 2
         if num_players == "three":
             num_players = 3
-        print("Numbers of computer players: ", num_players)
+        #print("Numbers of computer players: ", num_players)
 
         # #player 0 which is THE player
-        print("Player 1 information")
+        #print("Player 1 information")
         player1_index = self.playerList[0].playerIndex
         player1_color = self.playerList[0].color
         player1_location = self.playerList[0].playerPosition
-        print(player1_color)
-        print(player1_location)
+        #print(player1_color)
+        #print(player1_location)
 
         # #player1 pawn info. pawnlist should have its own index, playerindex, playerposition, and color
         # #just need to store pawnlist and playerlist
@@ -44,21 +44,21 @@ class Save:
         player1_pawn2_info = self.playerList[0].pawnList[1].position
         player1_pawn3_info = self.playerList[0].pawnList[2].position
         player1_pawn4_info = self.playerList[0].pawnList[3].position
-        print(player1_pawn1_info)
-        print(player1_pawn2_info)
-        print(player1_pawn3_info)
-        print(player1_pawn4_info)
+        #print(player1_pawn1_info)
+        #print(player1_pawn2_info)
+        #print(player1_pawn3_info)
+        #print(player1_pawn4_info)
         #
         #
         # #player 2
         # #player 0 which is THE player
-        print("Player 2 information")
+        #print("Player 2 information")
         player2_AI = self.main.pc1difficulty
         player2_index = self.playerList[1].playerIndex
         player2_color = self.playerList[1].color
         player2_location = self.playerList[1].playerPosition
-        print(player2_color)
-        print(player2_location)
+        #print(player2_color)
+        #print(player2_location)
 
         # #player1 pawn info. pawnlist should have its own index, playerindex, playerposition, and color
         # #just need to store pawnlist and playerlist
@@ -66,22 +66,22 @@ class Save:
         player2_pawn2_info = self.playerList[1].pawnList[1].position
         player2_pawn3_info = self.playerList[1].pawnList[2].position
         player2_pawn4_info = self.playerList[1].pawnList[3].position
-        print(player2_pawn1_info)
-        print(player2_pawn2_info)
-        print(player2_pawn3_info)
-        print(player2_pawn4_info)
+        #print(player2_pawn1_info)
+        #print(player2_pawn2_info)
+        #print(player2_pawn3_info)
+        #print(player2_pawn4_info)
         #
 
         if num_players > 1:
             # #player 3
             # #player 0 which is THE player
-            print("Player 3 information")
+            #print("Player 3 information")
             player3_AI = self.main.pc2difficulty
             player3_index = self.playerList[2].playerIndex
             player3_color = self.playerList[2].color
             player3_location = self.playerList[2].playerPosition
-            print(player3_color)
-            print(player3_location)
+            #print(player3_color)
+            #print(player3_location)
 
             # #player1 pawn info. pawnlist should have its own index, playerindex, playerposition, and color
             # #just need to store pawnlist and playerlist
@@ -89,22 +89,22 @@ class Save:
             player3_pawn2_info = self.playerList[2].pawnList[1].position
             player3_pawn3_info = self.playerList[2].pawnList[2].position
             player3_pawn4_info = self.playerList[2].pawnList[3].position
-            print(player3_pawn1_info)
-            print(player3_pawn2_info)
-            print(player3_pawn3_info)
-            print(player3_pawn4_info)
+            #print(player3_pawn1_info)
+            #print(player3_pawn2_info)
+            #print(player3_pawn3_info)
+            #print(player3_pawn4_info)
         #
 
         if num_players > 2:
             # #player 4
             # #player 0 which is THE player
-            print("Player 4 information")
+            #print("Player 4 information")
             player4_AI = self.main.pc3difficulty
             player4_index = self.playerList[3].playerIndex
             player4_color = self.playerList[3].color
             player4_location = self.playerList[3].playerPosition
-            print(player4_color)
-            print(player4_location)
+            #print(player4_color)
+            #print(player4_location)
 
             # #player1 pawn info. pawnlist should have its own index, playerindex, playerposition, and color
             # #just need to store pawnlist and playerlist
@@ -112,24 +112,24 @@ class Save:
             player4_pawn2_info = self.playerList[3].pawnList[1].position
             player4_pawn3_info = self.playerList[3].pawnList[2].position
             player4_pawn4_info = self.playerList[3].pawnList[3].position
-            print(player4_pawn1_info)
-            print(player4_pawn2_info)
-            print(player4_pawn3_info)
-            print(player4_pawn4_info)
+            #print(player4_pawn1_info)
+            #print(player4_pawn2_info)
+            #print(player4_pawn3_info)
+            #print(player4_pawn4_info)
 
         #deck information
         #deck order, current card
-        print("Saving deck")
+        #print("Saving deck")
         #deck=Deck(self.main)
         deck_order = self.main.deck.deck
         current_card = self.main.deck.current_card
         card_index = self.main.deck.i
 
-        print("Deck order: ", deck_order)
-        print("Current card: ", current_card)
-        print("Card index: ", card_index)
+        #print("Deck order: ", deck_order)
+        #print("Current card: ", current_card)
+        #print("Card index: ", card_index)
 
-        print("Deck saved")
+        #print("Deck saved")
         info = {
             #game info
             "current_player" : current_player,
@@ -196,18 +196,18 @@ class Save:
         pickle_out.close()
 
 
-        print ("Game Saved")
-        print("")
-        print("")
-        print("")
-        print("")
-        print("")
-        print("")
-        print("")
-        print("")
-        print("")
-        print("")
-        print("")
+        #print ("Game Saved")
+        #print("")
+        #print("")
+        #print("")
+        #print("")
+        #print("")
+        #print("")
+        #print("")
+        #print("")
+        #print("")
+        #print("")
+        #print("")
 
 #if(__name__ == "__main__"):
 #    main = ""

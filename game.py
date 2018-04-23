@@ -31,7 +31,7 @@ class Game:
         playerSetting = [self.main.pc0difficulty, self.main.pc1difficulty, self.main.pc2difficulty, self.main.pc3difficulty]
         self.playerList = []
         for i in range(self.playerNum):
-            print("\nCreate a", fourColor[(playerColorIndex+i)%4], "player at", fourPosition[i], "side\n")
+            #print("\nCreate a", fourColor[(playerColorIndex+i)%4], "player at", fourPosition[i], "side\n")
             self.playerList.append(Player(self.main, i, fourPosition[i], fourColor[(playerColorIndex+i)%4], playerSetting[i]))
 
         self.playing = Playing(self.main, self.turn, self.playerList[0], self.playerNum)
@@ -42,16 +42,16 @@ class Game:
         self.main.activeObj.add(self)
 
         self.nextTurnBool = False
-        
+
         pass
 
     def draw(self):
         self.rect = pygame.Rect(0,0,0,0)
         pass
-    
+
     def onClick(self):
         pass
-    
+
     def tick(self):
         if self.nextTurnBool is True:
             fourPosition = ['bottom', 'left', 'top', 'right']
@@ -65,7 +65,7 @@ class Game:
             nextIndex = fourPosition.index(self.turn)
             self.playing.nextTurn(self.turn, self.playerList[nextIndex])
             self.nextTurnBool = False
-    
+
             if self.turn is not 'bottom':
                 self.computerMove()
         pass
@@ -80,7 +80,7 @@ class Game:
             steps = 0
         else:
             steps = int(steps)
-            print('moving ' + str(steps) + ' steps')
+            #print('moving ' + str(steps) + ' steps')
         return steps
 
     def nextTurn(self, allowed):
@@ -93,9 +93,9 @@ class Game:
             if self.turn is not 'bottom':
                 self.main.processRendering()
                 self.delayGame(10)
-                
+
             self.lastTurn = self.turn
-            
+
             fourPosition = ['bottom', 'left', 'top', 'right']
             positionList = fourPosition[:self.playerNum]
             currentIndex = positionList.index(self.turn)
@@ -106,19 +106,19 @@ class Game:
             #self.playing.nextTurn(self.turn, self.playerList[nextIndex])
 
         pass
-    
+
     def computerMove(self):
         """
         Computer plays automatically
         """
         self.playing.drawButton.onClick()
-        
+
         index, move = self.chooseRandomMove()
-        
+
         self.main.processRendering()
         self.delayGame(5)
 
-        
+
         if move is None:
             self.playing.skipButton.onClick()
             return
@@ -127,10 +127,10 @@ class Game:
             self.playing.optionButton1.onClick()
         else:
             self.playing.optionButton2.onClick()
-        
+
         firstPawn = move['firstPawn']
         secondPawn = move['secondPawn']
-        
+
         #All cards but 7
         if self.playing.drawnCard is not 7:
             if firstPawn is not None:
@@ -149,14 +149,14 @@ class Game:
                 secondPawn.onClick()
 
         pygame.display.update()
-        
+
         pass
-    
+
     def delayGame(self, loop):
         for i in range(loop):
             pygame.display.update()
         pass
-    
+
     def chooseRandomMove(self):
         """
         Randomly return a possible move
@@ -165,20 +165,22 @@ class Game:
             return 0, None
         index = random.randrange(len(self.playing.possibleList))
         possibleMove = self.playing.possibleList[index]
-    
+
         return index, possibleMove
 
     def checkEndGame(self):
         """
         Check if there's anyone winning the game
         """
+        end = False
         homeCount = 0
         for i in range(self.playerNum):
             for j in range(4):
                 if self.playerList[i].pawnList[j].position['type'] is 'home':
                     homeCount += 1
-            if homeCount is 4:
+            if homeCount is 1 and not end:
                 self.endGame(i)
+                end = True
             else:
                 homeCount = 0
         pass
@@ -190,7 +192,8 @@ class Game:
         winner = self.playerList[playerIndex]
         print("Winner")
         print(winner.color)
-        
+        self.main.win(winner.color)
+
         pass
 
 

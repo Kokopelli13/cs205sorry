@@ -20,7 +20,25 @@ class Menu:
         resumeGame = Button(self.main, 330, 380, "resume", "images/resumegame.png", 1)
         instructions = Button(self.main, 150, 450, "instructions", "images/instructions.png", 1)
         statistics = Button(self.main, 330, 450, "stats", "images/stats.png", 1)
-        quit = Button(self.main, 240, 520, "quit", "images/quit.png", 1)
+        quit = Button(self.main, 240, 520, "reset", "images/quit.png", 1)
+
+class WinScreen:
+    def __init__(self, main, color):
+        self.main = main
+        self.main.activeObj = set()
+        if color == self.main.color:
+            Text(self.main, 150, 120, 40, 'Congratulations!')
+        else:
+            Text(self.main, 210, 90, 70, 'Sorry!')
+        Text(self.main, 200, 200, 30, 'Winner:     ' + color)
+        Text(self.main, 190, 280, 30, 'Game summary')
+        Text(self.main, 150, 350, 22, 'Turns taken: ' + str(self.main.turnsTaken))
+        Text(self.main, 150, 380, 22, 'Spaces moved: ' + str(self.main.spacesMoved))
+        Text(self.main, 150, 410, 22, 'Bumped others: ' + str(self.main.playersBumped))
+        Text(self.main, 150, 440, 22, 'Bumped by others: ' + str(self.main.bumpedByOthers))
+        Text(self.main, 150, 470, 22, 'Cards drawn: ' + str(self.main.cardsDrawn))
+        back = Button(self.main, 240, 520, "reset", "images/quit.png", 1)
+
 
 class Button:
     def __init__(self, main, x, y, action, img, scale):
@@ -71,6 +89,8 @@ class Button:
             self.setUpBoard()
         if self.action == "quit":
             sys.exit()
+        if self.action == "reset":
+            self.main.quit()
 
     def newGame(self):
         self.main.activeObj = set()
@@ -81,7 +101,7 @@ class Button:
         self.main.activeObj.add(Button(self.main, 420, 300, "green", "images/pawn_green.png", 0.5))
 
     def pickNumPlayers(self):
-        print('color is ' + self.action)
+        print('Player color is ' + self.action)
         self.main.color = self.action
         self.main.activeObj = set()
         pickNumPlayersTxt = Text(self.main, 110, 250, 30, 'How many computer players?')
@@ -96,7 +116,7 @@ class Button:
             self.main.numPlayers = "two"
         if self.action == "numplayersthree":
             self.main.numPlayers = "three"
-        print('num players: ' + self.main.numPlayers)
+        print('Number of PC players: ' + self.main.numPlayers)
         self.main.activeObj = set()
         pickDifficultyTxt = Text(self.main, 140, 100, 30, 'How hard should this be?')
         pc1Text = Text(self.main, 70, 185, 30, 'PC1')
