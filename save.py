@@ -125,9 +125,9 @@ class Save:
         current_card = self.main.deck.current_card
         card_index = self.main.deck.i
 
-        #print("Deck order: ", deck_order)
-        #print("Current card: ", current_card)
-        #print("Card index: ", card_index)
+        print("Deck order: ", deck_order)
+        print("Current card: ", current_card)
+        print("Card index: ", card_index)
 
         #print("Deck saved")
         info = {

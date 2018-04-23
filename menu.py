@@ -238,30 +238,24 @@ class Button:
     def resume(self):
         self.resume_check = True
         self.main.activeObj = set()
-        #need to get values for these to actually work
-        self.main.color = "yellow"
-        self.main.numPlayers = "three"
-        print("1")
-        self.main.activeObj = set()
-        print("2")
-        self.main.board = Board(self.main)
-        print("3")
-        self.main.game = Game(self.main)
-        print("4")
-
         print("LOADING THE GAME")
         load_game = Load(self.main)
-        print(self.resume_check)
         load_game.load()
-
+        print(self.resume_check)
+        #need to get values for these to actually work
+        self.main.color = load_game.getColor()
+        self.main.numPlayers = load_game.getNumPlayers()
+        self.main.activeObj = set()
+        self.main.board = Board(self.main)
+        self.main.game = Game(self.main)
         self.main.deck = Deck(self.main)
-        print("5")
         self.main.deck.start_deck()
+        load_game.set_values()
         # print("6")
         # self.main.save = Save(self.main)
         # print("7")
         # self.main.save.save()
-
+        print("DONE LOADING")
         self.main.gameStarted = True
 
 
