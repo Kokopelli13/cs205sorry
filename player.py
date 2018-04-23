@@ -18,7 +18,7 @@ class Player:
         #Create pawns and store in a list
         self.pawnList = []
         for i in range(4):
-            print("Create a pawn in", playerColor, "color with index", i)
+            #print("Create a pawn in", playerColor, "color with index", i)
             self.pawnList.append(Pawn(main, i, playerIndex, playerPosition, playerColor))
 
         pass
@@ -157,10 +157,6 @@ class Pawn:
                 else:
                     print("Bump the pawn to the start")
                     self.bump(obj)
-                    if self.main.game.turn is 'bottom':
-                        self.main.playersBumped += 1
-                        print('BUMP')
-                        print(self.main.playersBumped)
                     return
 
         return 'safe'
@@ -172,7 +168,6 @@ class Pawn:
         bumpedPawn.position['type'] = 'start'
         bumpedPawn.position['side'] = bumpedPawn.playerPosition
         bumpedPawn.position['index'] = bumpedPawn.index
-
         pass
 
     def checkSlideStep(self, destination):

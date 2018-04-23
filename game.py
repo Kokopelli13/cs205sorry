@@ -178,7 +178,7 @@ class Game:
             for j in range(4):
                 if self.playerList[i].pawnList[j].position['type'] is 'home':
                     homeCount += 1
-            if homeCount is 1 and not end:
+            if homeCount is 4 and not end:
                 self.endGame(i)
                 end = True
             else:
@@ -190,8 +190,8 @@ class Game:
         Finish this game
         """
         winner = self.playerList[playerIndex]
-        print("Winner")
-        print(winner.color)
+        #print("Winner")
+        #print(winner.color)
         self.main.win(winner.color)
 
         pass

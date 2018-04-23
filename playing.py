@@ -209,8 +209,8 @@ class Playing:
             position = fourPosition[i][0].upper() + fourPosition[i][1:]
             playerInfoList[i].append(Text(self.main, 750, 77, 14, 'Position: '+position, True))
 
-            formatSetting = setting[i][0].upper() + setting[i][1:4] + ' & ' + setting[i][4].upper() + setting[i][5:]
-            playerInfoList[i].append(Text(self.main, 750, 99, 14, 'Setting: '+formatSetting, True))
+            #formatSetting = setting[i][0].upper() + setting[i][1:4] + ' & ' + setting[i][4].upper() + setting[i][5:]
+            #playerInfoList[i].append(Text(self.main, 750, 99, 14, 'Setting: '+formatSetting, True))
 
         return playerInfoList
 
@@ -254,6 +254,7 @@ class Playing:
                 self.readyToPickPawnBool = False
                 self.pick = ''
                 self.pickedPawnBool = False
+
         elif self.drawnCard is 1:
             if self.pick is 'own' and pawn.playerPosition is self.main.game.turn:
                 if self.option is 1 and pawn.position['type'] is 'start':
@@ -792,7 +793,7 @@ class PlayingButton:
             for move in self.main.game.playing.possibleList:
                 move['firstPawn'].pawn = pygame.image.load('images/pawn_' + move['firstPawn'].color + '_small_highlight.png').convert_alpha()
                 move['firstPawn'].pawn = pygame.transform.rotozoom(move['firstPawn'].pawn, 0, 1)
-                print(move['firstPawn'])
+                #print(move['firstPawn'])
 
         pass
 
