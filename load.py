@@ -106,6 +106,8 @@ class Load:
             print("Player 4 pawn 4 info: ", self.player4_pawn4_info)
             print("")
 
+
+
         #deck data
         self.deck_order = info["deck_order"]
         self.card_index = info["card_index"]
@@ -194,3 +196,56 @@ class Load:
             self.playerList[3].pawnList[1].position = self.player4_pawn2_info
             self.playerList[3].pawnList[2].position = self.player4_pawn3_info
             self.playerList[3].pawnList[3].position = self.player4_pawn4_info
+
+
+        print("Current player: ", self.current_player)
+        print("Number of computer players: ", self.num_players)
+        #player 1
+        print("Player 1 index: ", self.player1_index)
+        print("Player 1 color: ", self.player1_color)
+        print("Player 1 location: ", self.player1_location)
+        print("Player 1 pawn 1 info: ", self.player1_pawn1_info)
+        print("Player 1 pawn 2 info: ", self.player1_pawn2_info)
+        print("Player 1 pawn 3 info: ", self.player1_pawn3_info)
+        print("Player 1 pawn 4 info: ", self.player1_pawn4_info)
+        print("")
+        #player 2 print data
+        print("Player 2 AI: ", self.player2_AI)
+        print("Player 2 index: ", self.player2_index)
+        print("Player 2 color: ", self.player2_color)
+        print("Player 2 location: ", self.player2_location)
+        print("Player 2 pawn 1 info: ", self.player2_pawn1_info)
+        print("Player 2 pawn 2 info: ", self.player2_pawn2_info)
+        print("Player 2 pawn 3 info: ", self.player2_pawn3_info)
+        print("Player 2 pawn 4 info: ", self.player2_pawn4_info)
+        print("")
+
+        if self.num_players > 1:
+
+            #player 3 print data
+            print("Player 3 AI: ", self.player3_AI)
+            print("Player 3 index: ", self.player3_index)
+            print("Player 3 color: ", self.player3_color)
+            print("Player 3 location: ", self.player3_location)
+            print("Player 3 pawn 1 info: ", self.player3_pawn1_info)
+            print("Player 3 pawn 2 info: ", self.player3_pawn2_info)
+            print("Player 3 pawn 3 info: ", self.player3_pawn3_info)
+            print("Player 3 pawn 4 info: ", self.player3_pawn4_info)
+            print("")
+        if self.num_players > 2:
+
+
+            #player 4 print data
+            print("Player 4 AI: ", self.player4_AI)
+            print("Player 4 index: ", self.player4_index)
+            print("Player 4 color: ", self.player4_color)
+            print("Player 4 location: ", self.player4_location)
+            print("Player 4 pawn 1 info: ", self.player4_pawn1_info)
+            print("Player 4 pawn 2 info: ", self.player4_pawn2_info)
+            print("Player 4 pawn 3 info: ", self.player4_pawn3_info)
+            print("Player 4 pawn 4 info: ", self.player4_pawn4_info)
+            print("")
+        #deck
+        print("Deck order: ", self.deck_order)
+        print("Current card: ", self.current_card)
+        print("Card Index: ", self.card_index)

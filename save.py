@@ -20,6 +20,12 @@ class Save:
         #player AI
         current_player = self.main.game.turn
         num_players = self.main.numPlayers
+        
+        print("Turns taken: ", self.main.turnsTaken)
+        print("Spaces moved: ", self.main.spacesMoved)
+        print("Players bumped: ", self.main.playersBumped)
+        print("Bumped by others: ", self.main.bumpedByOthers)
+        print("Cards drawn: ", self.main.cardsDrawn)
 
         #print("Current player: ", current_player)
         if num_players == "one":

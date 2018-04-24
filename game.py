@@ -190,6 +190,10 @@ class Game:
         Finish this game
         """
         winner = self.playerList[playerIndex]
+        if winner == 0:
+            self.won == "won"
+        else:
+            self.won == "lost"
         #print("Winner")
         #print(winner.color)
         self.main.win(winner.color)
