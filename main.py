@@ -29,6 +29,7 @@ class Main:
         self.pc2difficulty = ''
         self.pc3difficulty = ''
         self.numPlayers = ''
+        self.playerName = ''
         #statistics
         self.turnsTaken = 1
         self.spacesMoved = 0
