@@ -9,7 +9,7 @@ from load import Load
 from deck import Deck
 
 
-#
+#this is created when the game is initialized,
 class Menu:
     def __init__(self, main):
         self.main = main
@@ -23,6 +23,7 @@ class Menu:
         statistics = Button(self.main, 330, 450, "stats", "images/stats.png", 1)
         quit = Button(self.main, 240, 520, "quit", "images/quit.png", 1)
 
+#created when the game ends, shows the end game summery
 class WinScreen:
     def __init__(self, main, color):
         self.main = main
@@ -76,9 +77,8 @@ class Button:
         if self.action == "cardInstructions":
             self.cardInstructions()
         if self.action == "stats":
-            self.read()
+            self.stats()
         if self.action == "resume":
-
             self.resume()
         if self.action == "red" or self.action == "blue" or self.action == "yellow" or self.action == "green":
             self.pickNumPlayers()
@@ -245,9 +245,11 @@ class Button:
     def backInstructions(self):
         self.instructions()
 
-    def read(self):
-        #Database.read(self)
-        Database.write(self)
+    def stats(self):
+        stats = Database.read(self)
+        self.main.activeObj = set()
+        back = Button(self.main, 240, 375, "back", "images/back.png", 1)
+        #Database.write(self)
     def resume(self):
         self.resume_check = True
         self.main.activeObj = set()
