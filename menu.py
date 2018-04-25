@@ -20,7 +20,7 @@ class Menu:
         resumeGame = Button(self.main, 330, 380, "resume", "images/resumegame.png", 1)
         instructions = Button(self.main, 150, 450, "instructions", "images/instructions.png", 1)
         statistics = Button(self.main, 330, 450, "stats", "images/stats.png", 1)
-        quit = Button(self.main, 240, 520, "reset", "images/quit.png", 1)
+        quit = Button(self.main, 240, 520, "quit", "images/quit.png", 1)
 
 class WinScreen:
     def __init__(self, main, color):
@@ -60,6 +60,8 @@ class Button:
     def onClick(self):
         if self.action == "new":
             self.newGame()
+        if self.action == "pickcolor":
+            self.pickColor()
         if self.action == "instructions":
             self.instructions()
         if self.action == "back":
@@ -94,11 +96,21 @@ class Button:
 
     def newGame(self):
         self.main.activeObj = set()
-        pickColorTxt = Text(self.main, 176, 250, 30, 'Please pick a color:')
-        self.main.activeObj.add(Button(self.main, 120, 300, "red", "images/pawn_red.png", 0.5))
-        self.main.activeObj.add(Button(self.main, 220, 300, "blue", "images/pawn_blue.png", 0.5))
-        self.main.activeObj.add(Button(self.main, 320, 300, "yellow", "images/pawn_yellow.png", 0.5))
-        self.main.activeObj.add(Button(self.main, 420, 300, "green", "images/pawn_green.png", 0.5))
+        enterNameTxt = Text(self.main, 176, 250, 30, 'Please enter a name:')
+        nameTxt = NameText(self.main, 200, 310, 26)
+        self.main.textInput = True
+        self.main.activeObj.add(Button(self.main, 190, 300, "", "images/textbox.png", 1))
+        self.main.activeObj.add(Button(self.main, 240, 400, "pickcolor", "images/done.png", 1))
+
+    def pickColor(self):
+        if self.main.playerName != '':
+            self.textInput = False
+            self.main.activeObj = set()
+            pickColorTxt = Text(self.main, 176, 250, 30, 'Please pick a color:')
+            self.main.activeObj.add(Button(self.main, 120, 300, "red", "images/pawn_red.png", 0.5))
+            self.main.activeObj.add(Button(self.main, 220, 300, "blue", "images/pawn_blue.png", 0.5))
+            self.main.activeObj.add(Button(self.main, 320, 300, "yellow", "images/pawn_yellow.png", 0.5))
+            self.main.activeObj.add(Button(self.main, 420, 300, "green", "images/pawn_green.png", 0.5))
 
     def pickNumPlayers(self):
         print('Player color is ' + self.action)
@@ -294,6 +306,28 @@ class Text:
 
     def draw(self):
         self.textSurface = self.font.render(self.text, True, (0, 0, 0))
+        self.rect = self.main.screen.blit(self.textSurface, (self.x, self.y))
+
+    def tick(self):
+        pass
+
+    def onClick(self):
+        pass
+
+class NameText:
+    def __init__(self, main, x, y, size):
+        self.main = main
+        self.x, self.y = x, y
+        self.font = pygame.font.Font('freesansbold.ttf', size)
+        self.textSurface = self.font.render(self.main.playerName, True, (0, 0, 0))
+        self.layer = 1
+        self.main.activeObj.add(self)
+
+    def draw(self):
+        if len(self.main.playerName) < self.main.maxNameLength:
+            self.textSurface = self.font.render(self.main.playerName + self.main.next_blink, True, (0, 0, 0))
+        else:
+            self.textSurface = self.font.render(self.main.playerName, True, (0, 0, 0))
         self.rect = self.main.screen.blit(self.textSurface, (self.x, self.y))
 
     def tick(self):
