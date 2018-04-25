@@ -170,6 +170,11 @@ class Pawn:
         bumpedPawn.position['type'] = 'start'
         bumpedPawn.position['side'] = bumpedPawn.playerPosition
         bumpedPawn.position['index'] = bumpedPawn.index
+
+        if self.playerIndex == 0:
+            self.main.playersBumped += 1
+        if bumpedPawn.playerIndex == 0:
+            self.main.bumpedByOthers += 1
         pass
 
     def checkSlideStep(self, destination):

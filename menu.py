@@ -9,13 +9,14 @@ from load import Load
 from deck import Deck
 
 
+#
 class Menu:
     def __init__(self, main):
         self.main = main
         self.main.activeObj = set()
-        #Images
+        #welcome image
         welcome = Button(self.main, 84, 68, "none", "images/welcome.png", 0.5)
-        #Buttons
+        #buttons for main menu
         newGame = Button(self.main, 150, 380, "new", "images/newgame.png", 1)
         resumeGame = Button(self.main, 330, 380, "resume", "images/resumegame.png", 1)
         instructions = Button(self.main, 150, 450, "instructions", "images/instructions.png", 1)
@@ -293,7 +294,7 @@ class Button:
             self.main.save.save()
             self.main.gameStarted = True
 
-
+#class for displaying static text on screen
 class Text:
     def __init__(self, main, x, y, size, text):
         self.main = main
@@ -314,6 +315,7 @@ class Text:
     def onClick(self):
         pass
 
+#class used to dynamically show inputted text on screen
 class NameText:
     def __init__(self, main, x, y, size):
         self.main = main

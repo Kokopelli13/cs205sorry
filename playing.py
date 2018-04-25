@@ -203,7 +203,7 @@ class Playing:
         playerInfoList = []
         #Player
         playerInfoList.append(list())
-        playerInfoList[0].append(Text(self.main, 750, 55, 14, 'Player: You', True))
+        playerInfoList[0].append(Text(self.main, 750, 55, 14, 'Player: ' + self.main.playerName, True))
         playerInfoList[0].append(Text(self.main, 750, 77, 14, 'Position: Bottom', True))
         playerInfoList[0].append(Text(self.main, 750, 99, 14, 'Setting: Genius', True))
         #Computer
@@ -256,6 +256,11 @@ class Playing:
                 pawn.position['index'] = pawn.index
 
                 self.pickedPawn.position = tmp
+
+                if self.pickedPawn.playerIndex == 0:
+                    self.main.playersBumped += 1
+                if pawn.playerIndex == 0:
+                    self.main.bumpedByOthers += 1
 
                 #Check if it's on the triangle of a slide area
                 step = self.pickedPawn.checkSlideStep(self.pickedPawn.position)
