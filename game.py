@@ -238,7 +238,7 @@ class Game:
         #print("Winner")
         #print(winner.color)
         self.main.win(winner.color)
-        Database.write(self)
+        self.write()
 
         pass
 
