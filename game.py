@@ -10,6 +10,8 @@ import pygame
 from player import Player
 from playing import Playing
 import random
+import mysql.connector as MySQLdb
+import datetime
 
 
 class Game:
@@ -185,6 +187,45 @@ class Game:
                 homeCount = 0
         pass
 
+    def write(self):
+        self.main = main
+        print("Write")
+        #get variables and store them as variables to insert
+        db = MySQLdb.connect(host = "webdb.uvm.edu", user = "pmacksey_admin", password = "wSuDSSnRb0Bk", database = "PMACKSEY_cs205sorry")
+        #db.query("""SELECT """)
+        cursor = db.cursor()
+        if self.main.pc1difficulty == "":
+            AIleft = ""
+        else:
+            AIleft = self.main.pc1difficulty
+        if self.main.pc2difficulty == "":
+            AIup = ""
+        else:
+            AIup = self.main.pc2difficulty
+        if self.main.pc3difficulty == "":
+            AIright = ""
+        else:
+            AIright = self.main.pc3difficulty
+
+
+        player_name = self.main.playerName
+        date_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        turns_taken = self.main.turnsTaken
+        spaces_moved = self.main.spacesMoved
+        players_bumped = self.main.playersBumped
+        bumped_by_others = self.main.bumpedByOthers
+        cards_drawn = self.main.cardsDrawn
+        result = self.won
+
+
+        #can use array instead of listing stuff out
+        cursor.execute("""INSERT INTO stats (fldPlayername, fldDate, fldAIleft, fldAIup, fldAIright, fldTurns_taken, fldspaces_moved, fldplayers_bumped, fldbumped_by_others, fldcards_drawn, fldResult)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)""", (player_name, date_time, AIleft, AIup, AIright, turns_taken, spaces_moved, players_bumped, bumped_by_others, cards_drawn, result))
+
+        db.commit()
+        db.close()
+        print("Writing done")
+
     def endGame(self, playerIndex):
         """
         Finish this game
@@ -197,8 +238,10 @@ class Game:
         #print("Winner")
         #print(winner.color)
         self.main.win(winner.color)
+        Database.write(self)
 
         pass
+
 
 
 
