@@ -67,7 +67,7 @@ class Database:
                 " Cards drawn: ", row[10], " Result: ", row[11])
                 if row[0] > total:
                     total = row[0]
-                if row[6] == 'won':
+                if row[11] == 'won':
                     games_won += 1
 
         print("Total games played: ", total)
