@@ -53,11 +53,11 @@ class Game:
         pass
 
     def tick(self):
-        if self.nextTurnBool is True:
+        if self.nextTurnBool == True:
             fourPosition = ['bottom', 'left', 'top', 'right']
             currentIndex = fourPosition.index(self.lastTurn)
             for pawn in self.playerList[currentIndex].pawnList:
-                if pawn.finishMovingBool is False:
+                if pawn.finishMovingBool == False:
                     #Add this print function to slow down the program to avoid problems
                     #Really weird!! It might be the issue of race condition
                     #print("#######Pawn's still moving")
@@ -66,7 +66,7 @@ class Game:
             self.playing.nextTurn(self.turn, self.playerList[nextIndex])
             self.nextTurnBool = False
 
-            if self.turn is not 'bottom':
+            if self.turn != 'bottom':
                 self.computerMove()
         pass
 
@@ -89,8 +89,8 @@ class Game:
         """
         self.checkEndGame()
 
-        if allowed is True:
-            if self.turn is not 'bottom':
+        if allowed == True:
+            if self.turn != 'bottom':
                 self.main.processRendering()
                 self.delayGame(10)
 
@@ -119,11 +119,11 @@ class Game:
         self.delayGame(5)
 
 
-        if move is None:
+        if move == None:
             self.playing.skipButton.onClick()
             return
 
-        if move['option'] is 1:
+        if move['option'] == 1:
             self.playing.optionButton1.onClick()
         else:
             self.playing.optionButton2.onClick()
@@ -132,14 +132,14 @@ class Game:
         secondPawn = move['secondPawn']
 
         #All cards but 7
-        if self.playing.drawnCard is not 7:
-            if firstPawn is not None:
+        if self.playing.drawnCard != 7:
+            if firstPawn != None:
                 firstPawn.onClick()
-            if secondPawn is not None:
+            if secondPawn != None:
                 secondPawn.onClick()
         #Card 7
         else:
-            if move['option'] is 1:
+            if move['option'] == 1:
                 firstPawn.onClick()
             else:
                 #The first pawn
@@ -161,7 +161,7 @@ class Game:
         """
         Randomly return a possible move
         """
-        if len(self.playing.possibleList) is 0:
+        if len(self.playing.possibleList) == 0:
             return 0, None
         index = random.randrange(len(self.playing.possibleList))
         possibleMove = self.playing.possibleList[index]
@@ -176,9 +176,9 @@ class Game:
         homeCount = 0
         for i in range(self.playerNum):
             for j in range(4):
-                if self.playerList[i].pawnList[j].position['type'] is 'home':
+                if self.playerList[i].pawnList[j].position['type'] == 'home':
                     homeCount += 1
-            if homeCount is 4 and not end:
+            if homeCount == 4 and not end:
                 self.endGame(i)
                 end = True
             else:

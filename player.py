@@ -79,7 +79,7 @@ class Pawn:
             #get destination to move to
             destination = self.getNext(self.position)
             #When sliding, the pawn bumps all pawns on the way to the start
-            if self.status is 'sliding':
+            if self.status == 'sliding':
                 self.checkCollision(destination, self.status)
             #move to the destination
             self.move(destination)
@@ -88,16 +88,16 @@ class Pawn:
                 self.moveStep -= 1
             elif self.moveStep < 0:
                 self.moveStep += 1
-            #If the destination is on the triangle of slide section in different color, slide to the end
-            if self.moveStep is 0:
+            #If the destination == on the triangle of slide section in different color, slide to the end
+            if self.moveStep == 0:
                 self.moveStep += self.checkSlideStep(destination)
-                if self.moveStep is not 0:
+                if self.moveStep != 0:
                     self.status = 'sliding'
                     offset = 0.25
             #finally mark the time we made this move
             self.lastStep = offset + time.clock()
 
-            if self.moveStep is 0:
+            if self.moveStep == 0:
                 self.finishMovingBool = True
                 #self.draw()
                 self.main.processRendering()
@@ -106,16 +106,16 @@ class Pawn:
 
     def onClick(self):
         """
-        When a pawn is clicked, this function will be called and move the pawn if possible
+        When a pawn == clicked, this function will be called and move the pawn if possible
         """
-        if self.main.game.playing.readyToPickPawnBool is True:
+        if self.main.game.playing.readyToPickPawnBool == True:
             self.main.game.playing.processOption(self)
 
         pass
 
     def tryToMove(self, step, finished):
         """
-        Try to move after a pawn has been clicked and that pawn is chosen to move
+        Try to move after a pawn has been clicked and that pawn == chosen to move
         """
         allowed = True
         self.moveStep = step
@@ -125,13 +125,13 @@ class Pawn:
             destination = self.getNext(destination)
         self.status = self.checkCollision(destination, self.status)
 
-        if self.status is 'notAllowed': #If this pawn cannot move, ignore
+        if self.status == 'notAllowed': #If this pawn cannot move, ignore
             self.moveStep = 0
             allowed = False
         self.status = 'moving'
 
         #Change to next turn
-        if finished is True:
+        if finished == True:
             self.main.game.nextTurn(allowed)
 
         pass
@@ -140,20 +140,20 @@ class Pawn:
         """
         Check if the pawn will bump any pawns or overmove after entering home
         """
-        #If a pawn is already at home, it cannot move
-        if destination['type'] is 'wrong':
+        #If a pawn == already at home, it cannot move
+        if destination['type'] == 'wrong':
             print("Pawns cannot move to the destination")
             return 'notAllowed'
 
         #Check if there's any pawn at the destination
         for obj in self.main.activeObj:
-            if obj is not self and obj.layer == 2 and obj.position['side'] is destination['side'] and obj.position['index'] is destination['index'] and obj.position['type'] is destination['type']:
-                #If there's a pawn in the same color, this move is not allowed
-                if obj.color is self.color and status is 'moving':
+            if obj != self and obj.layer == 2 and obj.position['side'] == destination['side'] and obj.position['index'] == destination['index'] and obj.position['type'] == destination['type']:
+                #If there's a pawn in the same color, this move != allowed
+                if obj.color == self.color and status == 'moving':
                     print("Pawns cannot move to the position of any other pawns in the same color")
                     return 'notAllowed'
-                #If this pawn is sliding, bump all pawns, and
-                #if this pawn is moving and there's a pawn in different color, bump it
+                #If this pawn == sliding, bump all pawns, and
+                #if this pawn == moving and there's a pawn in different color, bump it
                 else:
                     print("Bump the pawn to the start")
                     self.bump(obj)
@@ -176,10 +176,10 @@ class Pawn:
         """
         slide = 0
         #Slide
-        if destination['type'] is 'track' and destination['side'] is not self.playerPosition:
-            if destination['index'] is 1: #Slide 3 steps
+        if destination['type'] == 'track' and destination['side'] != self.playerPosition:
+            if destination['index'] == 1: #Slide 3 steps
                 slide = 3
-            elif destination['index'] is 9: #Slide 4 steps
+            elif destination['index'] == 9: #Slide 4 steps
                 slide = 4
 
         return slide
@@ -216,30 +216,30 @@ class Pawn:
         side = position['side']
         index = position['index']
 
-        #If the pawn is on the track
-        if type is 'track':
-            if index is 14: #Move to the corner
+        #If the pawn == on the track
+        if type == 'track':
+            if index == 14: #Move to the corner
                 fourPosition = ['bottom', 'left', 'top', 'right']
                 currentIndex = fourPosition.index(side)
                 destination = {'type':'track', 'side':fourPosition[(currentIndex+1)%4], 'index':0}
-            elif index is 2 and side is self.playerPosition: #Move to safety zone
+            elif index == 2 and side == self.playerPosition: #Move to safety zone
                 destination = {'type':'safetyZone', 'side':side, 'index':0}
             else: #Stay on the track
                 destination = {'type':'track', 'side':side, 'index':index+1}
 
-        #If the pawn is in safety zone
-        elif type is 'safetyZone':
-            if index is 4: #Move to home
+        #If the pawn == in safety zone
+        elif type == 'safetyZone':
+            if index == 4: #Move to home
                 destination = {'type':'home', 'side':side, 'index':self.index}
             else: #Stay in the safety zone
                 destination = {'type':'safetyZone', 'side':side, 'index':index+1}
 
-        #If the pawn is in start
-        elif type is 'start': #Move to the track
+        #If the pawn == in start
+        elif type == 'start': #Move to the track
             destination = {'type':'track', 'side':side, 'index':4}
 
-        #If the pawn is at home
-        elif type is 'home': #Cannot move after entering home
+        #If the pawn == at home
+        elif type == 'home': #Cannot move after entering home
             destination = {'type':'wrong', 'side':side, 'index':index}
 
         else:
@@ -255,28 +255,28 @@ class Pawn:
         side = position['side']
         index = position['index']
 
-        #If the pawn is on the track
-        if type is 'track':
-            if index is 0: #Move back from the corner
+        #If the pawn == on the track
+        if type == 'track':
+            if index == 0: #Move back from the corner
                 fourPosition = ['bottom', 'left', 'top', 'right']
                 currentIndex = fourPosition.index(side)
                 destination = {'type':'track', 'side':fourPosition[(currentIndex+-1+4)%4], 'index':14}
             else: #Stay on the track
                 destination = {'type':'track', 'side':side, 'index':index-1}
 
-        #If the pawn is in safety zone
-        elif type is 'safetyZone':
-            if index is 0: #Move out to track
+        #If the pawn == in safety zone
+        elif type == 'safetyZone':
+            if index == 0: #Move out to track
                 destination = {'type':'track', 'side':side, 'index':2}
             else: #Stay in the safety zone
                 destination = {'type':'safetyZone', 'side':side, 'index':index-1}
 
-        #If the pawn is in start
-        elif type is 'start': #Cannot move backward from start
+        #If the pawn == in start
+        elif type == 'start': #Cannot move backward from start
             destination = {'type':'wrong', 'side':side, 'index':index}
 
-        #If the pawn is at home
-        elif type is 'home': #Cannot move backward from home
+        #If the pawn == at home
+        elif type == 'home': #Cannot move backward from home
             destination = {'type':'wrong', 'side':side, 'index':index}
 
         else:
@@ -357,14 +357,14 @@ class Pawn:
         """
         Calculate the distance between the original position and the destination position
         """
-        if self.position['type'] is 'home':
+        if self.position['type'] == 'home':
             distance = 0
-        elif self.position['type'] is 'safetyZone':
+        elif self.position['type'] == 'safetyZone':
             distance = 5 - self.position['index']
-        elif self.position['type'] is 'start':
+        elif self.position['type'] == 'start':
             distance = 65
-        elif self.position['type'] is 'track':
-            if self.position['side'] is self.playerPosition:
+        elif self.position['type'] == 'track':
+            if self.position['side'] == self.playerPosition:
                 if self.position['index'] <= 2:
                     #distance = 3 - position['index'] + 5
                     distance = 8 - self.position['index']
@@ -377,7 +377,7 @@ class Pawn:
                 index = (fourPosition.index(self.position['side']) + 1) % 4
                 distance = 15 - self.position['index']
 
-                while (fourPosition[index] is not self.playerPosition):
+                while (fourPosition[index] != self.playerPosition):
                     distance += 15
                     index = (index+1) % 4
                 distance += 8
@@ -401,14 +401,14 @@ class Pawn:
         bumpSelf += tmpBumpSelf
         bumpOther += tmpBumpOther
 
-        if status is 'notAllowed': #If this pawn cannot move, ignore
+        if status == 'notAllowed': #If this pawn cannot move, ignore
             return None, bumpSelf, bumpOther
         status = 'moving'
 
-        #If the destination is on the triangle of slide section in different color, slide to the end
+        #If the destination == on the triangle of slide section in different color, slide to the end
         step = self.checkSlideStep(destination)
         status = 'sliding'
-        if step is not 0:
+        if step != 0:
             for i in range(step):
                 destination = self.fakeGetNext(destination, step)
                 status, tmpBumpSelf, tmpBumpOther = self.fakeCheckCollision(destination, status)
@@ -424,22 +424,22 @@ class Pawn:
         bumpSelf = 0
         bumpOther = 0
 
-        #If a pawn is already at home, it cannot move
-        if destination['type'] is 'wrong':
+        #If a pawn == already at home, it cannot move
+        if destination['type'] == 'wrong':
             print("Pawns cannot move to the destination")
             return 'notAllowed', 0, 0
 
         #Check if there's any pawn at the destination
         for obj in self.main.activeObj:
-            if obj is not self and obj.layer == 2 and obj.position['side'] is destination['side'] and obj.position['index'] is destination['index'] and obj.position['type'] is destination['type']:
-                #If there's a pawn in the same color, this move is not allowed
-                if obj.color is self.color and status is 'moving':
+            if obj != self and obj.layer == 2 and obj.position['side'] == destination['side'] and obj.position['index'] == destination['index'] and obj.position['type'] == destination['type']:
+                #If there's a pawn in the same color, this move != allowed
+                if obj.color == self.color and status == 'moving':
                     print("Pawns cannot move to the position of any other pawns in the same color")
                     return 'notAllowed', bumpSelf, bumpOther
-                #If this pawn is sliding, bump all pawns, and
-                #if this pawn is moving and there's a pawn in different color, bump it
+                #If this pawn == sliding, bump all pawns, and
+                #if this pawn == moving and there's a pawn in different color, bump it
                 else:
-                    if obj.playerPosition is self.playerPosition:
+                    if obj.playerPosition == self.playerPosition:
                         bumpSelf += 1
                     else:
                         bumpOther += 1
@@ -466,10 +466,10 @@ class Pawn:
         """
         slide = 0
         #Slide
-        if destination['type'] is 'track' and destination['side'] is not playerPosition:
-            if destination['index'] is 1: #Slide 3 steps
+        if destination['type'] == 'track' and destination['side'] != playerPosition:
+            if destination['index'] == 1: #Slide 3 steps
                 slide = 3
-            elif destination['index'] is 9: #Slide 4 steps
+            elif destination['index'] == 9: #Slide 4 steps
                 slide = 4
 
         return slide

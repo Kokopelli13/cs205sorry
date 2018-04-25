@@ -46,7 +46,7 @@ class Main:
     def main(self):
         #main loop
         while 1:
-            if self.stop is False:
+            if self.stop == False:
                 self.processEvents()
                 self.processGame()
                 self.processRendering()

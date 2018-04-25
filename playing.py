@@ -51,9 +51,9 @@ class Playing:
 
         #Show if this player has drawn a card
         self.drawCardBool = False
-        #Show if this player is ready to pick a pawn
+        #Show if this player == ready to pick a pawn
         self.readyToPickPawnBool = False
-        #This player is ready to pick his/her pawns or an opponent's pawns
+        #This player == ready to pick his/her pawns or an opponent's pawns
         self.pick = ''
         #Show if this player has picked a pawn
         self.pickedPawnBool = False
@@ -107,16 +107,16 @@ class Playing:
         """
         self.card = self.faceDownCard
 
-        #Show if this player is ready to pick a pawn
+        #Show if this player == ready to pick a pawn
         self.readyToPickPawnBool = False
-        #This player is ready to pick his/her pawns or an opponent's pawns
+        #This player == ready to pick his/her pawns or an opponent's pawns
         self.pick = ''
         #Show if this player has picked a pawn
         self.pickedPawnBool = False
 
         #Show card information
         self.cardInfoList.clear()
-        if self.drawCardBool is False:
+        if self.drawCardBool == False:
             self.cardInfoList.append(Text(self.main, 750, 150, 14, 'Draw a card', False))
         else:
             self.cardInfoList.append(Text(self.main, 750, 150, 14, 'Draw the second card', False))
@@ -133,6 +133,13 @@ class Playing:
         self.optionButton2.visible = False
 
         self.drawnCard = None
+
+        self.main.game.playing.numButton1.visible = False
+        self.main.game.playing.numButton2.visible = False
+        self.main.game.playing.numButton3.visible = False
+        self.main.game.playing.numButton4.visible = False
+        self.main.game.playing.numButton5.visible = False
+        self.main.game.playing.numButton6.visible = False
 
         pass
 
@@ -168,7 +175,7 @@ class Playing:
         self.playerPosition = player.playerPosition
         self.color = player.color
 
-        if self.color is self.main.color:
+        if self.color == self.main.color:
             self.main.turnsTaken += 1
 
         #Create a pawn image
@@ -179,7 +186,7 @@ class Playing:
         self.initialize()
 
         #Check if the player can enter relaxed start mode
-        if self.relaxedStartbool is True:
+        if self.relaxedStartbool == True:
             for i in range(self.main.game.playerNum):
                 for j in range(4):
                     if self.main.game.playerList[i].pawnList[j].position['type'] != 'start':
@@ -201,6 +208,8 @@ class Playing:
         playerInfoList[0].append(Text(self.main, 750, 99, 14, 'Setting: Genius', True))
         #Computer
         setting = ['', self.main.pc1difficulty, self.main.pc2difficulty, self.main.pc3difficulty]
+        print(setting)
+        difficulty = {'nicesmart': 'Nice&Smart', 'meansmart': 'Mean&Smart', 'nicedumb': 'Nice&Dumb', 'meandumb': 'Mean&Dumb'}
         fourPosition = ['bottom', 'left', 'top', 'right']
         for i in range(1, playerNum):
             playerInfoList.append(list())
@@ -209,8 +218,11 @@ class Playing:
             position = fourPosition[i][0].upper() + fourPosition[i][1:]
             playerInfoList[i].append(Text(self.main, 750, 77, 14, 'Position: '+position, True))
 
-            #formatSetting = setting[i][0].upper() + setting[i][1:4] + ' & ' + setting[i][4].upper() + setting[i][5:]
-            #playerInfoList[i].append(Text(self.main, 750, 99, 14, 'Setting: '+formatSetting, True))
+            print(setting[i])
+            try:
+                playerInfoList[i].append(Text(self.main, 750, 99, 14, 'Setting: '+difficulty[setting[i]] , True))
+            except KeyError:
+                playerInfoList[i].append(Text(self.main, 750, 99, 14, '' , True))
 
         return playerInfoList
 
@@ -218,12 +230,12 @@ class Playing:
         """
         Process option for the pawn
         """
-        if self.drawnCard is not 2 and self.drawCardBool is True:
+        if self.drawnCard != 2 and self.drawCardBool == True:
             self.drawCardBool = False
 
-        if self.drawnCard is 'Sorry!' or self.drawnCard is 0:
+        if self.drawnCard == 'Sorry!' or self.drawnCard == 0:
             #Select own pawn in START
-            if self.pick is 'own' and pawn.playerPosition is self.main.game.turn and pawn.position['type'] is 'start':
+            if self.pick == 'own' and pawn.playerPosition == self.main.game.turn and pawn.position['type'] == 'start':
                 self.pickedPawn = pawn
                 self.pickedPawnBool = True
                 self.readyToPickPawnBool = True
@@ -232,7 +244,7 @@ class Playing:
                 self.infoList.clear()
                 self.main.game.playing.infoList.append(Text(self.main, 700, 370, 16, 'Select opponent\'s pawn', False))
             #Select opponent's pawn to BUMP to Start
-            elif self.pick is 'opponent' and pawn.playerPosition is not self.main.game.turn and self.pickedPawnBool is True and pawn.position['type'] is 'track':
+            elif self.pick == 'opponent' and pawn.playerPosition != self.main.game.turn and self.pickedPawnBool == True and pawn.position['type'] == 'track':
                 #Move own pawn the opponent's pawn's position
                 tmp = {}
                 tmp['type'] = pawn.position['type']
@@ -255,45 +267,45 @@ class Playing:
                 self.pick = ''
                 self.pickedPawnBool = False
 
-        elif self.drawnCard is 1:
-            if self.pick is 'own' and pawn.playerPosition is self.main.game.turn:
-                if self.option is 1 and pawn.position['type'] is 'start':
+        elif self.drawnCard == 1:
+            if self.pick == 'own' and pawn.playerPosition == self.main.game.turn:
+                if self.option == 1 and pawn.position['type'] == 'start':
                     pawn.tryToMove(1, True)
                     self.infoList.clear()
-                elif self.option is 2 and pawn.position['type'] is not 'start':
+                elif self.option == 2 and pawn.position['type'] != 'start':
                     pawn.tryToMove(1, True)
                     self.infoList.clear()
-        elif self.drawnCard is 2:
-            if self.pick is 'own' and pawn.playerPosition is self.main.game.turn:
-                if self.option is 1 and pawn.position['type'] is 'start':
+        elif self.drawnCard == 2:
+            if self.pick == 'own' and pawn.playerPosition == self.main.game.turn:
+                if self.option == 1 and pawn.position['type'] == 'start':
                     pawn.tryToMove(1, True)
                     self.initialize()
                     self.infoList.clear()
-                elif self.option is 2 and pawn.position['type'] is 'track':
+                elif self.option == 2 and pawn.position['type'] == 'track':
                     pawn.tryToMove(2, True)
                     self.initialize()
                     self.infoList.clear()
                 #For the player to draw again
-                if pawn.playerPosition is not self.main.game.turn and self.drawCardBool is True:
+                if pawn.playerPosition != self.main.game.turn and self.drawCardBool == True:
                     for i in range(self.main.game.playerNum - 1):
                         self.main.game.nextTurn(True)
-        elif self.drawnCard is 3:
-            if self.pick is 'own' and pawn.playerPosition is self.main.game.turn and pawn.position['type'] is not 'start':
+        elif self.drawnCard == 3:
+            if self.pick == 'own' and pawn.playerPosition == self.main.game.turn and pawn.position['type'] != 'start':
                 pawn.tryToMove(3, True)
-        elif self.drawnCard is 4:
-            if self.pick is 'own' and pawn.playerPosition is self.main.game.turn and pawn.position['type'] is not 'start':
+        elif self.drawnCard == 4:
+            if self.pick == 'own' and pawn.playerPosition == self.main.game.turn and pawn.position['type'] != 'start':
                 pawn.tryToMove(-4, True)
-        elif self.drawnCard is 5:
-            if self.pick is 'own' and pawn.playerPosition is self.main.game.turn and pawn.position['type'] is not 'start':
+        elif self.drawnCard == 5:
+            if self.pick == 'own' and pawn.playerPosition == self.main.game.turn and pawn.position['type'] != 'start':
                 pawn.tryToMove(5, True)
 
-        elif self.drawnCard is 7:
+        elif self.drawnCard == 7:
             #Select own pawn to move forward
-            if self.pick is 'own' and pawn.playerPosition is self.main.game.turn and self.option is 1 and pawn.position['type'] is not 'start':
+            if self.pick == 'own' and pawn.playerPosition == self.main.game.turn and self.option == 1 and pawn.position['type'] != 'start':
                 pawn.tryToMove(7, True)
                 self.infoList.clear()
             #Select first pawn to move
-            elif self.pick is 'own' and pawn.playerPosition is self.main.game.turn and self.option is 2 and self.pickedPawnBool is False and pawn.position['type'] is not 'start':
+            elif self.pick == 'own' and pawn.playerPosition == self.main.game.turn and self.option == 2 and self.pickedPawnBool == False and pawn.position['type'] != 'start':
                 self.pickedPawn = pawn
                 self.pickedPawnBool = True
                 self.readyToPickPawnBool = True
@@ -308,11 +320,11 @@ class Playing:
                 self.numButton5.visible = True
                 self.numButton6.visible = True
             #Select second pawn to move
-            elif self.pick is 'own' and pawn.playerPosition is self.main.game.turn and self.option is 2 and self.pickedPawnBool is True and pawn.position['type'] is not 'start':
+            elif self.pick == 'own' and pawn.playerPosition == self.main.game.turn and self.option == 2 and self.pickedPawnBool == True and pawn.position['type'] != 'start':
                 pawn.tryToMove(7-self.pickedNum, True)
 
                 #Fail to move
-                if pawn.playerPosition is self.main.game.turn:
+                if pawn.playerPosition == self.main.game.turn:
                     self.readyToPickPawnBool = False
                     self.pick = 'own'
                     self.pickedPawnBool = False
@@ -320,25 +332,25 @@ class Playing:
                     self.infoList.clear()
                     self.optionButton2.processOption(7, 2)
 
-        elif self.drawnCard is 8:
-            if self.pick is 'own' and pawn.playerPosition is self.main.game.turn and pawn.position['type'] is not 'start':
+        elif self.drawnCard == 8:
+            if self.pick == 'own' and pawn.playerPosition == self.main.game.turn and pawn.position['type'] != 'start':
                 pawn.tryToMove(8, True)
-        elif self.drawnCard is 10:
-            if self.pick is 'own' and pawn.playerPosition is self.main.game.turn:
-                if self.option is 1 and pawn.position['type'] is not 'start':
+        elif self.drawnCard == 10:
+            if self.pick == 'own' and pawn.playerPosition == self.main.game.turn:
+                if self.option == 1 and pawn.position['type'] != 'start':
                     pawn.tryToMove(10, True)
                     self.infoList.clear()
-                elif self.option is 2 and pawn.position['type'] is not 'start':
+                elif self.option == 2 and pawn.position['type'] != 'start':
                     pawn.tryToMove(-1, True)
                     self.infoList.clear()
 
-        elif self.drawnCard is 11:
+        elif self.drawnCard == 11:
             #Select own pawn to move forward
-            if self.pick is 'own' and pawn.playerPosition is self.main.game.turn and self.option is 1 and pawn.position['type'] is not 'start':
+            if self.pick == 'own' and pawn.playerPosition == self.main.game.turn and self.option == 1 and pawn.position['type'] != 'start':
                 pawn.tryToMove(11, True)
                 self.infoList.clear()
             #Select own pawn to switch
-            elif self.pick is 'own' and pawn.playerPosition is self.main.game.turn and self.option is 2 and pawn.position['type'] is not 'start':
+            elif self.pick == 'own' and pawn.playerPosition == self.main.game.turn and self.option == 2 and pawn.position['type'] != 'start':
                 self.pickedPawn = pawn
                 self.pickedPawnBool = True
                 self.readyToPickPawnBool = True
@@ -347,7 +359,7 @@ class Playing:
                 self.infoList.clear()
                 self.main.game.playing.infoList.append(Text(self.main, 700, 370, 16, 'Select opponent\'s pawn', False))
             #Select opponent's pawn to switch
-            elif self.pick is 'opponent' and pawn.playerPosition is not self.main.game.turn and self.option is 2 and self.pickedPawnBool is True and pawn.position['type'] is 'track':
+            elif self.pick == 'opponent' and pawn.playerPosition != self.main.game.turn and self.option == 2 and self.pickedPawnBool == True and pawn.position['type'] == 'track':
                 tmp = {'type': pawn.position['type'], 'side': pawn.position['side'], 'index': pawn.position['index']}
                 pawn.position = self.pickedPawn.position
 
@@ -375,8 +387,8 @@ class Playing:
                 self.pick = ''
                 self.pickedPawnBool = False
 
-        elif self.drawnCard is 12:
-            if self.pick is 'own' and pawn.playerPosition is self.main.game.turn and pawn.position['type'] is not 'start':
+        elif self.drawnCard == 12:
+            if self.pick == 'own' and pawn.playerPosition == self.main.game.turn and pawn.position['type'] != 'start':
                 pawn.tryToMove(12, True)
 
         pass
@@ -390,22 +402,22 @@ class Playing:
         bumpSelf = 0
         bumpOther = 0
 
-        if self.drawnCard is 'Sorry!' or self.drawnCard is 0:
+        if self.drawnCard == 'Sorry!' or self.drawnCard == 0:
             #Loop for own pawns
             for firstPawn in player.pawnList:
-                if firstPawn.position['type'] is 'start':
+                if firstPawn.position['type'] == 'start':
                     #Loop for opponents
                     for otherPlayer in self.main.game.playerList:
-                        if otherPlayer is not player:
+                        if otherPlayer != player:
                             #Loop for opponents' pawns
                             for secondPawn in otherPlayer.pawnList:
-                                if secondPawn.position['type'] is 'track':
+                                if secondPawn.position['type'] == 'track':
                                     bumpSelf = 0
                                     bumpOther = 1 #Bump the opponent's pawn
                                     step = firstPawn.fakeCheckSlideStep(secondPawn.position, firstPawn.playerPosition)
                                     destination = secondPawn.position
-                                    #The pawn is on the triangle of a slide area
-                                    if step is not 0:
+                                    #The pawn == on the triangle of a slide area
+                                    if step != 0:
                                         for i in range(step):
                                             destination = firstPawn.fakeGetNext(destination, step)
                                             status, tmpBumpSelf, tmpBumpOther = firstPawn.fakeCheckCollision(destination, 'sliding')
@@ -414,48 +426,48 @@ class Playing:
                                     #Add this move to the list
                                     index = len(self.possibleList)
                                     self.appendPossibleMove(1, index, firstPawn, secondPawn, destination, bumpSelf, bumpOther, 0)
-        elif self.drawnCard is 1:
+        elif self.drawnCard == 1:
             #Option 1 : Start a pawn
             for firstPawn in player.pawnList:
-                if firstPawn.position['type'] is 'start':
+                if firstPawn.position['type'] == 'start':
                     destination, bumpSelf, bumpOther = firstPawn.fakeMove(1)
-                    if destination is not None:
+                    if destination != None:
                         index = len(self.possibleList)
                         self.appendPossibleMove(1, index, firstPawn, None, destination, bumpSelf, bumpOther, 1)
             #Option 2 : Move a pawn
             self.movePawnOption(1, player, 2)
 
-        elif self.drawnCard is 2:
+        elif self.drawnCard == 2:
             #Option 1 : Start a pawn
             for firstPawn in player.pawnList:
-                if firstPawn.position['type'] is 'start':
+                if firstPawn.position['type'] == 'start':
                     destination, bumpSelf, bumpOther = firstPawn.fakeMove(1)
-                    if destination is not None:
+                    if destination != None:
                         index = len(self.possibleList)
                         self.appendPossibleMove(1, index, firstPawn, None, destination, bumpSelf, bumpOther, 1)
             #Option 2 : Move a pawn
             self.movePawnOption(2, player, 2)
 
-        elif self.drawnCard is 3:
+        elif self.drawnCard == 3:
             self.movePawnOption(3, player, 1)
-        elif self.drawnCard is 4:
+        elif self.drawnCard == 4:
             self.movePawnOption(-4, player, 1)
-        elif self.drawnCard is 5:
+        elif self.drawnCard == 5:
             self.movePawnOption(5, player, 1)
 
-        elif self.drawnCard is 7:
+        elif self.drawnCard == 7:
             #Option 1 : Move a pawn
             self.movePawnOption(7, player, 1)
             #Option 2 : Move two pawns
             #Loop for first pawn
             for i in range(4):
                 firstPawn = player.pawnList[i]
-                if firstPawn.position['type'] is 'track' or firstPawn.position['type'] is 'safetyZone':
+                if firstPawn.position['type'] == 'track' or firstPawn.position['type'] == 'safetyZone':
                     #For different selected steps from 1 to 6
                     for steps in range(1, 7):
                         #Store the first pawn's information
                         destination, bumpSelf, bumpOther = firstPawn.fakeMove(steps)
-                        if destination is not None:
+                        if destination != None:
                             distanceFromHome = self.distanceFromHome(destination, firstPawn.playerPosition)
                             forward = self.distanceFromHome(firstPawn.position, firstPawn.playerPosition) - distanceFromHome
 
@@ -463,42 +475,42 @@ class Playing:
                         for j in range(i+1,4):
                             index = len(self.possibleList)
                             secondPawn = player.pawnList[j]
-                            if secondPawn.position['type'] is 'track' or secondPawn.position['type'] is 'safetyZone':
+                            if secondPawn.position['type'] == 'track' or secondPawn.position['type'] == 'safetyZone':
                                 destination2, bumpSelf2, bumpOther2 = secondPawn.fakeMove(7-steps)
-                                if destination2 is not None:
+                                if destination2 != None:
                                     distanceFromHome2 = self.distanceFromHome(destination2, secondPawn.playerPosition)
                                     forward2 = self.distanceFromHome(secondPawn.position, secondPawn.playerPosition) - distanceFromHome2
                                     #Append dictionary to list
                                     possibleMove = {'option': 2, 'index': index, 'firstPawn': firstPawn, 'secondPawn': secondPawn, 'forward': forward+forward2, 'distanceFromHome': distanceFromHome+distanceFromHome2, 'destination': destination, 'bumpSelf': bumpSelf+bumpSelf2, 'bumpOther': bumpOther+bumpOther2, 'move': steps}
                                     self.possibleList.append(possibleMove)
 
-        elif self.drawnCard is 8:
+        elif self.drawnCard == 8:
             self.movePawnOption(8, player, 1)
-        elif self.drawnCard is 10:
+        elif self.drawnCard == 10:
             #Option 1 : Move a pawn forward
             self.movePawnOption(10, player, 1)
             #Option 2 : Move a pawn backward
             self.movePawnOption(-1, player, 2)
-        elif self.drawnCard is 11:
+        elif self.drawnCard == 11:
             #Option 1 : Move a pawn
             self.movePawnOption(11, player, 1)
             #Option 2 : Switch a pawn
             for firstPawn in player.pawnList:
-                if firstPawn.position['type'] is 'track':
+                if firstPawn.position['type'] == 'track':
                     #Loop for opponents
                     for otherPlayer in self.main.game.playerList:
-                        if otherPlayer is not player:
+                        if otherPlayer != player:
                             #Loop for opponents' pawns
                             for secondPawn in otherPlayer.pawnList:
-                                if secondPawn.position['type'] is 'track':
+                                if secondPawn.position['type'] == 'track':
                                     bumpSelf = 0
                                     bumpOther = 0
                                     secondPosition = {'type': secondPawn.position['type'], 'side': secondPawn.position['side'], 'index': secondPawn.position['index']}
                                     secondPawn.position = {'type': firstPawn.position['type'], 'side': firstPawn.position['side'], 'index': firstPawn.position['index']}
                                     step = firstPawn.fakeCheckSlideStep(secondPosition, firstPawn.playerPosition)
                                     destination = secondPosition
-                                    #The pawn is on the triangle of a slide area
-                                    if step is not 0:
+                                    #The pawn == on the triangle of a slide area
+                                    if step != 0:
                                         for i in range(step):
                                             destination = firstPawn.fakeGetNext(destination, step)
                                             status, tmpBumpSelf, tmpBumpOther = firstPawn.fakeCheckCollision(destination, 'sliding')
@@ -507,10 +519,10 @@ class Playing:
                                     #Add this move to the list
                                     index = len(self.possibleList)
                                     self.appendPossibleMove(2, index, firstPawn, secondPawn, destination, bumpSelf, bumpOther, 11)
-                                    """This is still wrong, so I commented it out
-                                    #Check if second pawn is on the triangle of a slide area
+                                    """This == still wrong, so I commented it out
+                                    #Check if second pawn == on the triangle of a slide area
                                     step = secondPawn.fakeCheckSlideStep(secondPawn.position, secondPawn.playerPosition)
-                                    if step is not 0:
+                                    if step != 0:
                                         destination = secondPawn.position
                                         for i in range(step):
                                             destination = secondPawn.fakeGetNext(destination, step)
@@ -520,7 +532,7 @@ class Playing:
                                     """
                                     secondPawn.position = secondPosition
 
-        elif self.drawnCard is 12:
+        elif self.drawnCard == 12:
             self.movePawnOption(12, player, 1)
 
         #Print all possible moves
@@ -536,7 +548,7 @@ class Playing:
         """
         Append all information of this possible move to the list
         """
-        if firstPawn is None:
+        if firstPawn == None:
             pawn = secondPawn
         else:
             pawn = firstPawn
@@ -552,14 +564,14 @@ class Playing:
 
     def movePawnOption(self, steps, player, option):
         """
-        The option is to move a pawn
+        The option == to move a pawn
         """
         bumpSelf = 0
         bumpOther = 0
         for firstPawn in player.pawnList:
-                if firstPawn.position['type'] is 'track' or firstPawn.position['type'] is 'safetyZone':
+                if firstPawn.position['type'] == 'track' or firstPawn.position['type'] == 'safetyZone':
                     destination, bumpSelf, bumpOther = firstPawn.fakeMove(steps)
-                    if destination is not None:
+                    if destination != None:
                         index = len(self.possibleList)
                         self.appendPossibleMove(option, index, firstPawn, None, destination, bumpSelf, bumpOther, steps)
 
@@ -569,14 +581,14 @@ class Playing:
         """
         Calculate the distance between the original position and the destination position
         """
-        if position['type'] is 'home':
+        if position['type'] == 'home':
             distance = 0
-        elif position['type'] is 'safetyZone':
+        elif position['type'] == 'safetyZone':
             distance = 5 - position['index']
-        elif position['type'] is 'start':
+        elif position['type'] == 'start':
             distance = 65
-        elif position['type'] is 'track':
-            if position['side'] is playerPosition:
+        elif position['type'] == 'track':
+            if position['side'] == playerPosition:
                 if position['index'] <= 2:
                     #distance = 3 - position['index'] + 5
                     distance = 8 - position['index']
@@ -589,7 +601,7 @@ class Playing:
                 index = (fourPosition.index(position['side']) + 1) % 4
                 distance = 15 - position['index']
 
-                while (fourPosition[index] is not playerPosition):
+                while (fourPosition[index] != playerPosition):
                     distance += 15
                     index = (index+1) % 4
                 distance += 8
@@ -612,7 +624,7 @@ class PlayingButton:
         self.visible = visible
 
     def draw(self):
-        if self.visible is True:
+        if self.visible == True:
             self.rect = self.main.screen.blit(self.img, (self.x, self.y))
         else:
             self.rect = self.main.screen.blit(self.main.game.playing.pawn, (670, 60))
@@ -624,7 +636,7 @@ class PlayingButton:
         pass
 
     def onClick(self):
-        if self.visible is True:
+        if self.visible == True:
             if self.action == "draw":
                 self.drawCard()
             elif self.action == "option1":
@@ -669,7 +681,7 @@ class PlayingButton:
         card = self.main.game.drawCard()
 
         self.main.game.playing.drawnCard = card
-        if card is 'Sorry!' or card is 0:
+        if card == 'Sorry!' or card == 0:
             self.main.game.playing.card = self.main.game.playing.faceUpCardList[0]
         else:
             self.main.game.playing.card = self.main.game.playing.faceUpCardList[card]
@@ -688,12 +700,12 @@ class PlayingButton:
 
         #Check if there's any move this player can take
         self.main.game.playing.checkPossibleMove(card)
-        if len(self.main.game.playing.possibleList) is 0:
+        if len(self.main.game.playing.possibleList) == 0:
             self.main.game.playing.skipButton.visible = True
         else:
             self.main.game.playing.skipButton.visible = False
 
-        if self.main.game.turn is 'bottom':
+        if self.main.game.turn == 'bottom':
             self.main.cardsDrawn += 1
             #print('Cards drawn: ' + str(self.main.cardsDrawn))
 
@@ -703,64 +715,64 @@ class PlayingButton:
         """
         Let player to choose an option to move
         """
-        if card is 'Sorry!' or card is 0:
+        if card == 'Sorry!' or card == 0:
             self.main.game.playing.optionButton1.img = pygame.image.load('images/selectpawn.png').convert_alpha()
             self.main.game.playing.optionButton1.img = pygame.transform.rotozoom(self.main.game.playing.optionButton1.img, 0, self.main.game.playing.optionButton1.scale)
             self.main.game.playing.optionButton1.visible = True
             #self.main.game.playing.optionButton2.visible = True
             #self.main.game.playing.optionInfoList.append(Text(self.main, 790, 312, 14, 'Skip', False))
-        elif card is 1:
+        elif card == 1:
             self.main.game.playing.optionButton1.img = pygame.image.load('images/startpawn.png').convert_alpha()
             self.main.game.playing.optionButton1.img = pygame.transform.rotozoom(self.main.game.playing.optionButton1.img, 0, self.main.game.playing.optionButton1.scale)
             self.main.game.playing.optionButton1.visible = True
             self.main.game.playing.optionButton2.img = pygame.image.load('images/movepawn.png').convert_alpha()
             self.main.game.playing.optionButton2.img = pygame.transform.rotozoom(self.main.game.playing.optionButton2.img, 0, self.main.game.playing.optionButton2.scale)
             self.main.game.playing.optionButton2.visible = True
-        elif card is 2:
+        elif card == 2:
             self.main.game.playing.optionButton1.img = pygame.image.load('images/startpawn.png').convert_alpha()
             self.main.game.playing.optionButton1.img = pygame.transform.rotozoom(self.main.game.playing.optionButton1.img, 0, self.main.game.playing.optionButton1.scale)
             self.main.game.playing.optionButton1.visible = True
             self.main.game.playing.optionButton2.img = pygame.image.load('images/movepawn.png').convert_alpha()
             self.main.game.playing.optionButton2.img = pygame.transform.rotozoom(self.main.game.playing.optionButton2.img, 0, self.main.game.playing.optionButton2.scale)
             self.main.game.playing.optionButton2.visible = True
-        elif card is 3:
+        elif card == 3:
             self.main.game.playing.optionButton1.img = pygame.image.load('images/movepawn.png').convert_alpha()
             self.main.game.playing.optionButton1.img = pygame.transform.rotozoom(self.main.game.playing.optionButton1.img, 0, self.main.game.playing.optionButton1.scale)
             self.main.game.playing.optionButton1.visible = True
-        elif card is 4:
+        elif card == 4:
             self.main.game.playing.optionButton1.img = pygame.image.load('images/movepawn.png').convert_alpha()
             self.main.game.playing.optionButton1.img = pygame.transform.rotozoom(self.main.game.playing.optionButton1.img, 0, self.main.game.playing.optionButton1.scale)
             self.main.game.playing.optionButton1.visible = True
-        elif card is 5:
+        elif card == 5:
             self.main.game.playing.optionButton1.img = pygame.image.load('images/movepawn.png').convert_alpha()
             self.main.game.playing.optionButton1.img = pygame.transform.rotozoom(self.main.game.playing.optionButton1.img, 0, self.main.game.playing.optionButton1.scale)
             self.main.game.playing.optionButton1.visible = True
-        elif card is 7:
+        elif card == 7:
             self.main.game.playing.optionButton1.img = pygame.image.load('images/movepawn.png').convert_alpha()
             self.main.game.playing.optionButton1.img = pygame.transform.rotozoom(self.main.game.playing.optionButton1.img, 0, self.main.game.playing.optionButton1.scale)
             self.main.game.playing.optionButton1.visible = True
             self.main.game.playing.optionButton2.img = pygame.image.load('images/movetwopawns.png').convert_alpha()
             self.main.game.playing.optionButton2.img = pygame.transform.rotozoom(self.main.game.playing.optionButton2.img, 0, self.main.game.playing.optionButton2.scale)
             self.main.game.playing.optionButton2.visible = True
-        elif card is 8:
+        elif card == 8:
             self.main.game.playing.optionButton1.img = pygame.image.load('images/movepawn.png').convert_alpha()
             self.main.game.playing.optionButton1.img = pygame.transform.rotozoom(self.main.game.playing.optionButton1.img, 0, self.main.game.playing.optionButton1.scale)
             self.main.game.playing.optionButton1.visible = True
-        elif card is 10:
+        elif card == 10:
             self.main.game.playing.optionButton1.img = pygame.image.load('images/movepawnforwards.png').convert_alpha()
             self.main.game.playing.optionButton1.img = pygame.transform.rotozoom(self.main.game.playing.optionButton1.img, 0, self.main.game.playing.optionButton1.scale)
             self.main.game.playing.optionButton1.visible = True
             self.main.game.playing.optionButton2.img = pygame.image.load('images/movepawnbackwards.png').convert_alpha()
             self.main.game.playing.optionButton2.img = pygame.transform.rotozoom(self.main.game.playing.optionButton2.img, 0, self.main.game.playing.optionButton2.scale)
             self.main.game.playing.optionButton2.visible = True
-        elif card is 11:
+        elif card == 11:
             self.main.game.playing.optionButton1.img = pygame.image.load('images/movepawn.png').convert_alpha()
             self.main.game.playing.optionButton1.img = pygame.transform.rotozoom(self.main.game.playing.optionButton1.img, 0, self.main.game.playing.optionButton1.scale)
             self.main.game.playing.optionButton1.visible = True
             self.main.game.playing.optionButton2.img = pygame.image.load('images/switchpawn.png').convert_alpha()
             self.main.game.playing.optionButton2.img = pygame.transform.rotozoom(self.main.game.playing.optionButton2.img, 0, self.main.game.playing.optionButton2.scale)
             self.main.game.playing.optionButton2.visible = True
-        elif card is 12:
+        elif card == 12:
             self.main.game.playing.optionButton1.img = pygame.image.load('images/movepawn.png').convert_alpha()
             self.main.game.playing.optionButton1.img = pygame.transform.rotozoom(self.main.game.playing.optionButton1.img, 0, self.main.game.playing.optionButton1.scale)
             self.main.game.playing.optionButton1.visible = True
@@ -771,22 +783,22 @@ class PlayingButton:
         """
         Process this option if player has to choose two pawns
         """
-        if card is 'Sorry!' or card is 0:
-            if option is 1:
+        if card == 'Sorry!' or card == 0:
+            if option == 1:
                 self.main.game.playing.readyToPickPawnBool = True
                 self.main.game.playing.pick = 'own'
             #else:
             #self.main.game.nextTurn(True)
 
         elif card in [1,2,3,4,5,7,8,10,11,12]:
-            if card is 7 and self.main.game.playing.pickedPawnBool is True:
+            if card == 7 and self.main.game.playing.pickedPawnBool == True:
                 #Return from option 2 to option 1
                 self.main.game.playing.pickedPawnBool = False
                 self.main.game.playing.pickedPawn.position = self.main.game.playing.originalPosition
             self.main.game.playing.readyToPickPawnBool = True
             self.main.game.playing.pick = 'own'
 
-        if card is 7 and option is 2:
+        if card == 7 and option == 2:
             self.main.game.playing.infoList.append(Text(self.main, 720, 370, 16, 'Select the first pawn', False))
         else:
             self.main.game.playing.infoList.append(Text(self.main, 750, 370, 16, 'Select a pawn', False))
@@ -811,7 +823,7 @@ class PlayingButton:
         self.main.game.playing.pickedPawn.tryToMove(number, False)
 
         #If the pawn can move successfully, then player can select the next pawn
-        if self.main.game.playing.pickedPawn.moveStep is not 0:
+        if self.main.game.playing.pickedPawn.moveStep != 0:
             self.main.game.playing.infoList.clear()
             self.main.game.playing.infoList.append(Text(self.main, 660, 370, 16, 'Select the second pawn to move '+str(7-number), False))
             self.main.game.playing.numButton1.visible = False
@@ -827,43 +839,43 @@ class PlayingButton:
         """
         Show card information
         """
-        if card is 'Sorry!' or card is 0:
+        if card == 'Sorry!' or card == 0:
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 150, 13, 'Take one pawn from your START,', False))
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 170, 13, 'place it on any space that is', False))
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 190, 13, 'occupied by any opponent, and', False))
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 210, 13, 'BUMP that opponent’spawn', False))
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 230, 13, 'back to its START.', False))
-        elif card is 1:
+        elif card == 1:
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 150, 13, 'Either start a pawn OR move', False))
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 170, 13, 'one pawn forward 1 space.', False))
-        elif card is 2:
+        elif card == 2:
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 150, 13, 'Either start a pawn OR move one', False))
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 170, 13, 'pawn forward 2 spaces. Whichever', False))
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 190, 13, 'you do or even if you couldn’t', False))
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 210, 13, 'move—DRAW GAIN and move', False))
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 230, 13, 'accordingly.', False))
-        elif card is 3:
+        elif card == 3:
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 150, 13, 'Move one pawn forward 3 spaces.', False))
-        elif card is 4:
+        elif card == 4:
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 150, 13, 'Move one pawn backward 4 spaces.', False))
-        elif card is 5:
+        elif card == 5:
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 150, 13, 'Move one pawn forward 5 spaces.', False))
-        elif card is 7:
+        elif card == 7:
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 150, 13, 'Either move one pawn forward 7', False))
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 170, 13, 'spaces—OR split the forward', False))
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 190, 13, 'move between any two pawns.', False))
-        elif card is 8:
+        elif card == 8:
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 150, 13, 'Move one pawn forward 8 spaces.', False))
-        elif card is 10:
+        elif card == 10:
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 150, 13, 'Either move one pawn forward 10', False))
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 170, 13, 'spaces—OR move one pawn', False))
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 190, 13, 'backward 1 space.', False))
 
-        elif card is 11:
+        elif card == 11:
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 150, 13, 'Move one pawn forward 11 spaces', False))
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 170, 13, '—OR switch any one of your pawns', False))
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 190, 13, 'with one of any opponent’s.', False))
-        elif card is 12:
+        elif card == 12:
             self.main.game.playing.cardInfoList.append(Text(self.main, 720, 150, 13, 'Move one pawn forward 12 spaces', False))
 
         pass

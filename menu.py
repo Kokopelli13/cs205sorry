@@ -251,6 +251,8 @@ class Button:
         self.main.deck = Deck(self.main)
         self.main.deck.start_deck()
         load_game.set_values()
+        self.main.game.playing.playerInfoList = self.main.game.playing.getPlayerInfoList(self.main.game.playerNum)
+        self.main.game.playing.relaxedButton.visible = False
         # print("6")
         # self.main.save = Save(self.main)
         # print("7")
