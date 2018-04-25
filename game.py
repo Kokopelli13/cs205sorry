@@ -232,9 +232,9 @@ class Game:
         """
         winner = self.playerList[playerIndex]
         if winner == 0:
-            self.won == "won"
+            self.won = "won"
         else:
-            self.won == "lost"
+            self.won = "lost"
         #print("Winner")
         #print(winner.color)
         self.main.win(winner.color)
