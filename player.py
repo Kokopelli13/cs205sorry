@@ -106,7 +106,7 @@ class Pawn:
 
     def onClick(self):
         """
-        When a pawn is clicked, this function will be called and move the pawn if possible
+        When a pawn == clicked, this function will be called and move the pawn if possible
         """
         if self.main.game.playing.readyToPickPawnBool == True:
             self.main.game.playing.processOption(self)
@@ -115,7 +115,7 @@ class Pawn:
 
     def tryToMove(self, step, finished):
         """
-        Try to move after a pawn has been clicked and that pawn is chosen to move
+        Try to move after a pawn has been clicked and that pawn == chosen to move
         """
         allowed = True
         self.moveStep = step
@@ -129,8 +129,6 @@ class Pawn:
             self.moveStep = 0
             allowed = False
         self.status = 'moving'
-        if self.playerIndex == 0:
-            self.main.spacesMoved += self.moveStep
 
         #Change to next turn
         if finished == True:

@@ -2,7 +2,6 @@ import sys, time, pygame
 from menu import Menu
 from menu import WinScreen
 from board import Board
-from itertools import cycle
 
 
 class Main:
@@ -30,15 +29,7 @@ class Main:
         self.pc2difficulty = ''
         self.pc3difficulty = ''
         self.numPlayers = ''
-        #player name variables
-        self.textInput = False
         self.playerName = ''
-        self.maxNameLength = 16
-        self.allowedChars = [i for i in range(97, 123)] + [i for i in range(48,58)]
-        self.BLINK_EVENT = pygame.USEREVENT + 0
-        pygame.time.set_timer(self.BLINK_EVENT, 800)
-        self.blinky = cycle(["_", " "])
-        self.next_blink = next(self.blinky)
         #statistics
         self.turnsTaken = 1
         self.spacesMoved = 0
@@ -84,16 +75,6 @@ class Main:
                 #ESC to exit
                 if event.key == pygame.K_ESCAPE: #Esc
                     sys.exit()
-                if self.textInput:
-                    if event.key in self.allowedChars and len(self.playerName) < self.maxNameLength:
-                        if pygame.key.get_mods() & pygame.KMOD_SHIFT or pygame.key.get_mods() & pygame.KMOD_CAPS:
-                            self.playerName += chr(event.key).upper()
-                        else:
-                            self.playerName += chr(event.key)
-                    if event.key == pygame.K_BACKSPACE:
-                        self.playerName = self.playerName[:-1]
-            if event.type == self.BLINK_EVENT:
-                self.next_blink = next(self.blinky)
 
     def processGame(self):
         for i in range(0, 5):
