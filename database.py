@@ -78,8 +78,10 @@ class Database:
         print("Average computer players bumped by human player per game: ", row[8]/total)
         print("Average times human player bumped by others per game: ", row[9]/total)
         print("Average cards drawn per game: ", row[10]/total)
+        data = [total, games_won, "{:.2%}".format(games_won/total), "{:.2}".format(row[6]/total), row[7]/total, row[8]/total, row[9]/total, row[10]/total]
         db.close()
         print("Reading done")
+        return data
 
     #TEST
     #read()

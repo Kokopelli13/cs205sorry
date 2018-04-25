@@ -246,9 +246,18 @@ class Button:
         self.instructions()
 
     def stats(self):
-        stats = Database.read(self)
+        data = Database.read(self)
         self.main.activeObj = set()
-        back = Button(self.main, 240, 375, "back", "images/back.png", 1)
+        back = Button(self.main, 240, 500, "back", "images/back.png", 1)
+        Text(self.main, 200, 110, 30, 'Game statistics:')
+        Text(self.main, 100, 170, 22, 'Total games played: ' + str(data[0]))
+        Text(self.main, 100, 210, 22, 'Total games won: ' + str(data[1]))
+        Text(self.main, 100, 250, 22, 'Win ratio: ' + str(data[2]))
+        Text(self.main, 100, 290, 22, 'Avg. turns per game: ' + str(data[3]))
+        Text(self.main, 100, 330, 22, 'Avg. spaces moved per game: ' + str(data[4]))
+        Text(self.main, 100, 370, 22, 'Avg. times PC bumped the player: ' + str(data[5]))
+        Text(self.main, 100, 410, 22, 'Avg. times player bumped the PC: ' + str(data[6]))
+        Text(self.main, 100, 450, 22, 'Avg. cards drawn per game: ' + str(data[7]))
 
     def resume(self):
         self.resume_check = True
