@@ -38,7 +38,7 @@ class Database:
         bumped_by_others = self.main.bumpedByOthers
         cards_drawn = self.main.cardsDrawn
         #result = self.main.game.won
-        result = "won"
+        result = "test"
 
 
         #can use array instead of listing stuff out
@@ -73,6 +73,11 @@ class Database:
         print("Total games played: ", total)
         print("Total games won: ", games_won)
         print("Win ratio: ", "{:.2%}".format(games_won/total))
+        print("Average turns per game: ", turns_taken/total)
+        print("Average spaces moved per game: ", spaces_moved/total)
+        print("Average computer players bumped by human player per game: ", players_bumped/total)
+        print("Average times human player bumped by others per game: ", bumped_by_others/total)
+        print("Average cards drawn per game: ", cards_drawn/total)
         db.close()
         print("Reading works")
 
