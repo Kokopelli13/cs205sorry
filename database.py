@@ -30,7 +30,7 @@ class Database:
             AIright = self.main.pc3difficulty
 
 
-        player_name = "Name"
+        player_name = self.main.playerName
         date_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         turns_taken = self.main.turnsTaken
         spaces_moved = self.main.spacesMoved

@@ -18,9 +18,10 @@ class Save:
         #print("")
         print("""Saving the game""")
         #player AI
+        player_name = self.main.playerName
         current_player = self.main.game.turn
         num_players = self.main.numPlayers
-        
+
         print("Turns taken: ", self.main.turnsTaken)
         print("Spaces moved: ", self.main.spacesMoved)
         print("Players bumped: ", self.main.playersBumped)
@@ -38,6 +39,7 @@ class Save:
 
         # #player 0 which is THE player
         #print("Player 1 information")
+
         player1_index = self.playerList[0].playerIndex
         player1_color = self.playerList[0].color
         player1_location = self.playerList[0].playerPosition
@@ -138,6 +140,7 @@ class Save:
         #print("Deck saved")
         info = {
             #game info
+            "player_name" : player_name,
             "current_player" : current_player,
             "num_players" : num_players,
 

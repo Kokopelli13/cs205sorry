@@ -15,8 +15,10 @@ class Load:
         info = pickle.load(pickle_in)
 
         #game info
+        self.player_name = info["player_name"]
         self.current_player = info["current_player"]
         self.num_players = info["num_players"]
+        print("Player name: ", self.player_name)
         print("Current player: ", self.current_player)
         print("Number of computer players: ", self.num_players)
 
@@ -136,6 +138,7 @@ class Load:
         self.playerList = self.main.game.playerList
 
         #game info
+        self.main.playerName = self.player_name
         self.main.color = self.player1_color
         self.main.game.turn = self.current_player
         self.main.numPlayers = self.num_players
