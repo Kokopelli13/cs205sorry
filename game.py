@@ -188,7 +188,6 @@ class Game:
         pass
 
     def write(self):
-        self.main = main
         print("Write")
         #get variables and store them as variables to insert
         db = MySQLdb.connect(host = "webdb.uvm.edu", user = "pmacksey_admin", password = "wSuDSSnRb0Bk", database = "PMACKSEY_cs205sorry")
