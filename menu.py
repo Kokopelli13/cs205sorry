@@ -245,16 +245,11 @@ class Button:
     def backInstructions(self):
         self.instructions()
 
-<<<<<<< HEAD
     def stats(self):
         stats = Database.read(self)
         self.main.activeObj = set()
         back = Button(self.main, 240, 375, "back", "images/back.png", 1)
-=======
-    def read(self):
-        Database.read(self)
->>>>>>> 25f020e3d5bd1ba7017336b60ba5a13e0d56afb2
-        #Database.write(self)
+
     def resume(self):
         self.resume_check = True
         self.main.activeObj = set()
