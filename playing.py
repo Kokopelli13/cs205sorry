@@ -177,6 +177,10 @@ class Playing:
 
         if self.color == self.main.color:
             self.main.turnsTaken += 1
+        else:
+            for pawn in self.main.game.playerList[0].pawnList:
+                pawn.pawn = pygame.image.load('images/pawn_' + pawn.color + '_small.png').convert_alpha()
+                pawn.pawn = pygame.transform.rotozoom(pawn.pawn, 0, 1)
 
         #Create a pawn image
         imagePath = 'images/pawn_' + self.color + '.png'
@@ -808,8 +812,9 @@ class PlayingButton:
         else:
             self.main.game.playing.infoList.append(Text(self.main, 750, 370, 16, 'Select a pawn', False))
             for move in self.main.game.playing.possibleList:
-                move['firstPawn'].pawn = pygame.image.load('images/pawn_' + move['firstPawn'].color + '_small_highlight.png').convert_alpha()
-                move['firstPawn'].pawn = pygame.transform.rotozoom(move['firstPawn'].pawn, 0, 1)
+                if move['firstPawn'].playerIndex == 0:
+                    move['firstPawn'].pawn = pygame.image.load('images/pawn_' + move['firstPawn'].color + '_small_highlight.png').convert_alpha()
+                    move['firstPawn'].pawn = pygame.transform.rotozoom(move['firstPawn'].pawn, 0, 1)
                 #print(move['firstPawn'])
 
         pass

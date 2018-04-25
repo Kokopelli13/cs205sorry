@@ -196,9 +196,6 @@ class Pawn:
         Change the position of a pawn to the destination
         """
         self.position = destination
-        for pawn in self.main.game.playerList[self.playerIndex].pawnList:
-            pawn.pawn = pygame.image.load('images/pawn_' + pawn.color + '_small.png').convert_alpha()
-            pawn.pawn = pygame.transform.rotozoom(pawn.pawn, 0, 1)
 
         pass
 
