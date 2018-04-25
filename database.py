@@ -79,7 +79,7 @@ class Database:
         print("Average times human player bumped by others per game: ", bumped_by_others/total)
         print("Average cards drawn per game: ", cards_drawn/total)
         db.close()
-        print("Reading works")
+        print("Reading done")
 
     #TEST
     #read()

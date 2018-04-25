@@ -246,8 +246,8 @@ class Button:
         self.instructions()
 
     def read(self):
-        #Database.read(self)
-        Database.write(self)
+        Database.read(self)
+        #Database.write(self)
     def resume(self):
         self.resume_check = True
         self.main.activeObj = set()
