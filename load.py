@@ -1,6 +1,6 @@
 """
     CS205: Sorry! Final Project
-    File name: deck.py
+    File name: load.py
     Main author: Peter Macksey
 """
 
@@ -24,9 +24,20 @@ class Load:
         self.player_name = info["player_name"]
         self.current_player = info["current_player"]
         self.num_players = info["num_players"]
+        self.turns_taken = info["turns_taken"]
+        self.spaces_moved = info["spaces_moved"]
+        self.players_bumped = info["players_bumped"]
+        self.bumped_by_others = info["bumped_by_others"]
+        self.cards_drawn = info["cards_drawn"]
+
         print("Player name: ", self.player_name)
         print("Current player: ", self.current_player)
         print("Number of computer players: ", self.num_players)
+        print("Turns taken: ", self.turns_taken)
+        print("Spaces moved: ", self.spaces_moved)
+        print("Players bumped: ", self.players_bumped)
+        print("Bumped by others: ", self.bumped_by_others)
+        print("Cards drawn: ", self.cards_drawn)
 
 
         #player 1 data
@@ -148,6 +159,11 @@ class Load:
         self.main.color = self.player1_color
         self.main.game.turn = self.current_player
         self.main.numPlayers = self.num_players
+        self.main.turnsTaken = self.turns_taken
+        self.main.spacesMoved = self.spaces_moved
+        self.main.playersBumped = self.players_bumped
+        self.main.bumpedByOthers = self.bumped_by_others
+        self.main.cardsDrawn = self.cards_drawn
 
         #deck information
         self.main.deck.deck = self.deck_order

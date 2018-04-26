@@ -1,3 +1,8 @@
+"""
+    CS205: Sorry! Final Project
+    File name: save.py
+    Main author: Peter Macksey
+"""
 #code to write save sata to file and load it back
 import pickle
 from deck import Deck
@@ -21,12 +26,12 @@ class Save:
         player_name = self.main.playerName
         current_player = self.main.game.turn
         num_players = self.main.numPlayers
+        turns_taken = self.main.turnsTaken
+        spaces_moved = self.main.spacesMoved
+        players_bumped = self.main.playersBumped
+        bumped_by_others = self.main.bumpedByOthers
+        cards_drawn = self.main.cardsDrawn
 
-        print("Turns taken: ", self.main.turnsTaken)
-        print("Spaces moved: ", self.main.spacesMoved)
-        print("Players bumped: ", self.main.playersBumped)
-        print("Bumped by others: ", self.main.bumpedByOthers)
-        print("Cards drawn: ", self.main.cardsDrawn)
 
         #print("Current player: ", current_player)
         if num_players == "one":
@@ -143,7 +148,11 @@ class Save:
             "player_name" : player_name,
             "current_player" : current_player,
             "num_players" : num_players,
-
+            "turns_taken" : turns_taken,
+            "spaces_moved" : spaces_moved,
+            "players_bumped" : players_bumped,
+            "bumped_by_others" : bumped_by_others,
+            "cards_drawn" : cards_drawn,
 
             #player1 info
             "player1_index" : player1_index,
