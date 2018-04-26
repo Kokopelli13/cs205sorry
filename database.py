@@ -95,7 +95,7 @@ class Database:
         print("Average computer players bumped by human player per game: ", total_playerbumpPC/total)
         print("Average times human player bumped by others per game: ", total_PCbumpplayer/total)
         print("Average cards drawn per game: ", total_cards_drawn/total)
-        data = [total, games_won, "{:.2%}".format(games_won/total), total_turns/total, total_moves/total, total_playerbumpPC/total, total_PCbumpplayer/total, total_cards_drawn/total]
+        data = [total, games_won, "{:.2%}".format(games_won/total), "{:.2%}".format(total_turns/total), "{:.2%}".format(total_moves/total), "{:.2%}".format(total_playerbumpPC/total), "{:.2%}".format(total_PCbumpplayer/total), "{:.2%}".format(total_cards_drawn/total)]
         db.close()
         print("Reading done")
         return data
