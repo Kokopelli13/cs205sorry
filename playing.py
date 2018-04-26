@@ -1,3 +1,9 @@
+"""
+    File name: playing.py
+    Main author: Chia-Chun Chao
+    Co-author of moveOptionInfo: Joe Embrey
+"""
+
 import pygame
 
 class Playing:

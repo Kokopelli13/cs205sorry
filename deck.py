@@ -1,3 +1,9 @@
+"""
+    CS205: Sorry! Final Project
+    File name: deck.py
+    Main author: Peter Macksey
+"""
+
 #drawNext()
 #discard()
 #shuffle()

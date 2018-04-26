@@ -1,9 +1,10 @@
-#GUI()
-#settings()
-#game turn loop (while not won)
-#   draw() --> Deck
-#   move() --> player
-#   change GUI
+"""
+    CS205: Sorry! Final Project
+    File name: game.py
+    Main author: Chia-Chun Chao
+    Author of chooseMove: Gavin Gunkle
+    Author of write: Peter Macksey
+"""
 
 #from deck import Deck
 import pygame

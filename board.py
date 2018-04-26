@@ -1,3 +1,10 @@
+"""
+    CS205: Sorry! Final Project
+    File name: board.py
+    Main author: Chia-Chun Chao
+    Change structure: Joe Embrey
+"""
+
 import sys, pygame
 
 

@@ -1,3 +1,9 @@
+"""
+    CS205: Sorry! Final Project
+    File name: database.py
+    Main author: Peter Macksey
+"""
+
 #code to save end game data to database
 #import MySQLdb
 import mysql.connector as MySQLdb

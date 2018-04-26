@@ -1,3 +1,10 @@
+"""
+    File name: playing.py
+    Main author: Joe Embrey
+    Author of resume: Peter Macksey
+    Author of instructions: Gavin Gunkle
+"""
+
 import pygame
 from board import Board
 from instructions import Instructions

@@ -1,3 +1,9 @@
+"""
+    CS205: Sorry! Final Project
+    File name: main.py
+    Main author: Joe Embrey
+"""
+
 import sys, time, pygame
 from menu import Menu
 from menu import WinScreen

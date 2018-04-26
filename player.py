@@ -1,5 +1,7 @@
-#check all possible moves
-#user select
+"""
+    File name: player.py
+    Main author: Chia-Chun Chao
+"""
 
 import pygame, time
 

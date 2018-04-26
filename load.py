@@ -1,3 +1,9 @@
+"""
+    CS205: Sorry! Final Project
+    File name: deck.py
+    Main author: Peter Macksey
+"""
+
 #code to load file in and resume game by making all needed variables equal to what they are in file
 import pickle
 

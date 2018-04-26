@@ -1,5 +1,8 @@
-#Gavin Gunkle
-#CS205: Sorry! Final Project
+"""
+    CS205: Sorry! Final Project
+    File name: instructions.py
+    Main author: Gavin Gunkle
+"""
 #Instructions on how to play the game
 #from menu import menu
 from board import Board
