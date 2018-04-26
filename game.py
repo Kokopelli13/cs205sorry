@@ -231,10 +231,12 @@ class Game:
         Finish this game
         """
         winner = self.playerList[playerIndex]
-        if winner == 0:
+        print("Winner: ", winner.playerIndex)
+        if winner.playerIndex == 0:
             self.won = "won"
         else:
             self.won = "lost"
+        print("Win or lose?: ", self.won)
         #print("Winner")
         #print(winner.color)
         self.main.win(winner.color)
