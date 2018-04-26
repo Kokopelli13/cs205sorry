@@ -290,7 +290,7 @@ class Playing:
                     pawn.tryToMove(1, True)
                     self.initialize()
                     self.infoList.clear()
-                elif self.option == 2 and pawn.position['type'] == 'track':
+                elif self.option == 2 and pawn.position['type'] == 'track' or pawn.position['type'] == 'safetyZone':
                     pawn.tryToMove(2, True)
                     self.initialize()
                     self.infoList.clear()
